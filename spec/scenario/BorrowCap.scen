@@ -1,8 +1,8 @@
 
 Test "Attempt to borrow over set cap BEP20"
     NewComptroller price:1.0
-    NewVToken ZRX vZRX
-    NewVToken BAT vBAT
+    NewBToken ZRX vZRX
+    NewBToken BAT vBAT
     Comptroller SetMarketBorrowCaps (vBAT) (0.5e18)
     Assert Equal (Comptroller BorrowCaps vBAT) (Exactly 0.5e18)
     Give vBAT 10e18 BAT -- Faucet some bat to borrow
@@ -14,14 +14,14 @@ Test "Attempt to borrow over set cap BEP20"
     AllowFailures
     Borrow Geoff 1e18 vBAT
     Assert Revert
-    Assert Equal (vToken vBAT BorrowBalance Geoff) (Exactly 0)
+    Assert Equal (bToken vBAT BorrowBalance Geoff) (Exactly 0)
     Assert Equal (Bep20 BAT TokenBalance Geoff) (Exactly 0)
     Assert Equal (Bep20 BAT TokenBalance vBAT) (Exactly 10e18)
 
 Test "Attempt to borrow at set cap BEP20"
     NewComptroller price:1.0
-    NewVToken ZRX vZRX
-    NewVToken BAT vBAT
+    NewBToken ZRX vZRX
+    NewBToken BAT vBAT
     Comptroller SetMarketBorrowCaps (vBAT) (1000000000000000001)
     Give vBAT 10e18 BAT -- Faucet some bat to borrow
     Support vZRX collateralFactor:0.5
@@ -30,7 +30,7 @@ Test "Attempt to borrow at set cap BEP20"
     Mint Geoff 100e18 vZRX
     EnterMarkets Geoff vZRX
     Borrow Geoff 1e18 vBAT
-    Assert Equal (vToken vBAT BorrowBalance Geoff) (Exactly 1e18)
+    Assert Equal (bToken vBAT BorrowBalance Geoff) (Exactly 1e18)
     Assert Equal (Bep20 BAT TokenBalance Geoff) (Exactly 1e18)
     Assert Equal (Bep20 BAT TokenBalance vBAT) (Exactly 9e18)
     Assert Equal (Comptroller MembershipLength Geoff) (Exactly 2)
@@ -39,8 +39,8 @@ Test "Attempt to borrow at set cap BEP20"
 
 Test "Attempt to borrow below set cap BEP20"
     NewComptroller price:1.0
-    NewVToken ZRX vZRX
-    NewVToken BAT vBAT
+    NewBToken ZRX vZRX
+    NewBToken BAT vBAT
     Comptroller SetMarketBorrowCaps (vBAT) (10e18)
     Give vBAT 10e18 BAT -- Faucet some bat to borrow
     Support vZRX collateralFactor:0.5
@@ -49,7 +49,7 @@ Test "Attempt to borrow below set cap BEP20"
     Mint Geoff 100e18 vZRX
     EnterMarkets Geoff vZRX
     Borrow Geoff 1e18 vBAT
-    Assert Equal (vToken vBAT BorrowBalance Geoff) (Exactly 1e18)
+    Assert Equal (bToken vBAT BorrowBalance Geoff) (Exactly 1e18)
     Assert Equal (Bep20 BAT TokenBalance Geoff) (Exactly 1e18)
     Assert Equal (Bep20 BAT TokenBalance vBAT) (Exactly 9e18)
     Assert Equal (Comptroller MembershipLength Geoff) (Exactly 2)
@@ -58,7 +58,7 @@ Test "Attempt to borrow below set cap BEP20"
 
 Test "Borrow some Bnb over cap"
     NewComptroller price:1.0
-    ListedVToken ZRX vZRX
+    ListedBToken ZRX vZRX
     ListedBNBToken vBNB initialExchangeRate:0.005e9
     SetCollateralFactor vZRX collateralFactor:0.5
     SetCollateralFactor vBNB collateralFactor:0.5
@@ -74,7 +74,7 @@ Test "Borrow some Bnb over cap"
 
 Test "Borrow some Bnb enters Bnb and succeeds when Bnb not entered. At borrow cap"
     NewComptroller price:1.0
-    ListedVToken ZRX vZRX
+    ListedBToken ZRX vZRX
     ListedBNBToken vBNB initialExchangeRate:0.005e9
     SetCollateralFactor vZRX collateralFactor:0.5
     SetCollateralFactor vBNB collateralFactor:0.5
@@ -92,7 +92,7 @@ Test "Borrow some Bnb enters Bnb and succeeds when Bnb not entered. At borrow ca
 
 Test "Borrow some Bnb enters Bnb and succeeds when Bnb not entered. At under borrow cap"
     NewComptroller price:1.0
-    ListedVToken ZRX vZRX
+    ListedBToken ZRX vZRX
     ListedBNBToken vBNB initialExchangeRate:0.005e9
     SetCollateralFactor vZRX collateralFactor:0.5
     SetCollateralFactor vBNB collateralFactor:0.5
@@ -110,7 +110,7 @@ Test "Borrow some Bnb enters Bnb and succeeds when Bnb not entered. At under bor
 
 Test "Setting borrow cap restricted to admin"
     NewComptroller price:1.0
-    ListedVToken ZRX vZRX
+    ListedBToken ZRX vZRX
     ListedBNBToken vBNB initialExchangeRate:0.005e9
     SetCollateralFactor vZRX collateralFactor:0.5
     SetCollateralFactor vBNB collateralFactor:0.5
@@ -120,7 +120,7 @@ Test "Setting borrow cap restricted to admin"
 
 Test "Borrow cap guardian can set borrow caps"
     NewComptroller price:1.0
-    ListedVToken ZRX vZRX
+    ListedBToken ZRX vZRX
     ListedBNBToken vBNB initialExchangeRate:0.005e9
     SetCollateralFactor vZRX collateralFactor:0.5
     SetCollateralFactor vBNB collateralFactor:0.5
@@ -142,9 +142,9 @@ Test "Only admin can set Borrow Cap Guardian"
 
 Test "SetBorrowCaps works correctly too"
     NewComptroller price:1.0
-    NewVToken ZRX vZRX
-    NewVToken BAT vBAT
-    NewVToken USDC vUSDC
+    NewBToken ZRX vZRX
+    NewBToken BAT vBAT
+    NewBToken USDC vUSDC
     Comptroller SetMarketBorrowCaps (vBAT vUSDC) (0.5e18 1000001)
     Assert Equal (Comptroller BorrowCaps vBAT) (Exactly 0.5e18)
     Assert Equal (Comptroller BorrowCaps vUSDC) (Exactly 1000001)
@@ -163,7 +163,7 @@ Test "SetBorrowCaps works correctly too"
     Assert Revert
     Successfully
     Borrow Geoff 1e6 vUSDC
-    Assert Equal (vToken vBAT BorrowBalance Geoff) (Exactly 0)
+    Assert Equal (bToken vBAT BorrowBalance Geoff) (Exactly 0)
     Assert Equal (Bep20 BAT TokenBalance Geoff) (Exactly 0)
     Assert Equal (Bep20 BAT TokenBalance vBAT) (Exactly 10e18)
     Assert Equal (Bep20 USDC TokenBalance Geoff) (Exactly 1e6)

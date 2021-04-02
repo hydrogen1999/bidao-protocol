@@ -6,9 +6,9 @@ const {
 const {
   makeComptroller,
   makePriceOracle,
-  makeVToken,
+  makeBToken,
   makeToken
-} = require('../Utils/Venus');
+} = require('../Utils/Bai');
 
 describe('Comptroller', () => {
   let root, accounts;
@@ -122,20 +122,20 @@ describe('Comptroller', () => {
 
   describe('_setCloseFactor', () => {
     it("fails if not called by admin", async () => {
-      const vToken = await makeVToken();
+      const bToken = await makeBToken();
       expect(
-        await send(vToken.comptroller, '_setCloseFactor', [1], {from: accounts[0]})
+        await send(bToken.comptroller, '_setCloseFactor', [1], {from: accounts[0]})
       ).toHaveTrollFailure('UNAUTHORIZED', 'SET_CLOSE_FACTOR_OWNER_CHECK');
     });
 
     it("fails if close factor too low", async () => {
-      const vToken = await makeVToken();
-      expect(await send(vToken.comptroller, '_setCloseFactor', [1])).toHaveTrollFailure('INVALID_CLOSE_FACTOR', 'SET_CLOSE_FACTOR_VALIDATION');
+      const bToken = await makeBToken();
+      expect(await send(bToken.comptroller, '_setCloseFactor', [1])).toHaveTrollFailure('INVALID_CLOSE_FACTOR', 'SET_CLOSE_FACTOR_VALIDATION');
     });
 
     it("fails if close factor too low", async () => {
-      const vToken = await makeVToken();
-      expect(await send(vToken.comptroller, '_setCloseFactor', [bnbMantissa(1e18)])).toHaveTrollFailure('INVALID_CLOSE_FACTOR', 'SET_CLOSE_FACTOR_VALIDATION');
+      const bToken = await makeBToken();
+      expect(await send(bToken.comptroller, '_setCloseFactor', [bnbMantissa(1e18)])).toHaveTrollFailure('INVALID_CLOSE_FACTOR', 'SET_CLOSE_FACTOR_VALIDATION');
     });
   });
 
@@ -144,38 +144,38 @@ describe('Comptroller', () => {
     const one = bnbMantissa(1);
 
     it("fails if not called by admin", async () => {
-      const vToken = await makeVToken();
+      const bToken = await makeBToken();
       expect(
-        await send(vToken.comptroller, '_setCollateralFactor', [vToken._address, half], {from: accounts[0]})
+        await send(bToken.comptroller, '_setCollateralFactor', [bToken._address, half], {from: accounts[0]})
       ).toHaveTrollFailure('UNAUTHORIZED', 'SET_COLLATERAL_FACTOR_OWNER_CHECK');
     });
 
     it("fails if asset is not listed", async () => {
-      const vToken = await makeVToken();
+      const bToken = await makeBToken();
       expect(
-        await send(vToken.comptroller, '_setCollateralFactor', [vToken._address, half])
+        await send(bToken.comptroller, '_setCollateralFactor', [bToken._address, half])
       ).toHaveTrollFailure('MARKET_NOT_LISTED', 'SET_COLLATERAL_FACTOR_NO_EXISTS');
     });
 
     it("fails if factor is too high", async () => {
-      const vToken = await makeVToken({supportMarket: true});
+      const bToken = await makeBToken({supportMarket: true});
       expect(
-        await send(vToken.comptroller, '_setCollateralFactor', [vToken._address, one])
+        await send(bToken.comptroller, '_setCollateralFactor', [bToken._address, one])
       ).toHaveTrollFailure('INVALID_COLLATERAL_FACTOR', 'SET_COLLATERAL_FACTOR_VALIDATION');
     });
 
     it("fails if factor is set without an underlying price", async () => {
-      const vToken = await makeVToken({supportMarket: true});
+      const bToken = await makeBToken({supportMarket: true});
       expect(
-        await send(vToken.comptroller, '_setCollateralFactor', [vToken._address, half])
+        await send(bToken.comptroller, '_setCollateralFactor', [bToken._address, half])
       ).toHaveTrollFailure('PRICE_ERROR', 'SET_COLLATERAL_FACTOR_WITHOUT_PRICE');
     });
 
     it("succeeds and sets market", async () => {
-      const vToken = await makeVToken({supportMarket: true, underlyingPrice: 1});
-      const result = await send(vToken.comptroller, '_setCollateralFactor', [vToken._address, half]);
+      const bToken = await makeBToken({supportMarket: true, underlyingPrice: 1});
+      const result = await send(bToken.comptroller, '_setCollateralFactor', [bToken._address, half]);
       expect(result).toHaveLog('NewCollateralFactor', {
-        vToken: vToken._address,
+        bToken: bToken._address,
         oldCollateralFactorMantissa: '0',
         newCollateralFactorMantissa: half.toString()
       });
@@ -184,59 +184,59 @@ describe('Comptroller', () => {
 
   describe('_supportMarket', () => {
     it("fails if not called by admin", async () => {
-      const vToken = await makeVToken(root);
+      const bToken = await makeBToken(root);
       expect(
-        await send(vToken.comptroller, '_supportMarket', [vToken._address], {from: accounts[0]})
+        await send(bToken.comptroller, '_supportMarket', [bToken._address], {from: accounts[0]})
       ).toHaveTrollFailure('UNAUTHORIZED', 'SUPPORT_MARKET_OWNER_CHECK');
     });
 
-    it("fails if asset is not a VToken", async () => {
+    it("fails if asset is not a BToken", async () => {
       const comptroller = await makeComptroller()
       const asset = await makeToken(root);
       await expect(send(comptroller, '_supportMarket', [asset._address])).rejects.toRevert();
     });
 
     it("succeeds and sets market", async () => {
-      const vToken = await makeVToken();
-      const result = await send(vToken.comptroller, '_supportMarket', [vToken._address]);
-      expect(result).toHaveLog('MarketListed', {vToken: vToken._address});
+      const bToken = await makeBToken();
+      const result = await send(bToken.comptroller, '_supportMarket', [bToken._address]);
+      expect(result).toHaveLog('MarketListed', {bToken: bToken._address});
     });
 
     it("cannot list a market a second time", async () => {
-      const vToken = await makeVToken();
-      const result1 = await send(vToken.comptroller, '_supportMarket', [vToken._address]);
-      const result2 = await send(vToken.comptroller, '_supportMarket', [vToken._address]);
-      expect(result1).toHaveLog('MarketListed', {vToken: vToken._address});
+      const bToken = await makeBToken();
+      const result1 = await send(bToken.comptroller, '_supportMarket', [bToken._address]);
+      const result2 = await send(bToken.comptroller, '_supportMarket', [bToken._address]);
+      expect(result1).toHaveLog('MarketListed', {bToken: bToken._address});
       expect(result2).toHaveTrollFailure('MARKET_ALREADY_LISTED', 'SUPPORT_MARKET_EXISTS');
     });
 
     it("can list two different markets", async () => {
-      const vToken1 = await makeVToken();
-      const vToken2 = await makeVToken({comptroller: vToken1.comptroller});
-      const result1 = await send(vToken1.comptroller, '_supportMarket', [vToken1._address]);
-      const result2 = await send(vToken1.comptroller, '_supportMarket', [vToken2._address]);
-      expect(result1).toHaveLog('MarketListed', {vToken: vToken1._address});
-      expect(result2).toHaveLog('MarketListed', {vToken: vToken2._address});
+      const bToken1 = await makeBToken();
+      const bToken2 = await makeBToken({comptroller: bToken1.comptroller});
+      const result1 = await send(bToken1.comptroller, '_supportMarket', [bToken1._address]);
+      const result2 = await send(bToken1.comptroller, '_supportMarket', [bToken2._address]);
+      expect(result1).toHaveLog('MarketListed', {bToken: bToken1._address});
+      expect(result2).toHaveLog('MarketListed', {bToken: bToken2._address});
     });
   });
 
   describe('redeemVerify', () => {
     it('should allow you to redeem 0 underlying for 0 tokens', async () => {
       const comptroller = await makeComptroller();
-      const vToken = await makeVToken({comptroller: comptroller});
-      await call(comptroller, 'redeemVerify', [vToken._address, accounts[0], 0, 0]);
+      const bToken = await makeBToken({comptroller: comptroller});
+      await call(comptroller, 'redeemVerify', [bToken._address, accounts[0], 0, 0]);
     });
 
     it('should allow you to redeem 5 underlyig for 5 tokens', async () => {
       const comptroller = await makeComptroller();
-      const vToken = await makeVToken({comptroller: comptroller});
-      await call(comptroller, 'redeemVerify', [vToken._address, accounts[0], 5, 5]);
+      const bToken = await makeBToken({comptroller: comptroller});
+      await call(comptroller, 'redeemVerify', [bToken._address, accounts[0], 5, 5]);
     });
 
     it('should not allow you to redeem 5 underlying for 0 tokens', async () => {
       const comptroller = await makeComptroller();
-      const vToken = await makeVToken({comptroller: comptroller});
-      await expect(call(comptroller, 'redeemVerify', [vToken._address, accounts[0], 5, 0])).rejects.toRevert("revert redeemTokens zero");
+      const bToken = await makeBToken({comptroller: comptroller});
+      await expect(call(comptroller, 'redeemVerify', [bToken._address, accounts[0], 5, 0])).rejects.toRevert("revert redeemTokens zero");
     });
   })
 });

@@ -3,7 +3,7 @@
 * `name:<Type>` - Helper to describe arguments with names, not actually input this way
 * `<Bool>` - `True` or `False`
 * `<Number>` - A standard number (e.g. `5` or `6.0` or `10.0e18`)
-* `<VToken>` - The local name for a given vToken when created, e.g. `vZRX`
+* `<BToken>` - The local name for a given bToken when created, e.g. `vZRX`
 * `<User>` - One of: `Admin, Bank, Geoff, Torrey, Robert, Coburn, Jared`
 * `<String>` - A string, may be quoted but does not have to be if a single-word (e.g. `"Mint"` or `Mint`)
 * `<Address>` - TODO
@@ -17,22 +17,22 @@
   * E.g. "History"
   * E.g. "History 10"
 * `Read ...` - Reads given value and prints result
-  * E.g. `Read VToken vBAT ExchangeRateStored` - Returns exchange rate of vBAT
+  * E.g. `Read BToken vBAT ExchangeRateStored` - Returns exchange rate of vBAT
 * `Assert <Assertion>` - Validates given assertion, raising an exception if assertion fails
   * E.g. `Assert Equal (Bep20 BAT TokenBalance Geoff) (Exactly 5.0)` - Returns exchange rate of vBAT
-* `FastForward n:<Number> Blocks` - For `VTokenScenario`, moves the block number forward n blocks. Note: in `VTokenScenario` the current block number is mocked (starting at 100000). Thus, this is the only way for the protocol to see a higher block number (for accruing interest).
+* `FastForward n:<Number> Blocks` - For `BTokenScenario`, moves the block number forward n blocks. Note: in `BTokenScenario` the current block number is mocked (starting at 100000). Thus, this is the only way for the protocol to see a higher block number (for accruing interest).
   * E.g. `FastForward 5 Blocks` - Move block number forward 5 blocks.
 * `Inspect` - Prints debugging information about the world
 * `Debug message:<String>` - Same as inspect but prepends with a string
 * `From <User> <Event>` - Runs event as the given user
-  * E.g. `From Geoff (VToken vZRX Mint 5e18)`
+  * E.g. `From Geoff (BToken vZRX Mint 5e18)`
 * `Invariant <Invariant>` - Adds a new invariant to the world which is checked after each transaction
-  * E.g. `Invariant Static (VToken vZRX TotalSupply)`
+  * E.g. `Invariant Static (BToken vZRX TotalSupply)`
 * `WipeInvariants` - Removes all invariants.
 * `Comptroller <ComptrollerEvent>` - Runs given Comptroller event
   * E.g. `Comptroller _setReserveFactor 0.5`
-* `VToken <VTokenEvent>` - Runs given VToken event
-  * E.g. `VToken vZRX Mint 5e18`
+* `BToken <BTokenEvent>` - Runs given BToken event
+  * E.g. `BToken vZRX Mint 5e18`
 * `Bep20 <Bep20Event>` - Runs given Bep20 event
   * E.g. `Bep20 ZRX Facuet Geoff 5e18`
 * `InterestRateModel ...event` - Runs given interest rate model event
@@ -44,44 +44,44 @@
 
 * "Comptroller Deploy ...comptrollerParams" - Generates a new Comptroller
   * E.g. "Comptroller Deploy Scenario (PriceOracle Address) 0.1 10"
-* `Comptroller SetPaused action:<String> paused:<Bool>` - Pauses or unpaused given vToken function (e.g. Mint)
+* `Comptroller SetPaused action:<String> paused:<Bool>` - Pauses or unpaused given bToken function (e.g. Mint)
   * E.g. `Comptroller SetPaused Mint True`
-* `Comptroller SupportMarket <VToken>` - Adds support in the Comptroller for the given vToken
+* `Comptroller SupportMarket <BToken>` - Adds support in the Comptroller for the given bToken
   * E.g. `Comptroller SupportMarket vZRX`
-* `Comptroller EnterMarkets <User> <VToken> ...` - User enters the given markets
+* `Comptroller EnterMarkets <User> <BToken> ...` - User enters the given markets
   * E.g. `Comptroller EnterMarkets Geoff vZRX vBNB`
 * `Comptroller SetMaxAssets <Number>` - Sets (or resets) the max allowed asset count
   * E.g. `Comptroller SetMaxAssets 4`
-* `VToken <vToken> SetOracle oracle:<Contract>` - Sets the oracle
+* `BToken <bToken> SetOracle oracle:<Contract>` - Sets the oracle
   * E.g. `Comptroller SetOracle (Fixed 1.5)`
-* `Comptroller SetCollateralFactor <VToken> <Number>` - Sets the collateral factor for given vToken to number
+* `Comptroller SetCollateralFactor <BToken> <Number>` - Sets the collateral factor for given bToken to number
   * E.g. `Comptroller SetCollateralFactor vZRX 0.1`
-* `FastForward n:<Number> Blocks` - Moves the block number forward `n` blocks. Note: in `VTokenScenario` and `ComptrollerScenario` the current block number is mocked (starting at 100000). This is the only way for the protocol to see a higher block number (for accruing interest).
+* `FastForward n:<Number> Blocks` - Moves the block number forward `n` blocks. Note: in `BTokenScenario` and `ComptrollerScenario` the current block number is mocked (starting at 100000). This is the only way for the protocol to see a higher block number (for accruing interest).
   * E.g. `Comptroller FastForward 5 Blocks` - Move block number forward 5 blocks.
 
-## vToken Events
+## bToken Events
 
-* `VToken Deploy name:<VToken> underlying:<Contract> comptroller:<Contract> interestRateModel:<Contract> initialExchangeRate:<Number> decimals:<Number> admin:<Address>` - Generates a new comptroller and sets to world global
-  * E.g. `VToken Deploy vZRX (Bep20 ZRX Address) (Comptroller Address) (InterestRateModel Address) 1.0 18`
-* `VToken <vToken> AccrueInterest` - Accrues interest for given token
-  * E.g. `VToken vZRX AccrueInterest`
-* `VToken <vToken> Mint <User> amount:<Number>` - Mints the given amount of vToken as specified user
-  * E.g. `VToken vZRX Mint Geoff 1.0`
-* `VToken <vToken> Redeem <User> amount:<Number>` - Redeems the given amount of vToken as specified user
-      * E.g. `VToken vZRX Redeem Geoff 1.0e18`
-* `VToken <vToken> Borrow <User> amount:<Number>` - Borrows the given amount of this vToken as specified user
-      * E.g. `VToken vZRX Borrow Geoff 1.0e18`
-* `VToken <vToken> ReduceReserves amount:<Number>` - Reduces the reserves of the vToken
-      * E.g. `VToken vZRX ReduceReserves 1.0e18`
-* `VToken <vToken> SetReserveFactor amount:<Number>` - Sets the reserve factor for the vToken
-      * E.g. `VToken vZRX SetReserveFactor 0.1`
-* `VToken <vToken> SetInterestRateModel interestRateModel:<Contract>` - Sets the interest rate model for the given vToken
-  * E.g. `VToken vZRX SetInterestRateModel (Fixed 1.5)`
-* `VToken <vToken> SetComptroller comptroller:<Contract>` - Sets the comptroller for the given vToken
-  * E.g. `VToken vZRX SetComptroller Comptroller`
-* `VToken <vToken> Mock variable:<String> value:<Number>` - Mocks a given value on vToken. Note: value must be a supported mock and this will only work on a VTokenScenario contract.
-  * E.g. `VToken vZRX Mock totalBorrows 5.0e18`
-  * E.g. `VToken vZRX Mock totalReserves 0.5e18`
+* `BToken Deploy name:<BToken> underlying:<Contract> comptroller:<Contract> interestRateModel:<Contract> initialExchangeRate:<Number> decimals:<Number> admin:<Address>` - Generates a new comptroller and sets to world global
+  * E.g. `BToken Deploy vZRX (Bep20 ZRX Address) (Comptroller Address) (InterestRateModel Address) 1.0 18`
+* `BToken <bToken> AccrueInterest` - Accrues interest for given token
+  * E.g. `BToken vZRX AccrueInterest`
+* `BToken <bToken> Mint <User> amount:<Number>` - Mints the given amount of bToken as specified user
+  * E.g. `BToken vZRX Mint Geoff 1.0`
+* `BToken <bToken> Redeem <User> amount:<Number>` - Redeems the given amount of bToken as specified user
+      * E.g. `BToken vZRX Redeem Geoff 1.0e18`
+* `BToken <bToken> Borrow <User> amount:<Number>` - Borrows the given amount of this bToken as specified user
+      * E.g. `BToken vZRX Borrow Geoff 1.0e18`
+* `BToken <bToken> ReduceReserves amount:<Number>` - Reduces the reserves of the bToken
+      * E.g. `BToken vZRX ReduceReserves 1.0e18`
+* `BToken <bToken> SetReserveFactor amount:<Number>` - Sets the reserve factor for the bToken
+      * E.g. `BToken vZRX SetReserveFactor 0.1`
+* `BToken <bToken> SetInterestRateModel interestRateModel:<Contract>` - Sets the interest rate model for the given bToken
+  * E.g. `BToken vZRX SetInterestRateModel (Fixed 1.5)`
+* `BToken <bToken> SetComptroller comptroller:<Contract>` - Sets the comptroller for the given bToken
+  * E.g. `BToken vZRX SetComptroller Comptroller`
+* `BToken <bToken> Mock variable:<String> value:<Number>` - Mocks a given value on bToken. Note: value must be a supported mock and this will only work on a BTokenScenario contract.
+  * E.g. `BToken vZRX Mock totalBorrows 5.0e18`
+  * E.g. `BToken vZRX Mock totalReserves 0.5e18`
 
 ## Erc-20 Events
 
@@ -98,7 +98,7 @@
   * E.g. `PriceOracle Deploy (Fixed 1.0)`
   * E.g. `PriceOracle Deploy Simple`
   * E.g. `PriceOracle Deploy NotPriceOracle`
-* `SetPrice <VToken> <Amount>` - Sets the per-bnb price for the given vToken
+* `SetPrice <BToken> <Amount>` - Sets the per-bnb price for the given bToken
   * E.g. `PriceOracle SetPrice vZRX 1.0`
 
 ## Interest Rate Model Events
@@ -130,7 +130,7 @@
 * `LastContract` - Returns the address of last constructed contract
 * `User <...>` - Returns User value (see below)
 * `Comptroller <...>` - Returns Comptroller value (see below)
-* `VToken <...>` - Returns VToken value (see below)
+* `BToken <...>` - Returns BToken value (see below)
 * `Bep20 <...>` - Returns Bep20 value (see below)
 * `InterestRateModel <...>` - Returns InterestRateModel value (see below)
 * `PriceOracle <...>` - Returns PriceOracle value (see below)
@@ -146,28 +146,28 @@
   * E.g. `Comptroller Liquidity Geoff`
 * `Comptroller MembershipLength <User>` - Returns a given user's length of membership
   * E.g. `Comptroller MembershipLength Geoff`
-* `Comptroller CheckMembership <User> <VToken>` - Returns one if user is in asset, zero otherwise.
+* `Comptroller CheckMembership <User> <BToken>` - Returns one if user is in asset, zero otherwise.
   * E.g. `Comptroller CheckMembership Geoff vZRX`
-* "Comptroller CheckListed <VToken>" - Returns true if market is listed, false otherwise.
+* "Comptroller CheckListed <BToken>" - Returns true if market is listed, false otherwise.
   * E.g. "Comptroller CheckListed vZRX"
 
-## VToken Values
-* `VToken <VToken> UnderlyingBalance <User>` - Returns a user's underlying balance (based on given exchange rate)
-  * E.g. `VToken vZRX UnderlyingBalance Geoff`
-* `VToken <VToken> BorrowBalance <User>` - Returns a user's borrow balance (including interest)
-  * E.g. `VToken vZRX BorrowBalance Geoff`
-* `VToken <VToken> TotalBorrowBalance` - Returns the vToken's total borrow balance
-  * E.g. `VToken vZRX TotalBorrowBalance`
-* `VToken <VToken> Reserves` - Returns the vToken's total reserves
-  * E.g. `VToken vZRX Reserves`
-* `VToken <VToken> Comptroller` - Returns the vToken's comptroller
-  * E.g. `VToken vZRX Comptroller`
-* `VToken <VToken> PriceOracle` - Returns the vToken's price oracle
-  * E.g. `VToken vZRX PriceOracle`
-* `VToken <VToken> ExchangeRateStored` - Returns the vToken's exchange rate (based on balances stored)
-  * E.g. `VToken vZRX ExchangeRateStored`
-* `VToken <VToken> ExchangeRate` - Returns the vToken's current exchange rate
-  * E.g. `VToken vZRX ExchangeRate`
+## BToken Values
+* `BToken <BToken> UnderlyingBalance <User>` - Returns a user's underlying balance (based on given exchange rate)
+  * E.g. `BToken vZRX UnderlyingBalance Geoff`
+* `BToken <BToken> BorrowBalance <User>` - Returns a user's borrow balance (including interest)
+  * E.g. `BToken vZRX BorrowBalance Geoff`
+* `BToken <BToken> TotalBorrowBalance` - Returns the bToken's total borrow balance
+  * E.g. `BToken vZRX TotalBorrowBalance`
+* `BToken <BToken> Reserves` - Returns the bToken's total reserves
+  * E.g. `BToken vZRX Reserves`
+* `BToken <BToken> Comptroller` - Returns the bToken's comptroller
+  * E.g. `BToken vZRX Comptroller`
+* `BToken <BToken> PriceOracle` - Returns the bToken's price oracle
+  * E.g. `BToken vZRX PriceOracle`
+* `BToken <BToken> ExchangeRateStored` - Returns the bToken's exchange rate (based on balances stored)
+  * E.g. `BToken vZRX ExchangeRateStored`
+* `BToken <BToken> ExchangeRate` - Returns the bToken's current exchange rate
+  * E.g. `BToken vZRX ExchangeRate`
 
 ## Erc-20 Values
 
@@ -189,7 +189,7 @@
 * `Bep20 <Bep20> Allowance owner:<Address> spender:<Address>` - Returns the BEP-20 allowance from owner to spender
   * E.g. `Bep20 ZRX Allowance Geoff Torrey` - Returns the ZRX allowance of Geoff to Torrey
   * E.g. `Bep20 vZRX Allowance Geoff Coburn` - Returns the vZRX allowance of Geoff to Coburn
-  * E.g. `Bep20 ZRX Allowance Geoff vZRX` - Returns the ZRX allowance of Geoff to the vZRX vToken
+  * E.g. `Bep20 ZRX Allowance Geoff vZRX` - Returns the ZRX allowance of Geoff to the vZRX bToken
 
 ## PriceOracle Values
 
@@ -204,8 +204,8 @@
 
 * `Equal given:<Value> expected:<Value>` - Asserts that given matches expected.
   * E.g. `Assert Equal (Exactly 0) Zero`
-  * E.g. `Assert Equal (VToken vZRX TotalSupply) (Exactly 55)`
-  * E.g. `Assert Equal (VToken vZRX Comptroller) (Comptroller Address)`
+  * E.g. `Assert Equal (BToken vZRX TotalSupply) (Exactly 55)`
+  * E.g. `Assert Equal (BToken vZRX Comptroller) (Comptroller Address)`
 * `True given:<Value>` - Asserts that given is true.
   * E.g. `Assert True (Comptroller CheckMembership Geoff vBNB)`
 * `False given:<Value>` - Asserts that given is false.

@@ -6,72 +6,72 @@ contract ComptrollerInterface {
 
     /*** Assets You Are In ***/
 
-    function enterMarkets(address[] calldata vTokens) external returns (uint[] memory);
-    function exitMarket(address vToken) external returns (uint);
+    function enterMarkets(address[] calldata bTokens) external returns (uint[] memory);
+    function exitMarket(address bToken) external returns (uint);
 
     /*** Policy Hooks ***/
 
-    function mintAllowed(address vToken, address minter, uint mintAmount) external returns (uint);
-    function mintVerify(address vToken, address minter, uint mintAmount, uint mintTokens) external;
+    function mintAllowed(address bToken, address minter, uint mintAmount) external returns (uint);
+    function mintVerify(address bToken, address minter, uint mintAmount, uint mintTokens) external;
 
-    function redeemAllowed(address vToken, address redeemer, uint redeemTokens) external returns (uint);
-    function redeemVerify(address vToken, address redeemer, uint redeemAmount, uint redeemTokens) external;
+    function redeemAllowed(address bToken, address redeemer, uint redeemTokens) external returns (uint);
+    function redeemVerify(address bToken, address redeemer, uint redeemAmount, uint redeemTokens) external;
 
-    function borrowAllowed(address vToken, address borrower, uint borrowAmount) external returns (uint);
-    function borrowVerify(address vToken, address borrower, uint borrowAmount) external;
+    function borrowAllowed(address bToken, address borrower, uint borrowAmount) external returns (uint);
+    function borrowVerify(address bToken, address borrower, uint borrowAmount) external;
 
     function repayBorrowAllowed(
-        address vToken,
+        address bToken,
         address payer,
         address borrower,
         uint repayAmount) external returns (uint);
     function repayBorrowVerify(
-        address vToken,
+        address bToken,
         address payer,
         address borrower,
         uint repayAmount,
         uint borrowerIndex) external;
 
     function liquidateBorrowAllowed(
-        address vTokenBorrowed,
-        address vTokenCollateral,
+        address bTokenBorrowed,
+        address bTokenCollateral,
         address liquidator,
         address borrower,
         uint repayAmount) external returns (uint);
     function liquidateBorrowVerify(
-        address vTokenBorrowed,
-        address vTokenCollateral,
+        address bTokenBorrowed,
+        address bTokenCollateral,
         address liquidator,
         address borrower,
         uint repayAmount,
         uint seizeTokens) external;
 
     function seizeAllowed(
-        address vTokenCollateral,
-        address vTokenBorrowed,
+        address bTokenCollateral,
+        address bTokenBorrowed,
         address liquidator,
         address borrower,
         uint seizeTokens) external returns (uint);
     function seizeVerify(
-        address vTokenCollateral,
-        address vTokenBorrowed,
+        address bTokenCollateral,
+        address bTokenBorrowed,
         address liquidator,
         address borrower,
         uint seizeTokens) external;
 
-    function transferAllowed(address vToken, address src, address dst, uint transferTokens) external returns (uint);
-    function transferVerify(address vToken, address src, address dst, uint transferTokens) external;
+    function transferAllowed(address bToken, address src, address dst, uint transferTokens) external returns (uint);
+    function transferVerify(address bToken, address src, address dst, uint transferTokens) external;
 
     /*** Liquidity/Liquidation Calculations ***/
 
     function liquidateCalculateSeizeTokens(
-        address vTokenBorrowed,
-        address vTokenCollateral,
+        address bTokenBorrowed,
+        address bTokenCollateral,
         uint repayAmount) external view returns (uint, uint);
 
-    function setMintedVAIOf(address owner, uint amount) external returns (uint);
+    function setMintedBAIOf(address owner, uint amount) external returns (uint);
 }
 
-interface IVAIVault {
+interface IBAIVault {
     function updatePendingRewards() external;
 }

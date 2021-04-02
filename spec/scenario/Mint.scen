@@ -2,15 +2,15 @@
 
 Test "Mint 1 vZRX"
     NewComptroller
-    ListedVToken ZRX vZRX initialExchangeRate:1e9
+    ListedBToken ZRX vZRX initialExchangeRate:1e9
     Prep Geoff Some ZRX vZRX
     Mint Geoff 50e18 vZRX
     Assert Equal (Bep20 vZRX TokenBalance Geoff) (Exactly 50e9)
-    -- Assert Equal (VToken vZRX UnderlyingBalance Geoff) (Exactly 1.0e18)
+    -- Assert Equal (BToken vZRX UnderlyingBalance Geoff) (Exactly 1.0e18)
 
 Test "Mint with insufficient allowance"
     NewComptroller
-    ListedVToken ZRX vZRX initialExchangeRate:1e9
+    ListedBToken ZRX vZRX initialExchangeRate:1e9
     Prep Geoff 50e18 ZRX vZRX allowanceAmount:49e18
     AllowFailures
     Mint Geoff 50e18 vZRX
@@ -19,7 +19,7 @@ Test "Mint with insufficient allowance"
 
 Test "Mint with insufficient balance"
     NewComptroller
-    ListedVToken ZRX vZRX initialExchangeRate:1e9
+    ListedBToken ZRX vZRX initialExchangeRate:1e9
     Prep Geoff 49e18 ZRX vZRX allowanceAmount:50e18
     AllowFailures
     Mint Geoff 50e18 vZRX
@@ -28,7 +28,7 @@ Test "Mint with insufficient balance"
 
 Test "Mint two ZRX after minting two ZRX, and then I mint two more"
     NewComptroller
-    ListedVToken ZRX vZRX initialExchangeRate:1e9
+    ListedBToken ZRX vZRX initialExchangeRate:1e9
     Prep Geoff Some ZRX vZRX
     Mint Geoff 2e18 vZRX
     Assert Equal (Bep20 vZRX TokenBalance Geoff) (Exactly 2e9)
@@ -42,7 +42,7 @@ Test "Mint two ZRX after minting two ZRX, and then I mint two more"
 
 Test "Two users Mint"
     NewComptroller
-    ListedVToken ZRX vZRX initialExchangeRate:1e9
+    ListedBToken ZRX vZRX initialExchangeRate:1e9
     Prep Geoff Some ZRX vZRX
     Prep Torrey Some ZRX vZRX
     Mint Geoff 2e18 vZRX
@@ -55,7 +55,7 @@ Test "Two users Mint"
 
 Test "Mint accrues no interest without borrows"
     NewComptroller
-    ListedVToken ZRX vZRX initialExchangeRate:1e9
+    ListedBToken ZRX vZRX initialExchangeRate:1e9
     Prep Geoff Some ZRX vZRX
     Prep Torrey Some ZRX vZRX
     Mint Geoff 2e18 vZRX
@@ -67,7 +67,7 @@ Test "Mint accrues no interest without borrows"
 
 Test "Mint transfer in fails"
     NewComptroller
-    ListedVToken EVL vEVL tokenType:Evil
+    ListedBToken EVL vEVL tokenType:Evil
     Prep Geoff Some EVL vEVL
     Prep Torrey Some EVL vEVL
     Invariant Static (Bep20 vEVL TokenBalance Geoff)
@@ -79,7 +79,7 @@ Test "Mint transfer in fails"
 
 Test "Denied by comptroller because unlisted"
     NewComptroller
-    NewVToken ZRX vZRX
+    NewBToken ZRX vZRX
     Prep Geoff Some ZRX vZRX
     Prep Torrey Some ZRX vZRX
     Invariant Static (Bep20 vZRX TokenBalance Geoff)
@@ -91,7 +91,7 @@ Test "Denied by comptroller because unlisted"
 
 Test "mint reverts if mint is paused"
     NewComptroller
-    ListedVToken ZRX vZRX
+    ListedBToken ZRX vZRX
     Prep Geoff Some ZRX vZRX
     Prep Torrey Some ZRX vZRX
     Invariant Static (Bep20 vZRX TokenBalance Geoff)

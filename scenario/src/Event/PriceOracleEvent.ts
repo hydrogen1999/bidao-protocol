@@ -39,11 +39,11 @@ async function setPriceOracleFn(world: World, params: Event): Promise<World> {
   return nextWorld;
 }
 
-async function setPrice(world: World, from: string, priceOracle: PriceOracle, vToken: string, amount: NumberV): Promise<World> {
+async function setPrice(world: World, from: string, priceOracle: PriceOracle, bToken: string, amount: NumberV): Promise<World> {
   return addAction(
     world,
-    `Set price oracle price for ${vToken} to ${amount.show()}`,
-    await invoke(world, priceOracle.methods.setUnderlyingPrice(vToken, amount.encode()), from)
+    `Set price oracle price for ${bToken} to ${amount.show()}`,
+    await invoke(world, priceOracle.methods.setUnderlyingPrice(bToken, amount.encode()), from)
   );
 }
 
@@ -94,25 +94,25 @@ export function priceOracleCommands() {
       (world, from, {params}) => setPriceOracleFn(world, params.val)
     ),
 
-    new Command<{priceOracle: PriceOracle, vToken: AddressV, amount: NumberV}>(`
+    new Command<{priceOracle: PriceOracle, bToken: AddressV, amount: NumberV}>(`
         #### SetPrice
 
-        * "SetPrice <VToken> <Amount>" - Sets the per-bnb price for the given vToken
+        * "SetPrice <BToken> <Amount>" - Sets the per-bnb price for the given bToken
           * E.g. "PriceOracle SetPrice vZRX 1.0"
       `,
       "SetPrice",
       [
         new Arg("priceOracle", getPriceOracle, {implicit: true}),
-        new Arg("vToken", getAddressV),
+        new Arg("bToken", getAddressV),
         new Arg("amount", getExpNumberV)
       ],
-      (world, from, {priceOracle, vToken, amount}) => setPrice(world, from, priceOracle, vToken.val, amount)
+      (world, from, {priceOracle, bToken, amount}) => setPrice(world, from, priceOracle, bToken.val, amount)
     ),
 
     new Command<{priceOracle: PriceOracle, address: AddressV, amount: NumberV}>(`
         #### SetDirectPrice
 
-        * "SetDirectPrice <Address> <Amount>" - Sets the per-bnb price for the given vToken
+        * "SetDirectPrice <Address> <Amount>" - Sets the per-bnb price for the given bToken
           * E.g. "PriceOracle SetDirectPrice (Address Zero) 1.0"
       `,
       "SetDirectPrice",

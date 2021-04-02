@@ -20,7 +20,7 @@ class NoErrorReporterType implements ErrorReporter {
   }
 }
 
-class VTokenErrorReporterType implements ErrorReporter {
+class BTokenErrorReporterType implements ErrorReporter {
   getError(error: any): string | null {
     if (error === null) {
       return null;
@@ -94,5 +94,5 @@ export function formatResult(errorReporter: ErrorReporter, result: any): string 
 
 // Singleton instances
 export const NoErrorReporter = new NoErrorReporterType();
-export const VTokenErrorReporter = new VTokenErrorReporterType();
+export const BTokenErrorReporter = new BTokenErrorReporterType();
 export const ComptrollerErrorReporter = new ComptrollerErrorReporterType();

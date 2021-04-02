@@ -6,18 +6,18 @@ const {
 
 const {
   makeComptroller,
-  makeVToken,
+  makeBToken,
   makePriceOracle,
   pretendBorrow,
   borrowSnapshot
-} = require('./Utils/Venus');
+} = require('./Utils/Bai');
 
 describe('Maximillion', () => {
   let root, borrower;
   let maximillion, vBnb;
   beforeEach(async () => {
     [root, borrower] = saddle.accounts;
-    vBnb = await makeVToken({kind: "vbnb", supportMarket: true});
+    vBnb = await makeBToken({kind: "vbnb", supportMarket: true});
     maximillion = await deploy('Maximillion', [vBnb._address]);
   });
 

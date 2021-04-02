@@ -2,14 +2,14 @@
 
 Test "Mint then Redeem All"
     NewComptroller
-    ListedVToken WBTC vWBTC initialExchangeRate:0.1 tokenType:WBTC
+    ListedBToken WBTC vWBTC initialExchangeRate:0.1 tokenType:WBTC
     Prep Geoff 70e8 WBTC vWBTC
     Mint Geoff 50e8 vWBTC
     -- Check current affairs
     Assert Equal (Bep20 vWBTC TokenBalance Geoff) 500e8
     Assert Equal (Bep20 WBTC TokenBalance Geoff) 20e8
     -- Any other good invariants?
-    Invariant Static (VToken vWBTC ExchangeRateStored)
+    Invariant Static (BToken vWBTC ExchangeRateStored)
     -- Now redeem after some time
     FastForward 2 Blocks
     RedeemUnderlying Geoff 50e8 vWBTC
@@ -18,14 +18,14 @@ Test "Mint then Redeem All"
 
 Test "Mint then Redeem Part"
     NewComptroller
-    ListedVToken WBTC vWBTC initialExchangeRate:0.1 tokenType:WBTC
+    ListedBToken WBTC vWBTC initialExchangeRate:0.1 tokenType:WBTC
     Prep Geoff 70e8 WBTC vWBTC
     Mint Geoff 50e8 vWBTC
     -- Check current affairs
     Assert Equal (Bep20 vWBTC TokenBalance Geoff) 500e8
     Assert Equal (Bep20 WBTC TokenBalance Geoff) 20e8
     -- Any other good invariants?
-    Invariant Static (VToken vWBTC ExchangeRateStored)
+    Invariant Static (BToken vWBTC ExchangeRateStored)
     -- Now redeem after some time
     FastForward 2 Blocks
     RedeemUnderlying Geoff 25e8 vWBTC
@@ -34,11 +34,11 @@ Test "Mint then Redeem Part"
 
 Test "Mint then Redeem Too Much"
     NewComptroller
-    ListedVToken WBTC vWBTC initialExchangeRate:0.1 tokenType:WBTC
+    ListedBToken WBTC vWBTC initialExchangeRate:0.1 tokenType:WBTC
     Prep Geoff 70e8 WBTC vWBTC
     Mint Geoff 50e8 vWBTC
     -- Check and hold static
-    Invariant Static (VToken vWBTC ExchangeRateStored)
+    Invariant Static (BToken vWBTC ExchangeRateStored)
     Invariant Remains (Bep20 vWBTC TokenBalance Geoff) 500e8
     Invariant Remains (Bep20 WBTC TokenBalance Geoff) 20e8
     -- Now redeem after some time
@@ -49,14 +49,14 @@ Test "Mint then Redeem Too Much"
 
 Test "Mint then Redeem Zero"
     NewComptroller
-    ListedVToken WBTC vWBTC initialExchangeRate:0.1 tokenType:WBTC
+    ListedBToken WBTC vWBTC initialExchangeRate:0.1 tokenType:WBTC
     Prep Geoff 70e8 WBTC vWBTC
     Mint Geoff 50e8 vWBTC
     -- Check current affairs
     Assert Equal (Bep20 vWBTC TokenBalance Geoff) 500e8
     Assert Equal (Bep20 WBTC TokenBalance Geoff) 20e8
     -- Any other good invariants?
-    Invariant Static (VToken vWBTC ExchangeRateStored)
+    Invariant Static (BToken vWBTC ExchangeRateStored)
     -- Now redeem after some time
     FastForward 2 Blocks
     RedeemUnderlying Geoff 0e8 vWBTC
@@ -65,13 +65,13 @@ Test "Mint then Redeem Zero"
 
 Test "Mint then redeem with interest - no reserves"
     NewComptroller
-    ListedVToken WBTC vWBTC initialExchangeRate:0.1 tokenType:WBTC
-    Invariant Remains (VToken vWBTC Reserves) Zero
+    ListedBToken WBTC vWBTC initialExchangeRate:0.1 tokenType:WBTC
+    Invariant Remains (BToken vWBTC Reserves) Zero
     Prep Geoff 50e8 WBTC vWBTC
     Mint Geoff 50e8 vWBTC
     Assert Equal (Bep20 vWBTC TokenBalance Geoff) 500e8
-    Assert Equal (VToken vWBTC UnderlyingBalance Geoff) 50e8
-    Assert Equal (VToken vWBTC ExchangeRate) 0.1
+    Assert Equal (BToken vWBTC UnderlyingBalance Geoff) 50e8
+    Assert Equal (BToken vWBTC ExchangeRate) 0.1
     -- Get some brah to borrow then repay
     BorrowAndRepayWithInterest WBTC vWBTC 10e8 5e8 interestRate:0.000001 blocks:500000
     -- We've accrued .001% interest for 500000 blocks, or 50% of the principal,
@@ -79,8 +79,8 @@ Test "Mint then redeem with interest - no reserves"
     --   This is due pro-rata to all suppliers, but we just have one, so
     --   let's check that account is given correct new balance.
     Assert Equal (Bep20 vWBTC TokenBalance Geoff) 500e8
-    Assert Equal (VToken vWBTC UnderlyingBalance Geoff) 55e8
-    Assert Equal (VToken vWBTC ExchangeRate) 0.11
+    Assert Equal (BToken vWBTC UnderlyingBalance Geoff) 55e8
+    Assert Equal (BToken vWBTC ExchangeRate) 0.11
     -- Now redeem all with interest
     -- Exchange rate is now 55e8 ÷ 50e-1 = 1.1e-1
     -- 500e-1 * 1.1e-1 = 55e8
@@ -88,18 +88,18 @@ Test "Mint then redeem with interest - no reserves"
     Assert Equal (Bep20 WBTC TokenBalance Geoff) 55e8
     Assert Equal (Bep20 WBTC TokenBalance vWBTC) 0e8
     Assert Equal (Bep20 vWBTC TokenBalance Geoff) 0e8
-    Assert Equal (VToken vWBTC UnderlyingBalance Geoff) 0e8
-    Assert Equal (VToken vWBTC ExchangeRate) 0.1
+    Assert Equal (BToken vWBTC UnderlyingBalance Geoff) 0e8
+    Assert Equal (BToken vWBTC ExchangeRate) 0.1
 
 Test "Mint then redeem part with interest - no reserves"
     NewComptroller
-    ListedVToken WBTC vWBTC initialExchangeRate:0.1 tokenType:WBTC
-    Invariant Remains (VToken vWBTC Reserves) Zero
+    ListedBToken WBTC vWBTC initialExchangeRate:0.1 tokenType:WBTC
+    Invariant Remains (BToken vWBTC Reserves) Zero
     Prep Geoff 50e8 WBTC vWBTC
     Mint Geoff 50e8 vWBTC
     Assert Equal (Bep20 vWBTC TokenBalance Geoff) 500e8
-    Assert Equal (VToken vWBTC UnderlyingBalance Geoff) 50e8
-    Assert Equal (VToken vWBTC ExchangeRate) 0.1
+    Assert Equal (BToken vWBTC UnderlyingBalance Geoff) 50e8
+    Assert Equal (BToken vWBTC ExchangeRate) 0.1
     -- Get some brah to borrow then repay
     BorrowAndRepayWithInterest WBTC vWBTC 10e8 5e8 interestRate:0.000001 blocks:500000
     -- We've accrued .001% interest for 500000 blocks, or 50% of the principal,
@@ -107,24 +107,24 @@ Test "Mint then redeem part with interest - no reserves"
     --   This is due pro-rata to all suppliers, but we just have one, so
     --   let's check that account is given correct new balance.
     Assert Equal (Bep20 vWBTC TokenBalance Geoff) 500e8
-    Assert Equal (VToken vWBTC UnderlyingBalance Geoff) 55e8
-    Assert Equal (VToken vWBTC ExchangeRate) 0.11
+    Assert Equal (BToken vWBTC UnderlyingBalance Geoff) 55e8
+    Assert Equal (BToken vWBTC ExchangeRate) 0.11
     -- Now redeem all with interest
     -- Exchange rate is now 55e8 ÷ 50e-1 = 1.1e-1
     -- 499e-1 * 1.1e-1 = 54.89e8
     RedeemUnderlying Geoff 54.89e8 vWBTC
     Assert Equal (Bep20 vWBTC TokenBalance Geoff) 1e8
-    Assert Equal (VToken vWBTC UnderlyingBalance Geoff) 0.11e8
-    Assert Equal (VToken vWBTC ExchangeRate) 0.11
+    Assert Equal (BToken vWBTC UnderlyingBalance Geoff) 0.11e8
+    Assert Equal (BToken vWBTC ExchangeRate) 0.11
 
 Test "Mint then redeem with reserves and interest"
     NewComptroller
-    ListedVToken WBTC vWBTC initialExchangeRate:0.1 tokenType:WBTC
+    ListedBToken WBTC vWBTC initialExchangeRate:0.1 tokenType:WBTC
     Prep Geoff 50e8 WBTC vWBTC
     Mint Geoff 50e8 vWBTC
     Assert Equal (Bep20 vWBTC TokenBalance Geoff) 500e8
-    Assert Equal (VToken vWBTC UnderlyingBalance Geoff) 50e8
-    Assert Equal (VToken vWBTC ExchangeRate) 0.1
+    Assert Equal (BToken vWBTC UnderlyingBalance Geoff) 50e8
+    Assert Equal (BToken vWBTC ExchangeRate) 0.1
     -- Get some brah to borrow then repay
     BorrowAndRepayWithInterest WBTC vWBTC 10e8 5e8 interestRate:0.000001 blocks:500000 reserveRate:0.2
     -- We've accrued .001% interest for 500000 blocks, or 50% of the principal,
@@ -133,10 +133,10 @@ Test "Mint then redeem with reserves and interest"
     --   is due pro-rata to all suppliers. We just have one, so
     --   let's check that account is given correct new balance.
     Assert Equal (Bep20 vWBTC TokenBalance Geoff) 500e8
-    Assert Equal (VToken vWBTC Reserves) 1e8
-    Assert Equal (VToken vWBTC UnderlyingBalance Geoff) 54e8
+    Assert Equal (BToken vWBTC Reserves) 1e8
+    Assert Equal (BToken vWBTC UnderlyingBalance Geoff) 54e8
     -- 55e8 + 0e8 - 1e8 / 500
-    Assert Equal (VToken vWBTC ExchangeRate) 0.108
+    Assert Equal (BToken vWBTC ExchangeRate) 0.108
     -- Now redeem all with interest
     -- Exchange rate is 1.08e-1
     -- 500e8 * 1.08e-1 = 54e8
@@ -144,13 +144,13 @@ Test "Mint then redeem with reserves and interest"
     Assert Equal (Bep20 WBTC TokenBalance Geoff) 54e8
     Assert Equal (Bep20 WBTC TokenBalance vWBTC) 1e8
     Assert Equal (Bep20 vWBTC TokenBalance Geoff) 0e8
-    Assert Equal (VToken vWBTC Reserves) 1e8
-    Assert Equal (VToken vWBTC UnderlyingBalance Geoff) 0e8
-    Assert Equal (VToken vWBTC ExchangeRate) 0.1
+    Assert Equal (BToken vWBTC Reserves) 1e8
+    Assert Equal (BToken vWBTC UnderlyingBalance Geoff) 0e8
+    Assert Equal (BToken vWBTC ExchangeRate) 0.1
 
 Test "Two users Mint, one redeems"
     NewComptroller
-    ListedVToken WBTC vWBTC initialExchangeRate:0.1 tokenType:WBTC
+    ListedBToken WBTC vWBTC initialExchangeRate:0.1 tokenType:WBTC
     Prep Geoff Some WBTC vWBTC
     Prep Torrey Some WBTC vWBTC
     Mint Geoff 2e8 vWBTC
@@ -167,14 +167,14 @@ Test "Two users Mint, one redeems"
 
 Test "Mint then Redeem 1 wei of underlying is allowed for 1:1 assets"
     NewComptroller
-    ListedVToken WBTC vWBTC initialExchangeRate:0.1 tokenType:WBTC
+    ListedBToken WBTC vWBTC initialExchangeRate:0.1 tokenType:WBTC
     Prep Geoff 70e8 WBTC vWBTC
     Mint Geoff 50e8 vWBTC
     -- Check current affairs
     Assert Equal (Bep20 vWBTC TokenBalance Geoff) 500e8
     Assert Equal (Bep20 WBTC TokenBalance Geoff) 20e8
     -- Any other good invariants?
-    Invariant Static (VToken vWBTC ExchangeRateStored)
+    Invariant Static (BToken vWBTC ExchangeRateStored)
     -- Now redeem after some time
     FastForward 2 Blocks
     RedeemUnderlying Geoff 1 vWBTC

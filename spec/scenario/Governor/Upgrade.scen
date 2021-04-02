@@ -3,10 +3,10 @@ Macro DeployGov
     SetBlockNumber 1
     SetTime 10
     Counter Deploy CNT1
-    XVS Deploy Bank
+    XBID Deploy Bank
     Enfranchise Root 800001e18
     Timelock Deploy Jared 604800
-    Governor Deploy Alpha Alpha (Address Timelock) (Address XVS) Guardian
+    Governor Deploy Alpha Alpha (Address Timelock) (Address XBID) Guardian
     Timelock SetAdmin (Address Alpha)
     Assert Equal (Timelock Admin) (Address Alpha)
 
@@ -24,12 +24,12 @@ Macro SucceedQueueExecuteLastProposal gov
     Assert Equal ("Executed") (Governor gov Proposal LastProposal State)
 
 Macro Enfranchise user amount
-    From Bank (XVS Transfer user amount)
-    From user (XVS Delegate user)
+    From Bank (XBID Transfer user amount)
+    From user (XBID Delegate user)
 
 Test "Governor can switch to a new governor"
     DeployGov
-    Governor Deploy Alpha Beta (Address Timelock) (Address XVS) Guardian
+    Governor Deploy Alpha Beta (Address Timelock) (Address XBID) Guardian
     Governor Alpha Propose "Upgrade Governor" [(Address Timelock)] [0] ["setPendingAdmin(address)"] [[(Address Beta)]]
     SucceedQueueExecuteLastProposal Alpha
     Assert Equal (Timelock PendingAdmin) (Address Beta)
@@ -43,7 +43,7 @@ Test "Governor can switch to a new governor"
 
 Test "Guardian can switch to a new governor"
     DeployGov
-    Governor Deploy Alpha Beta (Address Timelock) (Address XVS) Guardian
+    Governor Deploy Alpha Beta (Address Timelock) (Address XBID) Guardian
     From Guardian (Governor Alpha Guardian QueueSetTimelockPendingAdmin (Address Beta) 604902)
     IncreaseTime 604905
     From Guardian (Governor Alpha Guardian ExecuteSetTimelockPendingAdmin (Address Beta) 604902)

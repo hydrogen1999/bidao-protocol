@@ -141,7 +141,7 @@ export function bep20Fetchers() {
         * "Bep20 <Bep20> Allowance owner:<Address> spender:<Address>" - Returns the BEP-20 allowance from owner to spender
           * E.g. "Bep20 ZRX Allowance Geoff Torrey" - Returns the ZRX allowance of Geoff to Torrey
           * E.g. "Bep20 vZRX Allowance Geoff Coburn" - Returns the vZRX allowance of Geoff to Coburn
-          * E.g. "Bep20 ZRX Allowance Geoff vZRX" - Returns the ZRX allowance of Geoff to the vZRX vToken
+          * E.g. "Bep20 ZRX Allowance Geoff vZRX" - Returns the ZRX allowance of Geoff to the vZRX bToken
       `,
       "Allowance",
       [

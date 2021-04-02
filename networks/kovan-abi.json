@@ -1,5 +1,5 @@
 {
-  "XVS": [
+  "XBID": [
     {
       "inputs": [
         {
@@ -529,13 +529,13 @@
       "type": "function"
     }
   ],
-  "VenusLens": [
+  "BaiLens": [
     {
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -544,13 +544,13 @@
           "type": "address"
         }
       ],
-      "name": "vTokenBalances",
+      "name": "bTokenBalances",
       "outputs": [
         {
           "components": [
             {
               "internalType": "address",
-              "name": "vToken",
+              "name": "bToken",
               "type": "address"
             },
             {
@@ -579,7 +579,7 @@
               "type": "uint256"
             }
           ],
-          "internalType": "struct VenusLens.VTokenBalances",
+          "internalType": "struct BaiLens.BTokenBalances",
           "name": "",
           "type": "tuple"
         }
@@ -592,8 +592,8 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract VToken[]",
-          "name": "vTokens",
+          "internalType": "contract BToken[]",
+          "name": "bTokens",
           "type": "address[]"
         },
         {
@@ -602,13 +602,13 @@
           "type": "address"
         }
       ],
-      "name": "vTokenBalancesAll",
+      "name": "bTokenBalancesAll",
       "outputs": [
         {
           "components": [
             {
               "internalType": "address",
-              "name": "vToken",
+              "name": "bToken",
               "type": "address"
             },
             {
@@ -637,7 +637,7 @@
               "type": "uint256"
             }
           ],
-          "internalType": "struct VenusLens.VTokenBalances[]",
+          "internalType": "struct BaiLens.BTokenBalances[]",
           "name": "",
           "type": "tuple[]"
         }
@@ -650,18 +650,18 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         }
       ],
-      "name": "vTokenMetadata",
+      "name": "bTokenMetadata",
       "outputs": [
         {
           "components": [
             {
               "internalType": "address",
-              "name": "vToken",
+              "name": "bToken",
               "type": "address"
             },
             {
@@ -721,7 +721,7 @@
             },
             {
               "internalType": "uint256",
-              "name": "vTokenDecimals",
+              "name": "bTokenDecimals",
               "type": "uint256"
             },
             {
@@ -730,7 +730,7 @@
               "type": "uint256"
             }
           ],
-          "internalType": "struct VenusLens.VTokenMetadata",
+          "internalType": "struct BaiLens.BTokenMetadata",
           "name": "",
           "type": "tuple"
         }
@@ -743,18 +743,18 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract VToken[]",
-          "name": "vTokens",
+          "internalType": "contract BToken[]",
+          "name": "bTokens",
           "type": "address[]"
         }
       ],
-      "name": "vTokenMetadataAll",
+      "name": "bTokenMetadataAll",
       "outputs": [
         {
           "components": [
             {
               "internalType": "address",
-              "name": "vToken",
+              "name": "bToken",
               "type": "address"
             },
             {
@@ -814,7 +814,7 @@
             },
             {
               "internalType": "uint256",
-              "name": "vTokenDecimals",
+              "name": "bTokenDecimals",
               "type": "uint256"
             },
             {
@@ -823,7 +823,7 @@
               "type": "uint256"
             }
           ],
-          "internalType": "struct VenusLens.VTokenMetadata[]",
+          "internalType": "struct BaiLens.BTokenMetadata[]",
           "name": "",
           "type": "tuple[]"
         }
@@ -836,18 +836,18 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         }
       ],
-      "name": "vTokenUnderlyingPrice",
+      "name": "bTokenUnderlyingPrice",
       "outputs": [
         {
           "components": [
             {
               "internalType": "address",
-              "name": "vToken",
+              "name": "bToken",
               "type": "address"
             },
             {
@@ -856,7 +856,7 @@
               "type": "uint256"
             }
           ],
-          "internalType": "struct VenusLens.VTokenUnderlyingPrice",
+          "internalType": "struct BaiLens.BTokenUnderlyingPrice",
           "name": "",
           "type": "tuple"
         }
@@ -869,18 +869,18 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract VToken[]",
-          "name": "vTokens",
+          "internalType": "contract BToken[]",
+          "name": "bTokens",
           "type": "address[]"
         }
       ],
-      "name": "vTokenUnderlyingPriceAll",
+      "name": "bTokenUnderlyingPriceAll",
       "outputs": [
         {
           "components": [
             {
               "internalType": "address",
-              "name": "vToken",
+              "name": "bToken",
               "type": "address"
             },
             {
@@ -889,7 +889,7 @@
               "type": "uint256"
             }
           ],
-          "internalType": "struct VenusLens.VTokenUnderlyingPrice[]",
+          "internalType": "struct BaiLens.BTokenUnderlyingPrice[]",
           "name": "",
           "type": "tuple[]"
         }
@@ -917,7 +917,7 @@
         {
           "components": [
             {
-              "internalType": "contract VToken[]",
+              "internalType": "contract BToken[]",
               "name": "markets",
               "type": "address[]"
             },
@@ -932,7 +932,7 @@
               "type": "uint256"
             }
           ],
-          "internalType": "struct VenusLens.AccountLimits",
+          "internalType": "struct BaiLens.AccountLimits",
           "name": "",
           "type": "tuple"
         }
@@ -945,7 +945,7 @@
       "constant": true,
       "inputs": [
         {
-          "internalType": "contract XVS",
+          "internalType": "contract XBID",
           "name": "xvs",
           "type": "address"
         },
@@ -955,7 +955,7 @@
           "type": "address"
         }
       ],
-      "name": "getXVSBalanceMetadata",
+      "name": "getXBIDBalanceMetadata",
       "outputs": [
         {
           "components": [
@@ -975,7 +975,7 @@
               "type": "address"
             }
           ],
-          "internalType": "struct VenusLens.XVSBalanceMetadata",
+          "internalType": "struct BaiLens.XBIDBalanceMetadata",
           "name": "",
           "type": "tuple"
         }
@@ -988,7 +988,7 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract XVS",
+          "internalType": "contract XBID",
           "name": "xvs",
           "type": "address"
         },
@@ -1003,7 +1003,7 @@
           "type": "address"
         }
       ],
-      "name": "getXVSBalanceMetadataExt",
+      "name": "getXBIDBalanceMetadataExt",
       "outputs": [
         {
           "components": [
@@ -1028,7 +1028,7 @@
               "type": "uint256"
             }
           ],
-          "internalType": "struct VenusLens.XVSBalanceMetadataExt",
+          "internalType": "struct BaiLens.XBIDBalanceMetadataExt",
           "name": "",
           "type": "tuple"
         }
@@ -1041,7 +1041,7 @@
       "constant": true,
       "inputs": [
         {
-          "internalType": "contract XVS",
+          "internalType": "contract XBID",
           "name": "xvs",
           "type": "address"
         },
@@ -1056,7 +1056,7 @@
           "type": "uint32[]"
         }
       ],
-      "name": "getVenusVotes",
+      "name": "getBaiVotes",
       "outputs": [
         {
           "components": [
@@ -1071,7 +1071,7 @@
               "type": "uint256"
             }
           ],
-          "internalType": "struct VenusLens.VenusVotes[]",
+          "internalType": "struct BaiLens.BaiVotes[]",
           "name": "",
           "type": "tuple[]"
         }
@@ -1164,7 +1164,7 @@
               "type": "bool"
             }
           ],
-          "internalType": "struct VenusLens.GovProposal[]",
+          "internalType": "struct BaiLens.GovProposal[]",
           "name": "",
           "type": "tuple[]"
         }
@@ -1217,7 +1217,7 @@
               "type": "uint96"
             }
           ],
-          "internalType": "struct VenusLens.GovReceipt[]",
+          "internalType": "struct BaiLens.GovReceipt[]",
           "name": "",
           "type": "tuple[]"
         }
@@ -2206,7 +2206,7 @@
         {
           "indexed": false,
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
@@ -3102,7 +3102,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "isVToken",
+      "name": "isBToken",
       "outputs": [
         {
           "internalType": "bool",
@@ -3128,8 +3128,8 @@
           "type": "uint256"
         },
         {
-          "internalType": "contract VTokenInterface",
-          "name": "vTokenCollateral",
+          "internalType": "contract BTokenInterface",
+          "name": "bTokenCollateral",
           "type": "address"
         }
       ],
@@ -6589,8 +6589,8 @@
       "constant": true,
       "inputs": [
         {
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         }
       ],
@@ -6645,8 +6645,8 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -7890,7 +7890,7 @@
         {
           "indexed": false,
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
@@ -8786,7 +8786,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "isVToken",
+      "name": "isBToken",
       "outputs": [
         {
           "internalType": "bool",
@@ -8812,8 +8812,8 @@
           "type": "uint256"
         },
         {
-          "internalType": "contract VTokenInterface",
-          "name": "vTokenCollateral",
+          "internalType": "contract BTokenInterface",
+          "name": "bTokenCollateral",
           "type": "address"
         }
       ],
@@ -9608,7 +9608,7 @@
         {
           "indexed": false,
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
@@ -10465,7 +10465,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "isVToken",
+      "name": "isBToken",
       "outputs": [
         {
           "internalType": "bool",
@@ -10491,8 +10491,8 @@
           "type": "uint256"
         },
         {
-          "internalType": "contract VTokenInterface",
-          "name": "vTokenCollateral",
+          "internalType": "contract BTokenInterface",
+          "name": "bTokenCollateral",
           "type": "address"
         }
       ],
@@ -11041,7 +11041,7 @@
         {
           "indexed": false,
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
@@ -11898,7 +11898,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "isVToken",
+      "name": "isBToken",
       "outputs": [
         {
           "internalType": "bool",
@@ -11924,8 +11924,8 @@
           "type": "uint256"
         },
         {
-          "internalType": "contract VTokenInterface",
-          "name": "vTokenCollateral",
+          "internalType": "contract BTokenInterface",
+          "name": "bTokenCollateral",
           "type": "address"
         }
       ],
@@ -12484,7 +12484,7 @@
         {
           "indexed": false,
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
@@ -13362,7 +13362,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "isVToken",
+      "name": "isBToken",
       "outputs": [
         {
           "internalType": "bool",
@@ -13388,8 +13388,8 @@
           "type": "uint256"
         },
         {
-          "internalType": "contract VTokenInterface",
-          "name": "vTokenCollateral",
+          "internalType": "contract BTokenInterface",
+          "name": "bTokenCollateral",
           "type": "address"
         }
       ],
@@ -13938,7 +13938,7 @@
         {
           "indexed": false,
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
@@ -14795,7 +14795,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "isVToken",
+      "name": "isBToken",
       "outputs": [
         {
           "internalType": "bool",
@@ -14821,8 +14821,8 @@
           "type": "uint256"
         },
         {
-          "internalType": "contract VTokenInterface",
-          "name": "vTokenCollateral",
+          "internalType": "contract BTokenInterface",
+          "name": "bTokenCollateral",
           "type": "address"
         }
       ],
@@ -15366,7 +15366,7 @@
         {
           "indexed": false,
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
@@ -16162,7 +16162,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "isVToken",
+      "name": "isBToken",
       "outputs": [
         {
           "internalType": "bool",
@@ -16183,8 +16183,8 @@
           "type": "address"
         },
         {
-          "internalType": "contract VToken",
-          "name": "vTokenCollateral",
+          "internalType": "contract BToken",
+          "name": "bTokenCollateral",
           "type": "address"
         }
       ],
@@ -16677,7 +16677,7 @@
         {
           "indexed": false,
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
@@ -17534,7 +17534,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "isVToken",
+      "name": "isBToken",
       "outputs": [
         {
           "internalType": "bool",
@@ -17560,8 +17560,8 @@
           "type": "uint256"
         },
         {
-          "internalType": "contract VTokenInterface",
-          "name": "vTokenCollateral",
+          "internalType": "contract BTokenInterface",
+          "name": "bTokenCollateral",
           "type": "address"
         }
       ],
@@ -18110,7 +18110,7 @@
         {
           "indexed": false,
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
@@ -18967,7 +18967,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "isVToken",
+      "name": "isBToken",
       "outputs": [
         {
           "internalType": "bool",
@@ -18993,8 +18993,8 @@
           "type": "uint256"
         },
         {
-          "internalType": "contract VTokenInterface",
-          "name": "vTokenCollateral",
+          "internalType": "contract BTokenInterface",
+          "name": "bTokenCollateral",
           "type": "address"
         }
       ],
@@ -19543,7 +19543,7 @@
         {
           "indexed": false,
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
@@ -20400,7 +20400,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "isVToken",
+      "name": "isBToken",
       "outputs": [
         {
           "internalType": "bool",
@@ -20426,8 +20426,8 @@
           "type": "uint256"
         },
         {
-          "internalType": "contract VTokenInterface",
-          "name": "vTokenCollateral",
+          "internalType": "contract BTokenInterface",
+          "name": "bTokenCollateral",
           "type": "address"
         }
       ],
@@ -21230,7 +21230,7 @@
       "name": "xvs",
       "outputs": [
         {
-          "internalType": "contract XVSInterface",
+          "internalType": "contract XBIDInterface",
           "name": "",
           "type": "address"
         }
@@ -21934,7 +21934,7 @@
     {
       "inputs": [
         {
-          "internalType": "contract VBNB",
+          "internalType": "contract BBNB",
           "name": "vBnb_",
           "type": "address"
         }
@@ -21949,7 +21949,7 @@
       "name": "vBnb",
       "outputs": [
         {
-          "internalType": "contract VBNB",
+          "internalType": "contract BBNB",
           "name": "",
           "type": "address"
         }
@@ -21982,7 +21982,7 @@
           "type": "address"
         },
         {
-          "internalType": "contract VBNB",
+          "internalType": "contract BBNB",
           "name": "vBnb_",
           "type": "address"
         }
@@ -22188,7 +22188,7 @@
         {
           "indexed": false,
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
@@ -23066,7 +23066,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "isVToken",
+      "name": "isBToken",
       "outputs": [
         {
           "internalType": "bool",
@@ -23092,8 +23092,8 @@
           "type": "uint256"
         },
         {
-          "internalType": "contract VTokenInterface",
-          "name": "vTokenCollateral",
+          "internalType": "contract BTokenInterface",
+          "name": "bTokenCollateral",
           "type": "address"
         }
       ],
@@ -23979,8 +23979,8 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -24004,8 +24004,8 @@
       "inputs": [
         {
           "indexed": true,
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -24015,7 +24015,7 @@
           "type": "uint256"
         }
       ],
-      "name": "VenusSpeedUpdated",
+      "name": "BaiSpeedUpdated",
       "type": "event"
     },
     {
@@ -24023,8 +24023,8 @@
       "inputs": [
         {
           "indexed": true,
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -24046,7 +24046,7 @@
           "type": "uint256"
         }
       ],
-      "name": "DistributedBorrowerVenus",
+      "name": "DistributedBorrowerBai",
       "type": "event"
     },
     {
@@ -24054,8 +24054,8 @@
       "inputs": [
         {
           "indexed": true,
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -24077,7 +24077,7 @@
           "type": "uint256"
         }
       ],
-      "name": "DistributedSupplierVenus",
+      "name": "DistributedSupplierBai",
       "type": "event"
     },
     {
@@ -24110,18 +24110,18 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
           "indexed": false,
           "internalType": "bool",
-          "name": "isVenus",
+          "name": "isBai",
           "type": "bool"
         }
       ],
-      "name": "MarketVenus",
+      "name": "MarketBai",
       "type": "event"
     },
     {
@@ -24129,8 +24129,8 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -24148,8 +24148,8 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -24167,8 +24167,8 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         }
       ],
@@ -24199,8 +24199,8 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -24225,17 +24225,17 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "oldVenusRate",
+          "name": "oldBaiRate",
           "type": "uint256"
         },
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "newVenusRate",
+          "name": "newBaiRate",
           "type": "uint256"
         }
       ],
-      "name": "NewVenusRate",
+      "name": "NewBaiRate",
       "type": "event"
     },
     {
@@ -24319,11 +24319,11 @@
       "inputs": [
         {
           "internalType": "address[]",
-          "name": "vTokens",
+          "name": "bTokens",
           "type": "address[]"
         }
       ],
-      "name": "_addVenusMarkets",
+      "name": "_addBaiMarkets",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -24364,11 +24364,11 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         }
       ],
-      "name": "_dropVenusMarket",
+      "name": "_dropBaiMarket",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -24393,8 +24393,8 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -24440,8 +24440,8 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -24471,7 +24471,7 @@
           "type": "uint256"
         }
       ],
-      "name": "_setVenusRate",
+      "name": "_setBaiRate",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -24523,8 +24523,8 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -24633,8 +24633,8 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         }
       ],
@@ -24667,7 +24667,7 @@
       "name": "accountAssets",
       "outputs": [
         {
-          "internalType": "contract VToken",
+          "internalType": "contract BToken",
           "name": "",
           "type": "address"
         }
@@ -24703,7 +24703,7 @@
       "name": "allMarkets",
       "outputs": [
         {
-          "internalType": "contract VToken",
+          "internalType": "contract BToken",
           "name": "",
           "type": "address"
         }
@@ -24717,7 +24717,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -24769,7 +24769,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -24798,8 +24798,8 @@
           "type": "address"
         },
         {
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         }
       ],
@@ -24824,12 +24824,12 @@
           "type": "address"
         },
         {
-          "internalType": "contract VToken[]",
-          "name": "vTokens",
+          "internalType": "contract BToken[]",
+          "name": "bTokens",
           "type": "address[]"
         }
       ],
-      "name": "claimVenus",
+      "name": "claimBai",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -24844,8 +24844,8 @@
           "type": "address[]"
         },
         {
-          "internalType": "contract VToken[]",
-          "name": "vTokens",
+          "internalType": "contract BToken[]",
+          "name": "bTokens",
           "type": "address[]"
         },
         {
@@ -24859,7 +24859,7 @@
           "type": "bool"
         }
       ],
-      "name": "claimVenus",
+      "name": "claimBai",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -24874,7 +24874,7 @@
           "type": "address"
         }
       ],
-      "name": "claimVenus",
+      "name": "claimBai",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -25106,7 +25106,7 @@
       "inputs": [
         {
           "internalType": "address[]",
-          "name": "vTokens",
+          "name": "bTokens",
           "type": "address[]"
         }
       ],
@@ -25127,7 +25127,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vTokenAddress",
+          "name": "bTokenAddress",
           "type": "address"
         }
       ],
@@ -25180,7 +25180,7 @@
       "name": "getAllMarkets",
       "outputs": [
         {
-          "internalType": "contract VToken[]",
+          "internalType": "contract BToken[]",
           "name": "",
           "type": "address[]"
         }
@@ -25201,7 +25201,7 @@
       "name": "getAssetsIn",
       "outputs": [
         {
-          "internalType": "contract VToken[]",
+          "internalType": "contract BToken[]",
           "name": "",
           "type": "address[]"
         }
@@ -25228,7 +25228,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "getXVSAddress",
+      "name": "getXBIDAddress",
       "outputs": [
         {
           "internalType": "address",
@@ -25250,7 +25250,7 @@
         },
         {
           "internalType": "address",
-          "name": "vTokenModify",
+          "name": "bTokenModify",
           "type": "address"
         },
         {
@@ -25306,12 +25306,12 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vTokenBorrowed",
+          "name": "bTokenBorrowed",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
@@ -25347,12 +25347,12 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vTokenBorrowed",
+          "name": "bTokenBorrowed",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
@@ -25387,12 +25387,12 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vTokenBorrowed",
+          "name": "bTokenBorrowed",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
@@ -25456,7 +25456,7 @@
         },
         {
           "internalType": "bool",
-          "name": "isVenus",
+          "name": "isBai",
           "type": "bool"
         }
       ],
@@ -25484,7 +25484,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -25536,7 +25536,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -25626,7 +25626,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -25657,7 +25657,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -25685,7 +25685,7 @@
     {
       "constant": false,
       "inputs": [],
-      "name": "refreshVenusSpeeds",
+      "name": "refreshBaiSpeeds",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -25696,7 +25696,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -25732,7 +25732,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -25767,12 +25767,12 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "vTokenBorrowed",
+          "name": "bTokenBorrowed",
           "type": "address"
         },
         {
@@ -25823,12 +25823,12 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "vTokenBorrowed",
+          "name": "bTokenBorrowed",
           "type": "address"
         },
         {
@@ -25858,7 +25858,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -25909,7 +25909,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -26204,8 +26204,8 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -26229,8 +26229,8 @@
       "inputs": [
         {
           "indexed": true,
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -26240,7 +26240,7 @@
           "type": "uint256"
         }
       ],
-      "name": "VenusSpeedUpdated",
+      "name": "BaiSpeedUpdated",
       "type": "event"
     },
     {
@@ -26248,8 +26248,8 @@
       "inputs": [
         {
           "indexed": true,
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -26271,7 +26271,7 @@
           "type": "uint256"
         }
       ],
-      "name": "DistributedBorrowerVenus",
+      "name": "DistributedBorrowerBai",
       "type": "event"
     },
     {
@@ -26279,8 +26279,8 @@
       "inputs": [
         {
           "indexed": true,
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -26302,7 +26302,7 @@
           "type": "uint256"
         }
       ],
-      "name": "DistributedSupplierVenus",
+      "name": "DistributedSupplierBai",
       "type": "event"
     },
     {
@@ -26335,18 +26335,18 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
           "indexed": false,
           "internalType": "bool",
-          "name": "isVenus",
+          "name": "isBai",
           "type": "bool"
         }
       ],
-      "name": "MarketVenus",
+      "name": "MarketBai",
       "type": "event"
     },
     {
@@ -26354,8 +26354,8 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -26373,8 +26373,8 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -26392,8 +26392,8 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         }
       ],
@@ -26424,8 +26424,8 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -26450,17 +26450,17 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "oldVenusRate",
+          "name": "oldBaiRate",
           "type": "uint256"
         },
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "newVenusRate",
+          "name": "newBaiRate",
           "type": "uint256"
         }
       ],
-      "name": "NewVenusRate",
+      "name": "NewBaiRate",
       "type": "event"
     },
     {
@@ -26544,11 +26544,11 @@
       "inputs": [
         {
           "internalType": "address[]",
-          "name": "vTokens",
+          "name": "bTokens",
           "type": "address[]"
         }
       ],
-      "name": "_addVenusMarkets",
+      "name": "_addBaiMarkets",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -26589,11 +26589,11 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         }
       ],
-      "name": "_dropVenusMarket",
+      "name": "_dropBaiMarket",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -26618,8 +26618,8 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -26665,8 +26665,8 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -26696,7 +26696,7 @@
           "type": "uint256"
         }
       ],
-      "name": "_setVenusRate",
+      "name": "_setBaiRate",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -26748,8 +26748,8 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -26858,8 +26858,8 @@
       "constant": false,
       "inputs": [
         {
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         }
       ],
@@ -26892,7 +26892,7 @@
       "name": "accountAssets",
       "outputs": [
         {
-          "internalType": "contract VToken",
+          "internalType": "contract BToken",
           "name": "",
           "type": "address"
         }
@@ -26928,7 +26928,7 @@
       "name": "allMarkets",
       "outputs": [
         {
-          "internalType": "contract VToken",
+          "internalType": "contract BToken",
           "name": "",
           "type": "address"
         }
@@ -26942,7 +26942,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -26994,7 +26994,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -27023,8 +27023,8 @@
           "type": "address"
         },
         {
-          "internalType": "contract VToken",
-          "name": "vToken",
+          "internalType": "contract BToken",
+          "name": "bToken",
           "type": "address"
         }
       ],
@@ -27049,12 +27049,12 @@
           "type": "address"
         },
         {
-          "internalType": "contract VToken[]",
-          "name": "vTokens",
+          "internalType": "contract BToken[]",
+          "name": "bTokens",
           "type": "address[]"
         }
       ],
-      "name": "claimVenus",
+      "name": "claimBai",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -27069,8 +27069,8 @@
           "type": "address[]"
         },
         {
-          "internalType": "contract VToken[]",
-          "name": "vTokens",
+          "internalType": "contract BToken[]",
+          "name": "bTokens",
           "type": "address[]"
         },
         {
@@ -27084,7 +27084,7 @@
           "type": "bool"
         }
       ],
-      "name": "claimVenus",
+      "name": "claimBai",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -27099,7 +27099,7 @@
           "type": "address"
         }
       ],
-      "name": "claimVenus",
+      "name": "claimBai",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -27331,7 +27331,7 @@
       "inputs": [
         {
           "internalType": "address[]",
-          "name": "vTokens",
+          "name": "bTokens",
           "type": "address[]"
         }
       ],
@@ -27352,7 +27352,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vTokenAddress",
+          "name": "bTokenAddress",
           "type": "address"
         }
       ],
@@ -27405,7 +27405,7 @@
       "name": "getAllMarkets",
       "outputs": [
         {
-          "internalType": "contract VToken[]",
+          "internalType": "contract BToken[]",
           "name": "",
           "type": "address[]"
         }
@@ -27426,7 +27426,7 @@
       "name": "getAssetsIn",
       "outputs": [
         {
-          "internalType": "contract VToken[]",
+          "internalType": "contract BToken[]",
           "name": "",
           "type": "address[]"
         }
@@ -27453,7 +27453,7 @@
     {
       "constant": true,
       "inputs": [],
-      "name": "getXVSAddress",
+      "name": "getXBIDAddress",
       "outputs": [
         {
           "internalType": "address",
@@ -27475,7 +27475,7 @@
         },
         {
           "internalType": "address",
-          "name": "vTokenModify",
+          "name": "bTokenModify",
           "type": "address"
         },
         {
@@ -27531,12 +27531,12 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vTokenBorrowed",
+          "name": "bTokenBorrowed",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
@@ -27572,12 +27572,12 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vTokenBorrowed",
+          "name": "bTokenBorrowed",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
@@ -27612,12 +27612,12 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vTokenBorrowed",
+          "name": "bTokenBorrowed",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
@@ -27681,7 +27681,7 @@
         },
         {
           "internalType": "bool",
-          "name": "isVenus",
+          "name": "isBai",
           "type": "bool"
         }
       ],
@@ -27709,7 +27709,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -27761,7 +27761,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -27851,7 +27851,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -27882,7 +27882,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -27910,7 +27910,7 @@
     {
       "constant": false,
       "inputs": [],
-      "name": "refreshVenusSpeeds",
+      "name": "refreshBaiSpeeds",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -27921,7 +27921,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -27957,7 +27957,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -27992,12 +27992,12 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "vTokenBorrowed",
+          "name": "bTokenBorrowed",
           "type": "address"
         },
         {
@@ -28048,12 +28048,12 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vTokenCollateral",
+          "name": "bTokenCollateral",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "vTokenBorrowed",
+          "name": "bTokenBorrowed",
           "type": "address"
         },
         {
@@ -28083,7 +28083,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {
@@ -28134,7 +28134,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "vToken",
+          "name": "bToken",
           "type": "address"
         },
         {

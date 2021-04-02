@@ -11,9 +11,9 @@ Comptroller SetPriceOracle (PriceOracleProxy Address)
 Comptroller SetMaxAssets 20
 Comptroller SetCloseFactor 0.5
 Comptroller LiquidationIncentive 1.1
-Comptroller SetVenusRate 1e18
-NewVToken ZRX vZRX
-NewVToken BAT vBAT
+Comptroller SetBaiRate 1e18
+NewBToken ZRX vZRX
+NewBToken BAT vBAT
 Support vZRX collateralFactor:0.5
 Support vBAT collateralFactor:0.5
 
@@ -40,15 +40,15 @@ Mint Seventh 6e18 vBAT
 EnterMarkets Seventh vBAT
 Borrow Seventh 1e18 vZRX
 
-Comptroller AddVenusMarkets (vZRX vBAT)
-Bep20 Deploy Standard XVS "XVS Token" 18
-Give (Address Comptroller) 5000000e18 XVS
-Comptroller Send "setXVSAddress(address)" (Address XVS)
-Bep20 Deploy Standard VAI "VAI Token" 18
-Give (Address Comptroller) 5000000e18 VAI
-Comptroller Send "setVAIAddress(address)" (Address VAI)
+Comptroller AddBaiMarkets (vZRX vBAT)
+Bep20 Deploy Standard XBID "XBID Token" 18
+Give (Address Comptroller) 5000000e18 XBID
+Comptroller Send "setXBIDAddress(address)" (Address XBID)
+Bep20 Deploy Standard BAI "BAI Token" 18
+Give (Address Comptroller) 5000000e18 BAI
+Comptroller Send "setBAIAddress(address)" (Address BAI)
 
-Comptroller RefreshVenusSpeeds
+Comptroller RefreshBaiSpeeds
 
 FastForward 300000 Blocks
 Read (Comptroller Address)

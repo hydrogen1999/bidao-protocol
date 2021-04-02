@@ -3,95 +3,95 @@ const {
   bnbUnsigned
 } = require('../Utils/BSC');
 const {
-  makeVToken,
+  makeBToken,
   setBorrowRate
-} = require('../Utils/Venus');
+} = require('../Utils/Bai');
 
 const blockNumber = 2e7;
 const borrowIndex = 1e18;
 const borrowRate = .000001;
 
-async function pretendBlock(vToken, accrualBlock = blockNumber, deltaBlocks = 1) {
-  await send(vToken, 'harnessSetAccrualBlockNumber', [bnbUnsigned(blockNumber)]);
-  await send(vToken, 'harnessSetBlockNumber', [bnbUnsigned(blockNumber + deltaBlocks)]);
-  await send(vToken, 'harnessSetBorrowIndex', [bnbUnsigned(borrowIndex)]);
+async function pretendBlock(bToken, accrualBlock = blockNumber, deltaBlocks = 1) {
+  await send(bToken, 'harnessSetAccrualBlockNumber', [bnbUnsigned(blockNumber)]);
+  await send(bToken, 'harnessSetBlockNumber', [bnbUnsigned(blockNumber + deltaBlocks)]);
+  await send(bToken, 'harnessSetBorrowIndex', [bnbUnsigned(borrowIndex)]);
 }
 
-async function preAccrue(vToken) {
-  await setBorrowRate(vToken, borrowRate);
-  await send(vToken.interestRateModel, 'setFailBorrowRate', [false]);
-  await send(vToken, 'harnessExchangeRateDetails', [0, 0, 0]);
+async function preAccrue(bToken) {
+  await setBorrowRate(bToken, borrowRate);
+  await send(bToken.interestRateModel, 'setFailBorrowRate', [false]);
+  await send(bToken, 'harnessExchangeRateDetails', [0, 0, 0]);
 }
 
-describe('VToken', () => {
+describe('BToken', () => {
   let root, accounts;
-  let vToken;
+  let bToken;
   beforeEach(async () => {
     [root, ...accounts] = saddle.accounts;
-    vToken = await makeVToken({comptrollerOpts: {kind: 'bool'}});
+    bToken = await makeBToken({comptrollerOpts: {kind: 'bool'}});
   });
 
   beforeEach(async () => {
-    await preAccrue(vToken);
+    await preAccrue(bToken);
   });
 
   describe('accrueInterest', () => {
     it('reverts if the interest rate is absurdly high', async () => {
-      await pretendBlock(vToken, blockNumber, 1);
-      expect(await call(vToken, 'getBorrowRateMaxMantissa')).toEqualNumber(bnbMantissa(0.000005)); // 0.0005% per block
-      await setBorrowRate(vToken, 0.001e-2); // 0.0010% per block
-      await expect(send(vToken, 'accrueInterest')).rejects.toRevert("revert borrow rate is absurdly high");
+      await pretendBlock(bToken, blockNumber, 1);
+      expect(await call(bToken, 'getBorrowRateMaxMantissa')).toEqualNumber(bnbMantissa(0.000005)); // 0.0005% per block
+      await setBorrowRate(bToken, 0.001e-2); // 0.0010% per block
+      await expect(send(bToken, 'accrueInterest')).rejects.toRevert("revert borrow rate is absurdly high");
     });
 
     it('fails if new borrow rate calculation fails', async () => {
-      await pretendBlock(vToken, blockNumber, 1);
-      await send(vToken.interestRateModel, 'setFailBorrowRate', [true]);
-      await expect(send(vToken, 'accrueInterest')).rejects.toRevert("revert INTEREST_RATE_MODEL_ERROR");
+      await pretendBlock(bToken, blockNumber, 1);
+      await send(bToken.interestRateModel, 'setFailBorrowRate', [true]);
+      await expect(send(bToken, 'accrueInterest')).rejects.toRevert("revert INTEREST_RATE_MODEL_ERROR");
     });
 
     it('fails if simple interest factor calculation fails', async () => {
-      await pretendBlock(vToken, blockNumber, 5e70);
-      expect(await send(vToken, 'accrueInterest')).toHaveTokenFailure('MATH_ERROR', 'ACCRUE_INTEREST_SIMPLE_INTEREST_FACTOR_CALCULATION_FAILED');
+      await pretendBlock(bToken, blockNumber, 5e70);
+      expect(await send(bToken, 'accrueInterest')).toHaveTokenFailure('MATH_ERROR', 'ACCRUE_INTEREST_SIMPLE_INTEREST_FACTOR_CALCULATION_FAILED');
     });
 
     it('fails if new borrow index calculation fails', async () => {
-      await pretendBlock(vToken, blockNumber, 5e60);
-      expect(await send(vToken, 'accrueInterest')).toHaveTokenFailure('MATH_ERROR', 'ACCRUE_INTEREST_NEW_BORROW_INDEX_CALCULATION_FAILED');
+      await pretendBlock(bToken, blockNumber, 5e60);
+      expect(await send(bToken, 'accrueInterest')).toHaveTokenFailure('MATH_ERROR', 'ACCRUE_INTEREST_NEW_BORROW_INDEX_CALCULATION_FAILED');
     });
 
     it('fails if new borrow interest index calculation fails', async () => {
-      await pretendBlock(vToken)
-      await send(vToken, 'harnessSetBorrowIndex', ['0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF']);
-      expect(await send(vToken, 'accrueInterest')).toHaveTokenFailure('MATH_ERROR', 'ACCRUE_INTEREST_NEW_BORROW_INDEX_CALCULATION_FAILED');
+      await pretendBlock(bToken)
+      await send(bToken, 'harnessSetBorrowIndex', ['0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF']);
+      expect(await send(bToken, 'accrueInterest')).toHaveTokenFailure('MATH_ERROR', 'ACCRUE_INTEREST_NEW_BORROW_INDEX_CALCULATION_FAILED');
     });
 
     it('fails if interest accumulated calculation fails', async () => {
-      await send(vToken, 'harnessExchangeRateDetails', [0, '0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF', 0]);
-      await pretendBlock(vToken)
-      expect(await send(vToken, 'accrueInterest')).toHaveTokenFailure('MATH_ERROR', 'ACCRUE_INTEREST_ACCUMULATED_INTEREST_CALCULATION_FAILED');
+      await send(bToken, 'harnessExchangeRateDetails', [0, '0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF', 0]);
+      await pretendBlock(bToken)
+      expect(await send(bToken, 'accrueInterest')).toHaveTokenFailure('MATH_ERROR', 'ACCRUE_INTEREST_ACCUMULATED_INTEREST_CALCULATION_FAILED');
     });
 
     it('fails if new total borrows calculation fails', async () => {
-      await setBorrowRate(vToken, 1e-18);
-      await pretendBlock(vToken)
-      await send(vToken, 'harnessExchangeRateDetails', [0, '0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF', 0]);
-      expect(await send(vToken, 'accrueInterest')).toHaveTokenFailure('MATH_ERROR', 'ACCRUE_INTEREST_NEW_TOTAL_BORROWS_CALCULATION_FAILED');
+      await setBorrowRate(bToken, 1e-18);
+      await pretendBlock(bToken)
+      await send(bToken, 'harnessExchangeRateDetails', [0, '0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF', 0]);
+      expect(await send(bToken, 'accrueInterest')).toHaveTokenFailure('MATH_ERROR', 'ACCRUE_INTEREST_NEW_TOTAL_BORROWS_CALCULATION_FAILED');
     });
 
     it('fails if interest accumulated for reserves calculation fails', async () => {
-      await setBorrowRate(vToken, .000001);
-      await send(vToken, 'harnessExchangeRateDetails', [0, bnbUnsigned(1e30), '0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF']);
-      await send(vToken, 'harnessSetReserveFactorFresh', [bnbUnsigned(1e10)]);
-      await pretendBlock(vToken, blockNumber, 5e20)
-      expect(await send(vToken, 'accrueInterest')).toHaveTokenFailure('MATH_ERROR', 'ACCRUE_INTEREST_NEW_TOTAL_RESERVES_CALCULATION_FAILED');
+      await setBorrowRate(bToken, .000001);
+      await send(bToken, 'harnessExchangeRateDetails', [0, bnbUnsigned(1e30), '0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF']);
+      await send(bToken, 'harnessSetReserveFactorFresh', [bnbUnsigned(1e10)]);
+      await pretendBlock(bToken, blockNumber, 5e20)
+      expect(await send(bToken, 'accrueInterest')).toHaveTokenFailure('MATH_ERROR', 'ACCRUE_INTEREST_NEW_TOTAL_RESERVES_CALCULATION_FAILED');
     });
 
     it('fails if new total reserves calculation fails', async () => {
-      await setBorrowRate(vToken, 1e-18);
-      await send(vToken, 'harnessExchangeRateDetails', [0, bnbUnsigned(1e56), '0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF']);
-      await send(vToken, 'harnessSetReserveFactorFresh', [bnbUnsigned(1e17)]);
-      await pretendBlock(vToken)
-      expect(await send(vToken, 'accrueInterest')).toHaveTokenFailure('MATH_ERROR', 'ACCRUE_INTEREST_NEW_TOTAL_RESERVES_CALCULATION_FAILED');
+      await setBorrowRate(bToken, 1e-18);
+      await send(bToken, 'harnessExchangeRateDetails', [0, bnbUnsigned(1e56), '0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF']);
+      await send(bToken, 'harnessSetReserveFactorFresh', [bnbUnsigned(1e17)]);
+      await pretendBlock(bToken)
+      expect(await send(bToken, 'accrueInterest')).toHaveTokenFailure('MATH_ERROR', 'ACCRUE_INTEREST_NEW_TOTAL_RESERVES_CALCULATION_FAILED');
     });
 
     it('succeeds and saves updated values in storage on success', async () => {
@@ -99,16 +99,16 @@ describe('VToken', () => {
       const startingTotalReserves = 1e20;
       const reserveFactor = 1e17;
 
-      await send(vToken, 'harnessExchangeRateDetails', [0, bnbUnsigned(startingTotalBorrows), bnbUnsigned(startingTotalReserves)]);
-      await send(vToken, 'harnessSetReserveFactorFresh', [bnbUnsigned(reserveFactor)]);
-      await pretendBlock(vToken)
+      await send(bToken, 'harnessExchangeRateDetails', [0, bnbUnsigned(startingTotalBorrows), bnbUnsigned(startingTotalReserves)]);
+      await send(bToken, 'harnessSetReserveFactorFresh', [bnbUnsigned(reserveFactor)]);
+      await pretendBlock(bToken)
 
       const expectedAccrualBlockNumber = blockNumber + 1;
       const expectedBorrowIndex = borrowIndex + borrowIndex * borrowRate;
       const expectedTotalBorrows = startingTotalBorrows + startingTotalBorrows * borrowRate;
       const expectedTotalReserves = startingTotalReserves + startingTotalBorrows *  borrowRate * reserveFactor / 1e18;
 
-      const receipt = await send(vToken, 'accrueInterest')
+      const receipt = await send(bToken, 'accrueInterest')
       expect(receipt).toSucceed();
       expect(receipt).toHaveLog('AccrueInterest', {
         cashPrior: 0,
@@ -116,10 +116,10 @@ describe('VToken', () => {
         borrowIndex: bnbUnsigned(expectedBorrowIndex),
         totalBorrows: bnbUnsigned(expectedTotalBorrows)
       })
-      expect(await call(vToken, 'accrualBlockNumber')).toEqualNumber(expectedAccrualBlockNumber);
-      expect(await call(vToken, 'borrowIndex')).toEqualNumber(expectedBorrowIndex);
-      expect(await call(vToken, 'totalBorrows')).toEqualNumber(expectedTotalBorrows);
-      expect(await call(vToken, 'totalReserves')).toEqualNumber(expectedTotalReserves);
+      expect(await call(bToken, 'accrualBlockNumber')).toEqualNumber(expectedAccrualBlockNumber);
+      expect(await call(bToken, 'borrowIndex')).toEqualNumber(expectedBorrowIndex);
+      expect(await call(bToken, 'totalBorrows')).toEqualNumber(expectedTotalBorrows);
+      expect(await call(bToken, 'totalReserves')).toEqualNumber(expectedTotalReserves);
     });
   });
 });

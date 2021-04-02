@@ -32,22 +32,22 @@ Pending "TODO: Add Back Tether Tests"
 --     ForkTether
 --     NewComptroller price:1.0
 --     Bep20 Deploy ExistingTether USDT TetherAddress
---     NewVTokenBringBEP20 USDT vUSDT
+--     NewBTokenBringBEP20 USDT vUSDT
 --     From TetherAdmin (Bep20 USDT SetFee 10 10)
---     Invariant Static (VToken vUSDT ExchangeRate)
+--     Invariant Static (BToken vUSDT ExchangeRate)
 --     Support vUSDT
 --     From TetherHolder (Bep20 USDT Approve vUSDT 1e8)
 --     Mint TetherHolder 1e8 vUSDT
 --     Assert Equal (BEP20 USDT TokenBalance vUSDT) 0.999e8
 
--- Test "Should be able to redeem a fee VToken, exchange Rate should not change"
+-- Test "Should be able to redeem a fee BToken, exchange Rate should not change"
 --     ForkTether
 --     NewComptroller price:1.0
 --     Bep20 Deploy ExistingTether USDT TetherAddress
---     NewVTokenBringBEP20 USDT vUSDT
+--     NewBTokenBringBEP20 USDT vUSDT
 --     From TetherAdmin (Bep20 USDT SetFee 10 10)
 --     Support vUSDT
---     Invariant Static (VToken vUSDT ExchangeRate)
+--     Invariant Static (BToken vUSDT ExchangeRate)
 --     From TetherHolder (Bep20 USDT Approve vUSDT 1e8)
 --     Mint TetherHolder 1e8 vUSDT
 --     Redeem Torrey (Bep20 vUSDT TokenBalance TetherHolder) vUSDT
@@ -56,13 +56,13 @@ Pending "TODO: Add Back Tether Tests"
 --     ForkTether
 --     PricedComptroller
 --     Bep20 Deploy ExistingTether USDT TetherAddress
---     NewVTokenBringBEP20 USDT vUSDT
---     NewVToken ZRX vZRX 0.000005 2e9 8 Standard
+--     NewBTokenBringBEP20 USDT vUSDT
+--     NewBToken ZRX vZRX 0.000005 2e9 8 Standard
 --     PriceOracle SetPrice vZRX 1.0
 --     PriceOracle SetPrice vUSDT 1.0
 --     Support vZRX 0.5
 --     Support vUSDT 0.5
---     Invariant Static (VToken vUSDT ExchangeRate)
+--     Invariant Static (BToken vUSDT ExchangeRate)
 --     --
 --     From TetherHolder (Bep20 USDT Approve vUSDT 1e8)
 --     Mint TetherHolder 1e8 vUSDT
@@ -75,12 +75,12 @@ Pending "TODO: Add Back Tether Tests"
 --     Borrow Torrey 1e8 vUSDT -- we only received 0.999e8 tether bc of fee
 --     Assert Equal (BEP20 USDT TokenBalance Torrey) 0.999e8
 --     FastForward 199600 Blocks -- 1e8 * 199800 * 0.000005 = 0.998e8 interest accrued
---     Assert Equal (VToken vUSDT TotalBorrowsCurrent) 1.998e8
+--     Assert Equal (BToken vUSDT TotalBorrowsCurrent) 1.998e8
 --     From TetherHolder (Bep20 USDT Transfer Torrey 2e8)
 --     From Torrey (Bep20 USDT Approve vUSDT 2e8)
 --     RepayBorrow Torrey 2e8 vUSDT -- repay more than we owe to account for fee
---     Assert Equal (VToken vUSDT BorrowBalance Torrey) 0
---     Assert Equal (VToken vUSDT TotalBorrowsCurrent) 0
+--     Assert Equal (BToken vUSDT BorrowBalance Torrey) 0
+--     Assert Equal (BToken vUSDT TotalBorrowsCurrent) 0
 --     --Assert Equal (BEP20 USDT TokenBalance Torrey) 0
 
 -- Test "Should be able to liquidate Tether token borrow"
@@ -88,13 +88,13 @@ Pending "TODO: Add Back Tether Tests"
 --     PricedComptroller
 --     Comptroller LiquidationIncentive 1.1
 --     Bep20 Deploy ExistingTether USDT TetherAddress-- FYI tether is 6 decimals
---     NewVTokenBringBEP20 USDT vUSDT
---     NewVToken ZRX vZRX 0.000005 2e9 8 Standard
+--     NewBTokenBringBEP20 USDT vUSDT
+--     NewBToken ZRX vZRX 0.000005 2e9 8 Standard
 --     PriceOracle SetPrice vZRX 1.0
 --     PriceOracle SetPrice vUSDT 1e12
 --     Support vZRX 0.5
 --     Support vUSDT 0.5
---     Invariant Static (VToken vUSDT ExchangeRate)
+--     Invariant Static (BToken vUSDT ExchangeRate)
 --     -- Give some Tether to vUSDT
 --     From TetherHolder (Bep20 USDT Approve vUSDT 2e8)
 --     Mint TetherHolder 2e8 vUSDT
@@ -107,11 +107,11 @@ Pending "TODO: Add Back Tether Tests"
 --     Borrow Torrey 1e6 vUSDT -- fyi we only received 0.999e8 tether bc of fee
 --     Assert Equal (BEP20 USDT TokenBalance Torrey) 0.999e6
 --     FastForward 199600 Blocks -- 1e6 * 199800 * 0.000005 = 0.998e6 interest accrued
---     Assert Equal (VToken vUSDT TotalBorrowsCurrent) 1.998e6
+--     Assert Equal (BToken vUSDT TotalBorrowsCurrent) 1.998e6
 --     -- ok.. ready the liquidator
 --     From TetherHolder (Bep20 USDT Transfer Coburn 2e6) -- should give 1.001001001
 --     From Coburn (Bep20 USDT Approve vUSDT 2e6)
 --     Liquidate Coburn "->" Torrey 0.1e6 vUSDT "Seizing" vZRX
 --     -- 5.4945e7 = (1e18 / 1e6) * 0.1e6 (amt liquidated) * 1.1 (liq discount) * .999 (fee) / 2e9 (exchange rate)
 --     Assert Equal (Bep20 vZRX TokenBalance Coburn) 5.4945e7
---     Assert Equal (VToken vUSDT BorrowBalance Torrey) 1.8981e6 -- 1.998 - (.1 * .999) was liquidated
+--     Assert Equal (BToken vUSDT BorrowBalance Torrey) 1.8981e6 -- 1.998 - (.1 * .999) was liquidated

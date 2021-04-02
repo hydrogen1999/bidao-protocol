@@ -1,7 +1,7 @@
 
 Test "Borrow some BNB enters BNB and succeeds when BNB not entered"
     NewComptroller price:1.0
-    ListedVToken ZRX vZRX
+    ListedBToken ZRX vZRX
     ListedBNBToken vBNB initialExchangeRate:0.005e9
     SetCollateralFactor vZRX collateralFactor:0.5
     SetCollateralFactor vBNB collateralFactor:0.5
@@ -18,7 +18,7 @@ Test "Borrow some BNB enters BNB and succeeds when BNB not entered"
 
 Test "Borrow some BNB fails when no BNB available"
     NewComptroller price:1.0
-    ListedVToken ZRX vZRX
+    ListedBToken ZRX vZRX
     ListedBNBToken vBNB initialExchangeRate:0.005e9
     SetCollateralFactor vZRX collateralFactor:0.5
     SetCollateralFactor vBNB collateralFactor:0.5
@@ -26,16 +26,16 @@ Test "Borrow some BNB fails when no BNB available"
     Mint Geoff 100e18 vZRX
     EnterMarkets Geoff vZRX vBNB
     AllowFailures
-    Invariant Static (VToken vZRX ExchangeRateStored)
-    Invariant Static (VToken vBNB ExchangeRateStored)
+    Invariant Static (BToken vZRX ExchangeRateStored)
+    Invariant Static (BToken vBNB ExchangeRateStored)
     Invariant Static (Comptroller Liquidity Geoff)
     Invariant Static (BNBBalance Geoff)
     BorrowBnb Geoff 1e18 vBNB
-    Assert Failure TOKEN_INSUFFICIENT_CASH BORROW_CASH_NOT_AVAILABLE
+    Assert Failure TOKEN_INSUFFICIENT_CASH BORROW_CASH_NOT_ABAILABLE
 
 Test "Borrow some BNB from excess cash"
     NewComptroller price:1.0
-    ListedVToken ZRX vZRX
+    ListedBToken ZRX vZRX
     ListedBNBToken vBNB initialExchangeRate:0.005e9
     SetCollateralFactor vZRX collateralFactor:0.5
     SetCollateralFactor vBNB collateralFactor:0.5

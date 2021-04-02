@@ -1,8 +1,8 @@
 const { address, both, bnbMantissa } = require('../Utils/BSC');
-const { makeComptroller, makeVToken } = require('../Utils/Venus');
+const { makeComptroller, makeBToken } = require('../Utils/Bai');
 
 describe('Comptroller', () => {
-  let comptroller, vToken;
+  let comptroller, bToken;
   let root, accounts;
 
   beforeEach(async () => {
@@ -11,8 +11,8 @@ describe('Comptroller', () => {
 
   describe('setting protocol state', () => {
     beforeEach(async () => {
-      vToken = await makeVToken({supportMarket: true});
-      comptroller = vToken.comptroller;
+      bToken = await makeBToken({supportMarket: true});
+      comptroller = bToken.comptroller;
     });
 
     let globalMethods = ["Mint", "Redeem", "Transfer", "Seize"];
@@ -47,11 +47,11 @@ describe('Comptroller', () => {
         globalMethods.forEach(async (method) => {
           switch (method) {
             case "Mint":
-              await expect(send(comptroller, 'mintAllowed', [vToken._address, address(2), 1])).rejects.toRevert(`revert protocol is paused`);
+              await expect(send(comptroller, 'mintAllowed', [bToken._address, address(2), 1])).rejects.toRevert(`revert protocol is paused`);
               break;
   
             case "Borrow":
-              await expect(send(comptroller, 'borrowAllowed', [vToken._address, address(2), 1])).rejects.toRevert(`revert protocol is paused`);
+              await expect(send(comptroller, 'borrowAllowed', [bToken._address, address(2), 1])).rejects.toRevert(`revert protocol is paused`);
               break;
   
             case "Transfer":

@@ -1,36 +1,36 @@
 pragma solidity ^0.5.16;
 
-import "../../contracts/VAIController.sol";
+import "../../contracts/BAIController.sol";
 
-contract VAIControllerHarness is VAIController {
+contract BAIControllerHarness is BAIController {
     address vaiAddress;
     uint public blockNumber;
 
-    constructor() VAIController() public {}
+    constructor() BAIController() public {}
 
-    function setVenusVAIState(uint224 index, uint32 blockNumber_) public {
-        venusVAIState.index = index;
-        venusVAIState.block = blockNumber_;
+    function setBaiBAIState(uint224 index, uint32 blockNumber_) public {
+        venusBAIState.index = index;
+        venusBAIState.block = blockNumber_;
     }
 
-    function setVAIAddress(address vaiAddress_) public {
+    function setBAIAddress(address vaiAddress_) public {
         vaiAddress = vaiAddress_;
     }
 
-    function getVAIAddress() public view returns (address) {
+    function getBAIAddress() public view returns (address) {
         return vaiAddress;
     }
 
-    function setVenusVAIMinterIndex(address vaiMinter, uint index) public {
-        venusVAIMinterIndex[vaiMinter] = index;
+    function setBaiBAIMinterIndex(address vaiMinter, uint index) public {
+        venusBAIMinterIndex[vaiMinter] = index;
     }
 
-    function harnessUpdateVenusVAIMintIndex() public {
-        updateVenusVAIMintIndex();
+    function harnessUpdateBaiBAIMintIndex() public {
+        updateBaiBAIMintIndex();
     }
 
-    function harnessCalcDistributeVAIMinterVenus(address vaiMinter) public {
-        calcDistributeVAIMinterVenus(vaiMinter);
+    function harnessCalcDistributeBAIMinterBai(address vaiMinter) public {
+        calcDistributeBAIMinterBai(vaiMinter);
     }
 
     function harnessFastForward(uint blocks) public returns (uint) {

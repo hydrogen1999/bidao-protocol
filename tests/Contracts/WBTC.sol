@@ -70,13 +70,13 @@ library SafeMath {
   }
 }
 
-// File: openzeppelin-solidity/contracts/token/BEP20/BasivToken.sol
+// File: openzeppelin-solidity/contracts/token/BEP20/BasibToken.sol
 
 /**
  * @title Basic token
  * @dev Basic version of StandardToken, with no allowances.
  */
-contract BasivToken is BEP20Basic {
+contract BasibToken is BEP20Basic {
   using SafeMath for uint256;
 
   mapping(address => uint256) internal balances;
@@ -146,7 +146,7 @@ contract BEP20 is BEP20Basic {
  * https://github.com/ethereum/EIPs/issues/20
  * Based on code by FirstBlood: https://github.com/Firstbloodio/token/blob/master/smart_contract/FirstBloodToken.sol
  */
-contract StandardToken is BEP20, BasivToken {
+contract StandardToken is BEP20, BasibToken {
 
   mapping (address => mapping (address => uint256)) internal allowed;
 
@@ -405,7 +405,7 @@ contract MintableToken is StandardToken, Ownable {
  * @title Burnable Token
  * @dev Token that can be irreversibly burned (destroyed).
  */
-contract BurnableToken is BasivToken {
+contract BurnableToken is BasibToken {
 
   event Burn(address indexed burner, uint256 value);
 
@@ -646,7 +646,7 @@ contract OwnableContract is CanReclaimToken, Claimable { } /* solhint-disable-li
 
 // File: contracts/token/WBTC.sol
 
-contract WBTVToken is StandardToken, DetailedBEP20("Wrapped BTC", "WBTC", 8),
+contract WBTBToken is StandardToken, DetailedBEP20("Wrapped BTC", "WBTC", 8),
     MintableToken, BurnableToken, PausableToken, OwnableContract {
 
     function burn(uint value) public onlyOwner {

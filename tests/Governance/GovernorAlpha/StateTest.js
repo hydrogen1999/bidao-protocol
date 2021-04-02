@@ -30,7 +30,7 @@ describe('GovernorAlpha#state/1', () => {
   beforeAll(async () => {
     await freezeTime(100);
     [root, acct, ...accounts] = accounts;
-    xvs = await deploy('XVS', [root]);
+    xvs = await deploy('XBID', [root]);
     delay = bnbUnsigned(2 * 24 * 60 * 60).mul(2)
     timelock = await deploy('TimelockHarness', [root, delay]);
     gov = await deploy('GovernorAlpha', [timelock._address, xvs._address, root]);

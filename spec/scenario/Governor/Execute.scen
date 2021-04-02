@@ -3,15 +3,15 @@ Macro DeployGov
     IncreaseTime 100
     Counter Deploy CNT1
     Timelock Deploy Jared 604800
-    XVS Deploy Bank
+    XBID Deploy Bank
     Enfranchise Root 600001e18
     Enfranchise Jared 600000e18
-    Governor Deploy Alpha LegitGov (Address Timelock) (Address XVS) Guardian
+    Governor Deploy Alpha LegitGov (Address Timelock) (Address XBID) Guardian
     Timelock SetAdmin (Address LegitGov)
 
 Macro Enfranchise user amount
-    From Bank (XVS Transfer user amount)
-    From user (XVS Delegate user)
+    From Bank (XBID Transfer user amount)
+    From user (XBID Delegate user)
 
 Macro SucceedProposal
     MineBlock

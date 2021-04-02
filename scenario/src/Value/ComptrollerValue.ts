@@ -1,7 +1,7 @@
 import {Event} from '../Event';
 import {World} from '../World';
 import {Comptroller} from '../Contract/Comptroller';
-import {VToken} from '../Contract/VToken';
+import {BToken} from '../Contract/BToken';
 import {
   getAddressV,
   getCoreValue,
@@ -19,7 +19,7 @@ import {
 import {Arg, Fetcher, getFetcherValue} from '../Command';
 import {getComptroller} from '../ContractLookup';
 import {encodedNumber} from '../Encoding';
-import {getVTokenV} from '../Value/VTokenValue';
+import {getBTokenV} from '../Value/BTokenValue';
 import { encodeParameters, encodeABI } from '../Utils';
 
 export async function getComptrollerAddress(world: World, comptroller: Comptroller): Promise<AddressV> {
@@ -74,8 +74,8 @@ async function getPendingAdmin(world: World, comptroller: Comptroller): Promise<
   return new AddressV(await comptroller.methods.pendingAdmin().call());
 }
 
-async function getCollateralFactor(world: World, comptroller: Comptroller, vToken: VToken): Promise<NumberV> {
-  let {0: _isListed, 1: collateralFactorMantissa} = await comptroller.methods.markets(vToken._address).call();
+async function getCollateralFactor(world: World, comptroller: Comptroller, bToken: BToken): Promise<NumberV> {
+  let {0: _isListed, 1: collateralFactorMantissa} = await comptroller.methods.markets(bToken._address).call();
   return new NumberV(collateralFactorMantissa, 1e18);
 }
 
@@ -83,8 +83,8 @@ async function membershipLength(world: World, comptroller: Comptroller, user: st
   return new NumberV(await comptroller.methods.membershipLength(user).call());
 }
 
-async function checkMembership(world: World, comptroller: Comptroller, user: string, vToken: VToken): Promise<BoolV> {
-  return new BoolV(await comptroller.methods.checkMembership(user, vToken._address).call());
+async function checkMembership(world: World, comptroller: Comptroller, user: string, bToken: BToken): Promise<BoolV> {
+  return new BoolV(await comptroller.methods.checkMembership(user, bToken._address).call());
 }
 
 async function getAssetsIn(world: World, comptroller: Comptroller, user: string): Promise<ListV> {
@@ -93,21 +93,21 @@ async function getAssetsIn(world: World, comptroller: Comptroller, user: string)
   return new ListV(assetsList.map((a) => new AddressV(a)));
 }
 
-async function getVenusMarkets(world: World, comptroller: Comptroller): Promise<ListV> {
-  let mkts = await comptroller.methods.getVenusMarkets().call();
+async function getBaiMarkets(world: World, comptroller: Comptroller): Promise<ListV> {
+  let mkts = await comptroller.methods.getBaiMarkets().call();
 
   return new ListV(mkts.map((a) => new AddressV(a)));
 }
 
-async function checkListed(world: World, comptroller: Comptroller, vToken: VToken): Promise<BoolV> {
-  let {0: isListed, 1: _collateralFactorMantissa} = await comptroller.methods.markets(vToken._address).call();
+async function checkListed(world: World, comptroller: Comptroller, bToken: BToken): Promise<BoolV> {
+  let {0: isListed, 1: _collateralFactorMantissa} = await comptroller.methods.markets(bToken._address).call();
 
   return new BoolV(isListed);
 }
 
-async function checkIsVenus(world: World, comptroller: Comptroller, vToken: VToken): Promise<BoolV> {
-  let {0: isListed, 1: _collateralFactorMantissa, 2: isVenus} = await comptroller.methods.markets(vToken._address).call();
-  return new BoolV(isVenus);
+async function checkIsBai(world: World, comptroller: Comptroller, bToken: BToken): Promise<BoolV> {
+  let {0: isListed, 1: _collateralFactorMantissa, 2: isBai} = await comptroller.methods.markets(bToken._address).call();
+  return new BoolV(isBai);
 }
 
 
@@ -135,7 +135,7 @@ export function comptrollerFetchers() {
       ],
       (world, {comptroller, account}) => getLiquidity(world, comptroller, account.val)
     ),
-    new Fetcher<{comptroller: Comptroller, account: AddressV, action: StringV, amount: NumberV, vToken: VToken}, NumberV>(`
+    new Fetcher<{comptroller: Comptroller, account: AddressV, action: StringV, amount: NumberV, bToken: BToken}, NumberV>(`
         #### Hypothetical
 
         * "Comptroller Hypothetical <User> <Action> <Asset> <Number>" - Returns a given user's trued up liquidity given a hypothetical change in asset with redeeming a certain number of tokens and/or borrowing a given amount.
@@ -148,9 +148,9 @@ export function comptrollerFetchers() {
         new Arg("account", getAddressV),
         new Arg("action", getStringV),
         new Arg("amount", getNumberV),
-        new Arg("vToken", getVTokenV)
+        new Arg("bToken", getBTokenV)
       ],
-      async (world, {comptroller, account, action, vToken, amount}) => {
+      async (world, {comptroller, account, action, bToken, amount}) => {
         let redeemTokens: NumberV;
         let borrowAmount: NumberV;
 
@@ -167,7 +167,7 @@ export function comptrollerFetchers() {
             throw new Error(`Unknown hypothetical: ${action.val}`);
         }
 
-        return await getHypotheticalLiquidity(world, comptroller, account.val, vToken._address, redeemTokens.encode(), borrowAmount.encode());
+        return await getHypotheticalLiquidity(world, comptroller, account.val, bToken._address, redeemTokens.encode(), borrowAmount.encode());
       }
     ),
     new Fetcher<{comptroller: Comptroller}, AddressV>(`
@@ -252,18 +252,18 @@ export function comptrollerFetchers() {
       [new Arg("comptroller", getComptroller, {implicit: true})],
       (world, {comptroller}) => getBlockNumber(world, comptroller)
     ),
-    new Fetcher<{comptroller: Comptroller, vToken: VToken}, NumberV>(`
+    new Fetcher<{comptroller: Comptroller, bToken: BToken}, NumberV>(`
         #### CollateralFactor
 
-        * "Comptroller CollateralFactor <VToken>" - Returns the collateralFactor associated with a given asset
+        * "Comptroller CollateralFactor <BToken>" - Returns the collateralFactor associated with a given asset
           * E.g. "Comptroller CollateralFactor vZRX"
       `,
       "CollateralFactor",
       [
         new Arg("comptroller", getComptroller, {implicit: true}),
-        new Arg("vToken", getVTokenV)
+        new Arg("bToken", getBTokenV)
       ],
-      (world, {comptroller, vToken}) => getCollateralFactor(world, comptroller, vToken)
+      (world, {comptroller, bToken}) => getCollateralFactor(world, comptroller, bToken)
     ),
     new Fetcher<{comptroller: Comptroller, account: AddressV}, NumberV>(`
         #### MembershipLength
@@ -278,19 +278,19 @@ export function comptrollerFetchers() {
       ],
       (world, {comptroller, account}) => membershipLength(world, comptroller, account.val)
     ),
-    new Fetcher<{comptroller: Comptroller, account: AddressV, vToken: VToken}, BoolV>(`
+    new Fetcher<{comptroller: Comptroller, account: AddressV, bToken: BToken}, BoolV>(`
         #### CheckMembership
 
-        * "Comptroller CheckMembership <User> <VToken>" - Returns one if user is in asset, zero otherwise.
+        * "Comptroller CheckMembership <User> <BToken>" - Returns one if user is in asset, zero otherwise.
           * E.g. "Comptroller CheckMembership Geoff vZRX"
       `,
       "CheckMembership",
       [
         new Arg("comptroller", getComptroller, {implicit: true}),
         new Arg("account", getAddressV),
-        new Arg("vToken", getVTokenV)
+        new Arg("bToken", getBTokenV)
       ],
-      (world, {comptroller, account, vToken}) => checkMembership(world, comptroller, account.val, vToken)
+      (world, {comptroller, account, bToken}) => checkMembership(world, comptroller, account.val, bToken)
     ),
     new Fetcher<{comptroller: Comptroller, account: AddressV}, ListV>(`
         #### AssetsIn
@@ -305,31 +305,31 @@ export function comptrollerFetchers() {
       ],
       (world, {comptroller, account}) => getAssetsIn(world, comptroller, account.val)
     ),
-    new Fetcher<{comptroller: Comptroller, vToken: VToken}, BoolV>(`
+    new Fetcher<{comptroller: Comptroller, bToken: BToken}, BoolV>(`
         #### CheckListed
 
-        * "Comptroller CheckListed <VToken>" - Returns true if market is listed, false otherwise.
+        * "Comptroller CheckListed <BToken>" - Returns true if market is listed, false otherwise.
           * E.g. "Comptroller CheckListed vZRX"
       `,
       "CheckListed",
       [
         new Arg("comptroller", getComptroller, {implicit: true}),
-        new Arg("vToken", getVTokenV)
+        new Arg("bToken", getBTokenV)
       ],
-      (world, {comptroller, vToken}) => checkListed(world, comptroller, vToken)
+      (world, {comptroller, bToken}) => checkListed(world, comptroller, bToken)
     ),
-    new Fetcher<{comptroller: Comptroller, vToken: VToken}, BoolV>(`
-        #### CheckIsVenus
+    new Fetcher<{comptroller: Comptroller, bToken: BToken}, BoolV>(`
+        #### CheckIsBai
 
-        * "Comptroller CheckIsVenus <VToken>" - Returns true if market is listed, false otherwise.
-          * E.g. "Comptroller CheckIsVenus vZRX"
+        * "Comptroller CheckIsBai <BToken>" - Returns true if market is listed, false otherwise.
+          * E.g. "Comptroller CheckIsBai vZRX"
       `,
-      "CheckIsVenus",
+      "CheckIsBai",
       [
         new Arg("comptroller", getComptroller, {implicit: true}),
-        new Arg("vToken", getVTokenV)
+        new Arg("bToken", getBTokenV)
       ],
-      (world, {comptroller, vToken}) => checkIsVenus(world, comptroller, vToken)
+      (world, {comptroller, bToken}) => checkIsBai(world, comptroller, bToken)
     ),
 
     new Fetcher<{comptroller: Comptroller}, BoolV>(`
@@ -343,23 +343,23 @@ export function comptrollerFetchers() {
         async (world, {comptroller}) => new BoolV(await comptroller.methods.protocolPaused().call())
     ),
     new Fetcher<{comptroller: Comptroller}, ListV>(`
-      #### GetVenusMarkets
+      #### GetBaiMarkets
 
-      * "GetVenusMarkets" - Returns an array of the currently enabled Venus markets. To use the auto-gen array getter venusMarkets(uint), use VenusMarkets
-      * E.g. "Comptroller GetVenusMarkets"
+      * "GetBaiMarkets" - Returns an array of the currently enabled Bai markets. To use the auto-gen array getter venusMarkets(uint), use BaiMarkets
+      * E.g. "Comptroller GetBaiMarkets"
       `,
-      "GetVenusMarkets",
+      "GetBaiMarkets",
       [new Arg("comptroller", getComptroller, {implicit: true})],
-      async(world, {comptroller}) => await getVenusMarkets(world, comptroller)
+      async(world, {comptroller}) => await getBaiMarkets(world, comptroller)
      ),
 
     new Fetcher<{comptroller: Comptroller}, NumberV>(`
-      #### VenusRate
+      #### BaiRate
 
-      * "VenusRate" - Returns the current xvs rate.
-      * E.g. "Comptroller VenusRate"
+      * "BaiRate" - Returns the current xvs rate.
+      * E.g. "Comptroller BaiRate"
       `,
-      "VenusRate",
+      "BaiRate",
       [new Arg("comptroller", getComptroller, {implicit: true})],
       async(world, {comptroller}) => new NumberV(await comptroller.methods.venusRate().call())
     ),
@@ -386,44 +386,44 @@ export function comptrollerFetchers() {
         return new NumberV(resNum);
       }
     ),
-    new Fetcher<{comptroller: Comptroller, VToken: VToken, key: StringV}, NumberV>(`
-        #### VenusSupplyState(address)
+    new Fetcher<{comptroller: Comptroller, BToken: BToken, key: StringV}, NumberV>(`
+        #### BaiSupplyState(address)
 
-        * "Comptroller VenusBorrowState vZRX "index"
+        * "Comptroller BaiBorrowState vZRX "index"
       `,
-      "VenusSupplyState",
+      "BaiSupplyState",
       [
         new Arg("comptroller", getComptroller, {implicit: true}),
-        new Arg("VToken", getVTokenV),
+        new Arg("BToken", getBTokenV),
         new Arg("key", getStringV),
       ],
-      async (world, {comptroller, VToken, key}) => {
-        const result = await comptroller.methods.venusSupplyState(VToken._address).call();
+      async (world, {comptroller, BToken, key}) => {
+        const result = await comptroller.methods.venusSupplyState(BToken._address).call();
         return new NumberV(result[key.val]);
       }
     ),
-    new Fetcher<{comptroller: Comptroller, VToken: VToken, key: StringV}, NumberV>(`
-        #### VenusBorrowState(address)
+    new Fetcher<{comptroller: Comptroller, BToken: BToken, key: StringV}, NumberV>(`
+        #### BaiBorrowState(address)
 
-        * "Comptroller VenusBorrowState vZRX "index"
+        * "Comptroller BaiBorrowState vZRX "index"
       `,
-      "VenusBorrowState",
+      "BaiBorrowState",
       [
         new Arg("comptroller", getComptroller, {implicit: true}),
-        new Arg("VToken", getVTokenV),
+        new Arg("BToken", getBTokenV),
         new Arg("key", getStringV),
       ],
-      async (world, {comptroller, VToken, key}) => {
-        const result = await comptroller.methods.venusBorrowState(VToken._address).call();
+      async (world, {comptroller, BToken, key}) => {
+        const result = await comptroller.methods.venusBorrowState(BToken._address).call();
         return new NumberV(result[key.val]);
       }
     ),
     new Fetcher<{comptroller: Comptroller, account: AddressV, key: StringV}, NumberV>(`
-        #### VenusAccrued(address)
+        #### BaiAccrued(address)
 
-        * "Comptroller VenusAccrued Coburn
+        * "Comptroller BaiAccrued Coburn
       `,
-      "VenusAccrued",
+      "BaiAccrued",
       [
         new Arg("comptroller", getComptroller, {implicit: true}),
         new Arg("account", getAddressV),
@@ -433,48 +433,48 @@ export function comptrollerFetchers() {
         return new NumberV(result);
       }
     ),
-    new Fetcher<{comptroller: Comptroller, VToken: VToken, account: AddressV}, NumberV>(`
+    new Fetcher<{comptroller: Comptroller, BToken: BToken, account: AddressV}, NumberV>(`
         #### venusSupplierIndex
 
-        * "Comptroller VenusSupplierIndex vZRX Coburn
+        * "Comptroller BaiSupplierIndex vZRX Coburn
       `,
-      "VenusSupplierIndex",
+      "BaiSupplierIndex",
       [
         new Arg("comptroller", getComptroller, {implicit: true}),
-        new Arg("VToken", getVTokenV),
+        new Arg("BToken", getBTokenV),
         new Arg("account", getAddressV),
       ],
-      async (world, {comptroller, VToken, account}) => {
-        return new NumberV(await comptroller.methods.venusSupplierIndex(VToken._address, account.val).call());
+      async (world, {comptroller, BToken, account}) => {
+        return new NumberV(await comptroller.methods.venusSupplierIndex(BToken._address, account.val).call());
       }
     ),
-    new Fetcher<{comptroller: Comptroller, VToken: VToken, account: AddressV}, NumberV>(`
-        #### VenusBorrowerIndex
+    new Fetcher<{comptroller: Comptroller, BToken: BToken, account: AddressV}, NumberV>(`
+        #### BaiBorrowerIndex
 
-        * "Comptroller VenusBorrowerIndex vZRX Coburn
+        * "Comptroller BaiBorrowerIndex vZRX Coburn
       `,
-      "VenusBorrowerIndex",
+      "BaiBorrowerIndex",
       [
         new Arg("comptroller", getComptroller, {implicit: true}),
-        new Arg("VToken", getVTokenV),
+        new Arg("BToken", getBTokenV),
         new Arg("account", getAddressV),
       ],
-      async (world, {comptroller, VToken, account}) => {
-        return new NumberV(await comptroller.methods.venusBorrowerIndex(VToken._address, account.val).call());
+      async (world, {comptroller, BToken, account}) => {
+        return new NumberV(await comptroller.methods.venusBorrowerIndex(BToken._address, account.val).call());
       }
     ),
-    new Fetcher<{comptroller: Comptroller, VToken: VToken}, NumberV>(`
-        #### VenusSpeed
+    new Fetcher<{comptroller: Comptroller, BToken: BToken}, NumberV>(`
+        #### BaiSpeed
 
-        * "Comptroller VenusSpeed vZRX
+        * "Comptroller BaiSpeed vZRX
       `,
-      "VenusSpeed",
+      "BaiSpeed",
       [
         new Arg("comptroller", getComptroller, {implicit: true}),
-        new Arg("VToken", getVTokenV),
+        new Arg("BToken", getBTokenV),
       ],
-      async (world, {comptroller, VToken}) => {
-        return new NumberV(await comptroller.methods.venusSpeeds(VToken._address).call());
+      async (world, {comptroller, BToken}) => {
+        return new NumberV(await comptroller.methods.venusSpeeds(BToken._address).call());
       }
     ),
     new Fetcher<{comptroller: Comptroller}, AddressV>(`
@@ -488,17 +488,17 @@ export function comptrollerFetchers() {
         ],
         async (world, {comptroller}) => new AddressV(await comptroller.methods.borrowCapGuardian().call())
     ),
-    new Fetcher<{comptroller: Comptroller, VToken: VToken}, NumberV>(`
+    new Fetcher<{comptroller: Comptroller, BToken: BToken}, NumberV>(`
         #### BorrowCaps
         * "Comptroller BorrowCaps vZRX
       `,
       "BorrowCaps",
       [
         new Arg("comptroller", getComptroller, {implicit: true}),
-        new Arg("VToken", getVTokenV),
+        new Arg("BToken", getBTokenV),
       ],
-      async (world, {comptroller, VToken}) => {
-        return new NumberV(await comptroller.methods.borrowCaps(VToken._address).call());
+      async (world, {comptroller, BToken}) => {
+        return new NumberV(await comptroller.methods.borrowCaps(BToken._address).call());
       }
     )
   ];

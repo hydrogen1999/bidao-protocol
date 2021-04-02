@@ -5,7 +5,7 @@ const {
 
 const {
   makePriceOracle
-} = require('../Utils/Venus');
+} = require('../Utils/Bai');
 
 describe('Unitroller', () => {
   let root, accounts;

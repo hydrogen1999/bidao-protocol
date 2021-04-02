@@ -3,8 +3,8 @@ pragma solidity ^0.5.16;
 import "./FaucetToken.sol";
 
 /**
-  * @title The Venus Evil Test Token
-  * @author Venus
+  * @title The Bai Evil Test Token
+  * @author Bai
   * @notice A simple test token that fails certain operations
   */
 contract EvilToken is FaucetToken {

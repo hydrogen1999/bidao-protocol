@@ -4,7 +4,7 @@ GasTest "Send Mint 1 vBNB"
     NewComptroller
     ListedBNBTokenMinted vBNB initialExchangeRate:0.005e9
     Expect Changes (BNBBalance Geoff) -0.005e18
-    Expect Changes (VToken vBNB UnderlyingBalance Geoff) +0.005e18
+    Expect Changes (BToken vBNB UnderlyingBalance Geoff) +0.005e18
     SendMintBnb Geoff 0.005e18 vBNB
     Assert Equal (Bep20 vBNB TokenBalance Geoff) 10e8
     Assert LastGas LessThan 1.2e5
@@ -13,7 +13,7 @@ GasTest "Call Mint 1 vBNB"
     NewComptroller
     ListedBNBTokenMinted vBNB initialExchangeRate:0.005e9
     Expect Changes (BNBBalance Geoff) -0.005e18
-    Expect Changes (VToken vBNB UnderlyingBalance Geoff) +0.005e18
+    Expect Changes (BToken vBNB UnderlyingBalance Geoff) +0.005e18
     CallMintBnb Geoff 0.005e18 vBNB
     Assert Equal (Bep20 vBNB TokenBalance Geoff) 10e8
     Assert LastGas LessThan 1.2e5
@@ -22,7 +22,7 @@ Test "Mint with insufficient bnb balance"
     NewComptroller
     ListedBNBTokenMinted vBNB initialExchangeRate:0.005e9
     AllowFailures
-    Invariant Remains (VToken vBNB UnderlyingBalance Geoff) 0e18
+    Invariant Remains (BToken vBNB UnderlyingBalance Geoff) 0e18
     Invariant Remains (Bep20 vBNB TokenBalance Geoff) 0e8
     Invariant Static (BNBBalance Geoff)
     CallMintBnb Geoff 1e30 vBNB

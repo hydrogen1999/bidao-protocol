@@ -10,12 +10,12 @@ export function printHelp(printer: Printer, event: Event, expressions: Expressio
     if (path.length === 0) {
       banner = (
 `
-## Venus Command Runner
+## Bai Command Runner
 
-The Venus Command Runner makes it easy to interact with Venus. You can input simple commands
+The Bai Command Runner makes it easy to interact with Bai. You can input simple commands
 and it will construct Web3 calls to pull data or generate transactions. A list of available commands
 is included below. To dig further into a command run \`Help <Command>\`, such as \`Help From\` or for
-sub-commands run \`Help VToken\` or \`Help VToken Mint\`.
+sub-commands run \`Help BToken\` or \`Help BToken Mint\`.
 `).trim();
     } else {
       if (expressions.length > 0) {

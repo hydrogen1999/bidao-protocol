@@ -51,27 +51,27 @@ Test "Queuing and execute a transaction for setPendingAdmin"
     Assert Equal (Timelock Admin) (User Jared Address)
     Assert Equal (Timelock PendingAdmin) (Address Zero)
 
-Test "Accept vToken admin from Timelock"
+Test "Accept bToken admin from Timelock"
     FreezeTime 90
     -- Admin:Geoff Delay:1 week
     Timelock Deploy Geoff 604800
     Assert Equal (Timelock Admin) (User Geoff Address)
     NewComptroller
-    NewVToken ZRX vZRX
-    Assert Equal (VToken vZRX Admin) (Address Root)
-    Assert Equal (VToken vZRX PendingAdmin) (Address Zero)
-    From Root (VToken vZRX SetPendingAdmin (Timelock Address))
-    Assert Equal (VToken vZRX PendingAdmin) (Timelock Address)
+    NewBToken ZRX vZRX
+    Assert Equal (BToken vZRX Admin) (Address Root)
+    Assert Equal (BToken vZRX PendingAdmin) (Address Zero)
+    From Root (BToken vZRX SetPendingAdmin (Timelock Address))
+    Assert Equal (BToken vZRX PendingAdmin) (Timelock Address)
     -- eta = 1 week (604800) + blockTimestamp (~100) = 604900
-    Assert False (Timelock QueuedTransaction (Timelock TxHash (VToken vZRX Address) 0 604900 "_acceptAdmin()" ""))
-    From Geoff (Timelock QueueTransaction (VToken vZRX Address) 0 604900 "_acceptAdmin()" "")
-    Assert True (Timelock QueuedTransaction (Timelock TxHash (VToken vZRX Address) 0 604900 "_acceptAdmin()" ""))
+    Assert False (Timelock QueuedTransaction (Timelock TxHash (BToken vZRX Address) 0 604900 "_acceptAdmin()" ""))
+    From Geoff (Timelock QueueTransaction (BToken vZRX Address) 0 604900 "_acceptAdmin()" "")
+    Assert True (Timelock QueuedTransaction (Timelock TxHash (BToken vZRX Address) 0 604900 "_acceptAdmin()" ""))
     --  Now execute after delay time
     FreezeTime 604900
-    From Geoff (Timelock ExecuteTransaction (VToken vZRX Address) 0 604900 "_acceptAdmin()" "")
-    Assert False (Timelock QueuedTransaction (Timelock TxHash (VToken vZRX Address) 0 604900 "_acceptAdmin()" ""))
-    Assert Equal (VToken vZRX Admin) (Timelock Address)
-    Assert Equal (VToken vZRX PendingAdmin) (Address Zero)
+    From Geoff (Timelock ExecuteTransaction (BToken vZRX Address) 0 604900 "_acceptAdmin()" "")
+    Assert False (Timelock QueuedTransaction (Timelock TxHash (BToken vZRX Address) 0 604900 "_acceptAdmin()" ""))
+    Assert Equal (BToken vZRX Admin) (Timelock Address)
+    Assert Equal (BToken vZRX PendingAdmin) (Address Zero)
 
 Test "Accept unitroller admin from Timelock"
     -- Admin:Geoff Delay:1 week
@@ -95,14 +95,14 @@ Test "Accept unitroller admin from Timelock"
     Assert Equal (Unitroller PendingAdmin) (Address Zero)
 
 
-Test "Reduce reserves for VBep20 from Timelock and send reserves to external address"
+Test "Reduce reserves for BBep20 from Timelock and send reserves to external address"
     NewComptroller
-    ListedVToken ZRX vZRX initialExchangeRate:1e9
+    ListedBToken ZRX vZRX initialExchangeRate:1e9
     Prep Geoff 50e18 ZRX vZRX
     Mint Geoff 50e18 vZRX
     Assert Equal (Bep20 vZRX TokenBalance Geoff) (Exactly 500e8)
-    Assert Equal (VToken vZRX UnderlyingBalance Geoff) (Exactly 50e18)
-    Assert Equal (VToken vZRX ExchangeRate) (Exactly 1e9)
+    Assert Equal (BToken vZRX UnderlyingBalance Geoff) (Exactly 50e18)
+    Assert Equal (BToken vZRX ExchangeRate) (Exactly 1e9)
     BorrowAndRepayWithInterest ZRX vZRX 10e18 5e18 interestRate:0.000001 blocks:500000 reserveRate:0.2
     -- We've accrued 10% interest for 5 blocks, or 50% of the amount,
     --   thus, we should have accrued 5e18 of interest for the protocol
@@ -113,40 +113,40 @@ Test "Reduce reserves for VBep20 from Timelock and send reserves to external add
     Assert Equal (Bep20 ZRX TokenBalance vZRX) (Exactly 55e18)
     Assert Equal (Bep20 ZRX TokenBalance (Timelock Address)) (Exactly 0e18)
     Assert Equal (Bep20 vZRX TokenBalance Geoff) (Exactly 500e8)
-    Assert Equal (VToken vZRX Reserves) (Exactly 1e18)
-    Assert Equal (VToken vZRX UnderlyingBalance Geoff) (Exactly 54e18)
+    Assert Equal (BToken vZRX Reserves) (Exactly 1e18)
+    Assert Equal (BToken vZRX UnderlyingBalance Geoff) (Exactly 54e18)
     -- (55.0e18+0.0e18-1.0e18)/500.0e8
-    Assert Equal (VToken vZRX ExchangeRate) (Exactly 1.08e9)
+    Assert Equal (BToken vZRX ExchangeRate) (Exactly 1.08e9)
     -- Set Timelock as admin
-    From Root (VToken vZRX SetPendingAdmin (Timelock Address))
+    From Root (BToken vZRX SetPendingAdmin (Timelock Address))
     -- Queue Transactions
     FreezeTime 90
-    From Jared (Timelock QueueTransaction (VToken vZRX Address) 0 604900 "_acceptAdmin()" "")
-    From Jared (Timelock QueueTransaction (VToken vZRX Address) 0 604900 "_reduceReserves(uint256)" "1000000000000000000")
+    From Jared (Timelock QueueTransaction (BToken vZRX Address) 0 604900 "_acceptAdmin()" "")
+    From Jared (Timelock QueueTransaction (BToken vZRX Address) 0 604900 "_reduceReserves(uint256)" "1000000000000000000")
     From Jared (Timelock QueueTransaction (Bep20 ZRX Address) 0 604900 "transfer(address,uint256)" "0x0000000000000000000000000000000000000001" "1000000000000000000")
     FreezeTime 604900
-    From Jared (Timelock ExecuteTransaction (VToken vZRX Address) 0 604900 "_acceptAdmin()" "")
+    From Jared (Timelock ExecuteTransaction (BToken vZRX Address) 0 604900 "_acceptAdmin()" "")
     -- Now, let's pull out all of our reserves (1e18)
-    From Jared (Timelock ExecuteTransaction (VToken vZRX Address) 0 604900 "_reduceReserves(uint256)" "1000000000000000000")
+    From Jared (Timelock ExecuteTransaction (BToken vZRX Address) 0 604900 "_reduceReserves(uint256)" "1000000000000000000")
     Assert Equal (Bep20 ZRX TokenBalance vZRX) (Exactly 54e18)
     Assert Equal (Bep20 ZRX TokenBalance (Timelock Address)) (Exactly 1e18)
     Assert Equal (Bep20 vZRX TokenBalance Geoff) (Exactly 500e8)
-    Assert Equal (VToken vZRX Reserves) (Exactly 0e18)
-    Assert Equal (VToken vZRX UnderlyingBalance Geoff) (Exactly 54e18)
+    Assert Equal (BToken vZRX Reserves) (Exactly 0e18)
+    Assert Equal (BToken vZRX UnderlyingBalance Geoff) (Exactly 54e18)
     -- (54.0e18+0.0e18-0.0e18)/500.0e8
-    Assert Equal (VToken vZRX ExchangeRate) (Exactly 1.08e9)
+    Assert Equal (BToken vZRX ExchangeRate) (Exactly 1.08e9)
     Assert Equal (Bep20 ZRX TokenBalance "0x0000000000000000000000000000000000000001") (Exactly 0e18)
     From Jared (Timelock ExecuteTransaction (Bep20 ZRX Address) 0 604900 "transfer(address,uint256)" "0x0000000000000000000000000000000000000001" "1000000000000000000")
     Assert Equal (Bep20 ZRX TokenBalance (Timelock Address)) (Exactly 0e18)
     Assert Equal (Bep20 ZRX TokenBalance "0x0000000000000000000000000000000000000001") (Exactly 1e18)
 
-Test "Reduce reserves for VBNB from Timelock and send reserves to external address"
+Test "Reduce reserves for BBNB from Timelock and send reserves to external address"
     NewComptroller
     ListedBNBToken vBNB initialExchangeRate:1e9
     CallMintBnb Geoff 50e18 vBNB
     Assert Equal (Bep20 vBNB TokenBalance Geoff) (Exactly 500e8)
-    Assert Equal (VToken vBNB UnderlyingBalance Geoff) (Exactly 50e18)
-    Assert Equal (VToken vBNB ExchangeRate) (Exactly 1e9)
+    Assert Equal (BToken vBNB UnderlyingBalance Geoff) (Exactly 50e18)
+    Assert Equal (BToken vBNB ExchangeRate) (Exactly 1e9)
     BorrowAndRepayBnbWithInterest vBNB 10e18 5e18 interestRate:0.000001 blocks:500000 reserveRate:0.2
     -- We've accrued 10% interest for 5 blocks, or 50% of the amount,
     --   thus, we should have accrued 5e18 of interest for the protocol
@@ -158,27 +158,27 @@ Test "Reduce reserves for VBNB from Timelock and send reserves to external addre
     Assert Equal (BNBBalance vBNB) (Exactly 55e18)
     Assert Equal (BNBBalance (Timelock Address)) (Exactly 0e18)
     Assert Equal (Bep20 vBNB TokenBalance Geoff) (Exactly 500e8)
-    Assert Equal (VToken vBNB Reserves) (Exactly 1e18)
-    Assert Equal (VToken vBNB UnderlyingBalance Geoff) (Exactly 54e18)
+    Assert Equal (BToken vBNB Reserves) (Exactly 1e18)
+    Assert Equal (BToken vBNB UnderlyingBalance Geoff) (Exactly 54e18)
     -- (55.0e18+0.0e18-1.0e18)/500.0e8
-    Assert Equal (VToken vBNB ExchangeRate) (Exactly 1.08e9)
+    Assert Equal (BToken vBNB ExchangeRate) (Exactly 1.08e9)
     -- Set Timelock as admin
-    From Root (VToken vBNB SetPendingAdmin (Timelock Address))
+    From Root (BToken vBNB SetPendingAdmin (Timelock Address))
     -- Queue Transactions
-    From Jared (Timelock QueueTransaction (VToken vBNB Address) 0 604900 "_acceptAdmin()" "")
-    From Jared (Timelock QueueTransaction (VToken vBNB Address) 0 604900 "_reduceReserves(uint256)" "1000000000000000000")
+    From Jared (Timelock QueueTransaction (BToken vBNB Address) 0 604900 "_acceptAdmin()" "")
+    From Jared (Timelock QueueTransaction (BToken vBNB Address) 0 604900 "_reduceReserves(uint256)" "1000000000000000000")
     From Jared (Timelock QueueTransaction Jared 1000000000000000000 604900 "" "")
     FreezeTime 604900
-    From Jared (Timelock ExecuteTransaction (VToken vBNB Address) 0 604900 "_acceptAdmin()" "")
+    From Jared (Timelock ExecuteTransaction (BToken vBNB Address) 0 604900 "_acceptAdmin()" "")
     -- Now, let's pull out all of our reserves (1e18)
-    From Jared (Timelock ExecuteTransaction (VToken vBNB Address) 0 604900 "_reduceReserves(uint256)" "1000000000000000000")
+    From Jared (Timelock ExecuteTransaction (BToken vBNB Address) 0 604900 "_reduceReserves(uint256)" "1000000000000000000")
     Assert Equal (BNBBalance (Timelock Address)) 1e18
     Assert Equal (BNBBalance vBNB) (Exactly 54e18)
     Assert Equal (Bep20 vBNB TokenBalance Geoff) (Exactly 500e8)
-    Assert Equal (VToken vBNB Reserves) (Exactly 0e18)
-    Assert Equal (VToken vBNB UnderlyingBalance Geoff) (Exactly 54e18)
+    Assert Equal (BToken vBNB Reserves) (Exactly 0e18)
+    Assert Equal (BToken vBNB UnderlyingBalance Geoff) (Exactly 54e18)
     -- (54.0e18+0.0e18-0.0e18)/500.0e8
-    Assert Equal (VToken vBNB ExchangeRate) (Exactly 1.08e9)
+    Assert Equal (BToken vBNB ExchangeRate) (Exactly 1.08e9)
     Expect Changes (BNBBalance Jared) 1e18
     Trx GasPrice 0 (From Jared (Timelock ExecuteTransaction Jared 1000000000000000000 604900 "" ""))
     Assert Equal (BNBBalance (Timelock Address)) (Exactly 0e18)

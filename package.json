@@ -1,7 +1,7 @@
 {
-  "name": "venus-protocol",
+  "name": "bai-protocol",
   "version": "0.2.1",
-  "description": "The Venus Money Market",
+  "description": "The Bai Money Market",
   "main": "index.js",
   "scripts": {
     "compile": "./script/compile",
@@ -14,7 +14,7 @@
     "test": "./script/test",
     "test:prepare": "NO_RUN=true ./script/test"
   },
-  "repository": "git@github.com:SwipeWallet/venus-protocol.git",
+  "repository": "git@github.com:SwipeWallet/bai-protocol.git",
   "author": "Swipe",
   "license": "UNLICENSED",
   "devDependencies": {

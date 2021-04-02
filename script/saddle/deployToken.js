@@ -13,7 +13,7 @@ npx saddle -n rinkeby script token:deploy '{
   "comptroller": "$Comptroller",
   "interestRateModel": "$Base200bps_Slope3000bps",
   "initialExchangeRateMantissa": "2.0e18",
-  "name": "Venus Kyber Network Crystal",
+  "name": "Bai Kyber Network Crystal",
   "symbol": "vKNC",
   "decimals": "8",
   "admin": "$Timelock"
@@ -39,10 +39,10 @@ function sleep(timeout) {
     return printUsage();
   }
 
-  console.log(`Deploying vToken with ${JSON.stringify(conf)}`);
+  console.log(`Deploying bToken with ${JSON.stringify(conf)}`);
 
   let deployArgs = [conf.underlying, conf.comptroller, conf.interestRateModel, conf.initialExchangeRateMantissa.toString(), conf.name, conf.symbol, conf.decimals, conf.admin];
-  let contract = await saddle.deploy('VBep20Immutable', deployArgs);
+  let contract = await saddle.deploy('BBep20Immutable', deployArgs);
 
   console.log(`Deployed contract to ${contract._address}`);
 
@@ -56,7 +56,7 @@ function sleep(timeout) {
     await sleep(30000); // Give BscScan time to learn about contract
     console.log(`Now verifying contract on BscScan...`);
 
-    await saddle.verify(bscscanApiKey, contract._address, 'VBep20Immutable', deployArgs, 0);
+    await saddle.verify(bscscanApiKey, contract._address, 'BBep20Immutable', deployArgs, 0);
     console.log(`Contract verified at https://${network}.bscscan.io/address/${contract._address}`);
   }
 

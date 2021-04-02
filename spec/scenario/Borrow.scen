@@ -1,8 +1,8 @@
 
 Test "Borrow some BAT and enters BAT if BAT not entered"
     NewComptroller price:1.0
-    NewVToken ZRX vZRX
-    NewVToken BAT vBAT
+    NewBToken ZRX vZRX
+    NewBToken BAT vBAT
     Give vBAT 10e18 BAT -- Faucet some bat to borrow
     Support vZRX collateralFactor:0.5
     Support vBAT collateralFactor:0.5
@@ -10,7 +10,7 @@ Test "Borrow some BAT and enters BAT if BAT not entered"
     Mint Geoff 100e18 vZRX
     EnterMarkets Geoff vZRX
     Borrow Geoff 1e18 vBAT
-    Assert Equal (vToken vBAT BorrowBalance Geoff) (Exactly 1e18)
+    Assert Equal (bToken vBAT BorrowBalance Geoff) (Exactly 1e18)
     Assert Equal (Bep20 BAT TokenBalance Geoff) (Exactly 1e18)
     Assert Equal (Bep20 BAT TokenBalance vBAT) (Exactly 9e18)
     Assert Equal (Comptroller MembershipLength Geoff) (Exactly 2)
@@ -19,8 +19,8 @@ Test "Borrow some BAT and enters BAT if BAT not entered"
 
 Test "Borrow some BAT fails, but user still entered"
     NewComptroller price:1.0
-    NewVToken ZRX vZRX
-    NewVToken BAT vBAT
+    NewBToken ZRX vZRX
+    NewBToken BAT vBAT
     Support vZRX collateralFactor:0.5
     Support vBAT collateralFactor:0.5
     Prep Geoff Some ZRX vZRX
@@ -30,29 +30,29 @@ Test "Borrow some BAT fails, but user still entered"
     Invariant Static (Bep20 BAT TokenBalance vBAT)
     AllowFailures
     Borrow Geoff 1e18 vBAT
-    Assert Failure TOKEN_INSUFFICIENT_CASH BORROW_CASH_NOT_AVAILABLE
+    Assert Failure TOKEN_INSUFFICIENT_CASH BORROW_CASH_NOT_ABAILABLE
     Assert Equal (Comptroller MembershipLength Geoff) (Exactly 2)
     Assert True (Comptroller CheckMembership Geoff vZRX)
     Assert True (Comptroller CheckMembership Geoff vBAT)
 
 Test "Borrow some BAT fails when no BAT available"
     NewComptroller price:1.0
-    NewVToken ZRX vZRX
-    NewVToken BAT vBAT
+    NewBToken ZRX vZRX
+    NewBToken BAT vBAT
     Support vZRX collateralFactor:0.5
     Support vBAT collateralFactor:0.5
     Prep Geoff Some ZRX vZRX
     Mint Geoff 100e18 vZRX
     EnterMarkets Geoff vZRX vBAT
-    Invariant Static (VToken vZRX ExchangeRateStored)
+    Invariant Static (BToken vZRX ExchangeRateStored)
     AllowFailures
     Borrow Geoff 1e18 vBAT
-    Assert Failure TOKEN_INSUFFICIENT_CASH BORROW_CASH_NOT_AVAILABLE
+    Assert Failure TOKEN_INSUFFICIENT_CASH BORROW_CASH_NOT_ABAILABLE
 
 Test "Borrow some BAT fails when already entered max assets"
     NewComptroller price:1.0 maxAssets:1
-    NewVToken ZRX vZRX
-    NewVToken BAT vBAT
+    NewBToken ZRX vZRX
+    NewBToken BAT vBAT
     Give vBAT 10e18 BAT -- Faucet some bat to borrow
     Support vZRX collateralFactor:0.5
     Support vBAT collateralFactor:0.5
@@ -65,8 +65,8 @@ Test "Borrow some BAT fails when already entered max assets"
 
 Test "Borrow fails if market not listed"
     NewComptroller price:1.0
-    NewVToken ZRX vZRX
-    NewVToken BAT vBAT
+    NewBToken ZRX vZRX
+    NewBToken BAT vBAT
     Give vBAT 10e18 BAT -- Faucet some bat to borrow
     Support vZRX collateralFactor:0.5
     Prep Geoff Some ZRX vZRX
@@ -79,8 +79,8 @@ Test "Borrow fails if market not listed"
 Test "Borrow some BAT from Excess Cash"
     Invariant Success
     NewComptroller price:1.0
-    NewVToken ZRX vZRX
-    NewVToken BAT vBAT
+    NewBToken ZRX vZRX
+    NewBToken BAT vBAT
     Give vBAT 10e18 BAT -- Faucet some bat to borrow
     Support vZRX collateralFactor:0.5
     Support vBAT collateralFactor:0.5
@@ -88,14 +88,14 @@ Test "Borrow some BAT from Excess Cash"
     Mint Geoff 100e18 vZRX
     EnterMarkets Geoff vZRX vBAT
     Borrow Geoff 1e18 vBAT
-    Assert Equal (vToken vBAT BorrowBalance Geoff) (Exactly 1e18)
+    Assert Equal (bToken vBAT BorrowBalance Geoff) (Exactly 1e18)
     Assert Equal (Bep20 BAT TokenBalance Geoff) (Exactly 1e18)
     Assert Equal (Bep20 BAT TokenBalance vBAT) (Exactly 9e18)
 
 Test "Borrow some BAT reverts if borrow is paused"
     NewComptroller price:1.0
-    NewVToken ZRX vZRX
-    NewVToken BAT vBAT
+    NewBToken ZRX vZRX
+    NewBToken BAT vBAT
     Give vBAT 10e18 BAT -- Faucet some bat to borrow
     Support vZRX collateralFactor:0.5
     Support vBAT collateralFactor:0.5
@@ -106,11 +106,11 @@ Test "Borrow some BAT reverts if borrow is paused"
     AllowFailures
     Borrow Geoff 1e18 vBAT
     Assert Revert "revert protocol is paused"
-    Assert Equal (vToken vBAT BorrowBalance Geoff) 0
+    Assert Equal (bToken vBAT BorrowBalance Geoff) 0
     Assert Equal (Bep20 BAT TokenBalance Geoff) 0
     Assert Equal (Bep20 BAT TokenBalance vBAT) (Exactly 10e18)
     Comptroller SetProtocolPaused False
     Borrow Geoff 1e18 vBAT
-    Assert Equal (vToken vBAT BorrowBalance Geoff) (Exactly 1e18)
+    Assert Equal (bToken vBAT BorrowBalance Geoff) (Exactly 1e18)
     Assert Equal (Bep20 BAT TokenBalance Geoff) (Exactly 1e18)
     Assert Equal (Bep20 BAT TokenBalance vBAT) (Exactly 9e18)

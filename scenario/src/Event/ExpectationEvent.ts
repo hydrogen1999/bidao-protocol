@@ -38,7 +38,7 @@ export function expectationCommands() {
         #### Changes
 
         * "Changes <Value> amount:<Number> tolerance:<Number>" - Expects that given value changes by amount
-          * E.g ."Expect Changes (VToken vZRX UnderlyingBalance Geoff) +10e18"
+          * E.g ."Expect Changes (BToken vZRX UnderlyingBalance Geoff) +10e18"
       `,
       "Changes",
       [
@@ -53,7 +53,7 @@ export function expectationCommands() {
         #### Remains
 
         * "Expect Remains <Condition> <Value>" - Ensures that the given condition starts at and remains a given value
-          * E.g ."Expect Remains (VToken vZRX UnderlyingBalance Geoff) (Exactly 0)"
+          * E.g ."Expect Remains (BToken vZRX UnderlyingBalance Geoff) (Exactly 0)"
       `,
       "Remains",
       [

@@ -1,6 +1,6 @@
 {
   "Contracts": {
-    "VenusLens": "0xB272C5C22850CcEB72C6D45DFBDbDE0D9433b036",
+    "BaiLens": "0xB272C5C22850CcEB72C6D45DFBDbDE0D9433b036",
     "Base200bps_Slope2000bps_Jump20000bps_Kink90": "0x46fBA97213f54E37491f5980a990a47214db8C94",
     "Base200bps_Slope3000bps": "0x27fe405d1346211D46c36233F6322ac508e08831",
     "Base500bps_Slope1200bps": "0x1F3A44810939520FcD906Abfc3099389490288B7",
@@ -16,7 +16,7 @@
     "BAT": "0x443Fd8D5766169416aE42B8E050fE9422f628419",
     "Fauceteer": "0x8E78C7D0fA09F26858372898f0ECca808DaC7828",
     "PriceOracle": "0xb2b3d5B4E35881D518fa2062325F118A6Ebb6C4A",
-    "XVS": "0x1fe16de955718cfab7a44605458ab023838c2793",
+    "XBID": "0x1fe16de955718cfab7a44605458ab023838c2793",
     "Timelock": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
     "Unitroller": "0x54188bBeDD7b68228fa89CbDDa5e3e930459C6c6",
     "vZRX": "0x00e02a5200CE3D5b5743F5369Deb897946C88121",
@@ -36,7 +36,7 @@
     "PriceOracleProxy": "0xb2b3d5B4E35881D518fa2062325F118A6Ebb6C4A"
   },
   "Blocks": {
-    "VenusLens": 8026049,
+    "BaiLens": 8026049,
     "Base200bps_Slope2000bps_Jump20000bps_Kink90": 8026055,
     "Base200bps_Slope3000bps": 8026061,
     "Base500bps_Slope1200bps": 8026064,
@@ -52,7 +52,7 @@
     "BAT": 8026132,
     "Fauceteer": 8026135,
     "PriceOracle": 8026138,
-    "XVS": 7404113,
+    "XBID": 7404113,
     "Timelock": 8026159,
     "Unitroller": 8026311,
     "vZRX": 8026328,
@@ -79,9 +79,9 @@
     "vBnbAddress": "0xBe839b6D93E3eA47eFFcCA1F27841C917a8794f3",
     "address": "0xE0a38ab2951B6525C33f20D5E637Ab24DFEF9bcB"
   },
-  "VenusLens": {
-    "name": "VenusLens",
-    "contract": "VenusLens"
+  "BaiLens": {
+    "name": "BaiLens",
+    "contract": "BaiLens"
   },
   "Unitroller": {
     "description": "Unitroller",
@@ -102,7 +102,7 @@
     }
   },
   "Constructors": {
-    "VenusLens": "0x",
+    "BaiLens": "0x",
     "Base200bps_Slope2000bps_Jump20000bps_Kink90": "0x00000000000000000000000000000000000000000000000000470de4df82000000000000000000000000000000000000000000000000000002c68af0bb1400000000000000000000000000000000000000000000000000001bc16d674ec800000000000000000000000000000000000000000000000000000c7d713b49da0000",
     "Base200bps_Slope3000bps": "0x00000000000000000000000000000000000000000000000000470de4df8200000000000000000000000000000000000000000000000000000429d069189e0000",
     "Base500bps_Slope1200bps": "0x00000000000000000000000000000000000000000000000000b1a2bc2ec5000000000000000000000000000000000000000000000000000001aa535d3d0c0000",
@@ -191,200 +191,200 @@
       "address": "0x443Fd8D5766169416aE42B8E050fE9422f628419",
       "contract": "BAToken"
     },
-    "XVS": {
-      "name": "XVS",
-      "symbol": "XVS",
+    "XBID": {
+      "name": "XBID",
+      "symbol": "XBID",
       "decimals": 18,
       "address": "0x1fe16de955718cfab7a44605458ab023838c2793"
     },
     "vZRX": {
-      "name": "Venus ZRX",
+      "name": "Bai ZRX",
       "symbol": "vZRX",
       "decimals": 8,
       "address": "0x00e02a5200CE3D5b5743F5369Deb897946C88121",
       "initial_exchange_rate_mantissa": "200000000000000000000000000",
       "admin": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
       "underlying": "0xE4C6182EA459E63B8F1be7c428381994CcC2D49c",
-      "contract": "VBep20Immutable"
+      "contract": "BBep20Immutable"
     },
     "vWBTC": {
-      "name": "Venus WBTC",
+      "name": "Bai WBTC",
       "symbol": "vWBTC",
       "decimals": 8,
       "address": "0x58145Bc5407D63dAF226e4870beeb744C588f149",
       "initial_exchange_rate_mantissa": "20000000000000000",
       "admin": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
       "underlying": "0xBde8bB00A7eF67007A96945B3a3621177B615C44",
-      "contract": "VBep20Immutable"
+      "contract": "BBep20Immutable"
     },
     "vUSDT": {
-      "name": "Venus USDT",
+      "name": "Bai USDT",
       "symbol": "vUSDT",
       "decimals": 8,
       "address": "0x135669c2dcBd63F639582b313883F101a4497F76",
       "initial_exchange_rate_mantissa": "200000000000000",
       "admin": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
       "underlying": "0x516de3a7A567d81737e3a46ec4FF9cFD1fcb0136",
-      "contract": "VBep20Delegator"
+      "contract": "BBep20Delegator"
     },
     "vUSDC": {
-      "name": "Venus USDC",
+      "name": "Bai USDC",
       "symbol": "vUSDC",
       "decimals": 8,
       "address": "0x8aF93cae804cC220D1A608d4FA54D1b6ca5EB361",
       "initial_exchange_rate_mantissa": "200000000000000",
       "admin": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
       "underlying": "0x0D9C8723B343A8368BebE0B5E89273fF8D712e3C",
-      "contract": "VBep20Immutable"
+      "contract": "BBep20Immutable"
     },
     "vBNB": {
-      "name": "Venus BNB",
+      "name": "Bai BNB",
       "symbol": "vBNB",
       "decimals": 8,
       "address": "0xBe839b6D93E3eA47eFFcCA1F27841C917a8794f3",
       "initial_exchange_rate_mantissa": "200000000000000000000000000",
       "admin": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
       "underlying": "",
-      "contract": "VBNB"
+      "contract": "BBNB"
     },
     "vSAI": {
-      "name": "Venus SAI",
+      "name": "Bai SAI",
       "symbol": "vSAI",
       "decimals": 8,
       "address": "0xc4d2A5872E16BC9E6557bE8B24683D96EB6ADca9",
       "initial_exchange_rate_mantissa": "200000000000000000000000000",
       "admin": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
       "underlying": "0x26fF7457496600C63b3E8902C9f871E60eDec4e4",
-      "contract": "VBep20Immutable"
+      "contract": "BBep20Immutable"
     },
     "vREP": {
-      "name": "Venus REP",
+      "name": "Bai REP",
       "symbol": "vREP",
       "decimals": 8,
       "address": "0x8F2c8B147A3D316d2b98f32F3864746F034A55a2",
       "initial_exchange_rate_mantissa": "200000000000000000000000000",
       "admin": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
       "underlying": "0x6FD34013CDD2905d8d27b0aDaD5b97B2345cF2B8",
-      "contract": "VBep20Immutable"
+      "contract": "BBep20Immutable"
     },
     "vDAI": {
-      "name": "Venus DAI",
+      "name": "Bai DAI",
       "symbol": "vDAI",
       "decimals": 8,
       "address": "0xdb5Ed4605C11822811a39F94314fDb8F0fb59A2C",
       "initial_exchange_rate_mantissa": "200000000000000000000000000",
       "admin": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
       "underlying": "0xc2118d4d90b274016cB7a54c03EF52E6c537D957",
-      "contract": "VBep20Delegator"
+      "contract": "BBep20Delegator"
     },
     "vBAT": {
-      "name": "Venus BAT",
+      "name": "Bai BAT",
       "symbol": "vBAT",
       "decimals": 8,
       "address": "0x9E95c0b2412cE50C37a121622308e7a6177F819D",
       "initial_exchange_rate_mantissa": "200000000000000000000000000",
       "admin": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
       "underlying": "0x443Fd8D5766169416aE42B8E050fE9422f628419",
-      "contract": "VBep20Immutable"
+      "contract": "BBep20Immutable"
     }
   },
-  "VTokenDelegate": {
+  "BTokenDelegate": {
     "undefined": {
       "address": "0x244563F1CCCf6c66644F0A5d2C31cfE260d31d5a",
-      "contract": "VBep20Delegate",
-      "description": "Delegate VBep20Delegate"
+      "contract": "BBep20Delegate",
+      "description": "Delegate BBep20Delegate"
     }
   },
-  "vTokens": {
+  "bTokens": {
     "vZRX": {
-      "name": "Venus ZRX",
+      "name": "Bai ZRX",
       "symbol": "vZRX",
       "decimals": 8,
       "address": "0x00e02a5200CE3D5b5743F5369Deb897946C88121",
       "initial_exchange_rate_mantissa": "200000000000000000000000000",
       "admin": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
       "underlying": "0xE4C6182EA459E63B8F1be7c428381994CcC2D49c",
-      "contract": "VBep20Immutable"
+      "contract": "BBep20Immutable"
     },
     "vWBTC": {
-      "name": "Venus WBTC",
+      "name": "Bai WBTC",
       "symbol": "vWBTC",
       "decimals": 8,
       "address": "0x58145Bc5407D63dAF226e4870beeb744C588f149",
       "initial_exchange_rate_mantissa": "20000000000000000",
       "admin": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
       "underlying": "0xBde8bB00A7eF67007A96945B3a3621177B615C44",
-      "contract": "VBep20Immutable"
+      "contract": "BBep20Immutable"
     },
     "vUSDT": {
-      "name": "Venus USDT",
+      "name": "Bai USDT",
       "symbol": "vUSDT",
       "decimals": 8,
       "address": "0x135669c2dcBd63F639582b313883F101a4497F76",
       "initial_exchange_rate_mantissa": "200000000000000",
       "admin": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
       "underlying": "0x516de3a7A567d81737e3a46ec4FF9cFD1fcb0136",
-      "contract": "VBep20Delegator"
+      "contract": "BBep20Delegator"
     },
     "vUSDC": {
-      "name": "Venus USDC",
+      "name": "Bai USDC",
       "symbol": "vUSDC",
       "decimals": 8,
       "address": "0x8aF93cae804cC220D1A608d4FA54D1b6ca5EB361",
       "initial_exchange_rate_mantissa": "200000000000000",
       "admin": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
       "underlying": "0x0D9C8723B343A8368BebE0B5E89273fF8D712e3C",
-      "contract": "VBep20Immutable"
+      "contract": "BBep20Immutable"
     },
     "vBNB": {
-      "name": "Venus BNB",
+      "name": "Bai BNB",
       "symbol": "vBNB",
       "decimals": 8,
       "address": "0xBe839b6D93E3eA47eFFcCA1F27841C917a8794f3",
       "initial_exchange_rate_mantissa": "200000000000000000000000000",
       "admin": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
       "underlying": "",
-      "contract": "VBNB"
+      "contract": "BBNB"
     },
     "vSAI": {
-      "name": "Venus SAI",
+      "name": "Bai SAI",
       "symbol": "vSAI",
       "decimals": 8,
       "address": "0xc4d2A5872E16BC9E6557bE8B24683D96EB6ADca9",
       "initial_exchange_rate_mantissa": "200000000000000000000000000",
       "admin": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
       "underlying": "0x26fF7457496600C63b3E8902C9f871E60eDec4e4",
-      "contract": "VBep20Immutable"
+      "contract": "BBep20Immutable"
     },
     "vREP": {
-      "name": "Venus REP",
+      "name": "Bai REP",
       "symbol": "vREP",
       "decimals": 8,
       "address": "0x8F2c8B147A3D316d2b98f32F3864746F034A55a2",
       "initial_exchange_rate_mantissa": "200000000000000000000000000",
       "admin": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
       "underlying": "0x6FD34013CDD2905d8d27b0aDaD5b97B2345cF2B8",
-      "contract": "VBep20Immutable"
+      "contract": "BBep20Immutable"
     },
     "vDAI": {
-      "name": "Venus DAI",
+      "name": "Bai DAI",
       "symbol": "vDAI",
       "decimals": 8,
       "address": "0xdb5Ed4605C11822811a39F94314fDb8F0fb59A2C",
       "initial_exchange_rate_mantissa": "200000000000000000000000000",
       "admin": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
       "underlying": "0xc2118d4d90b274016cB7a54c03EF52E6c537D957",
-      "contract": "VBep20Delegator"
+      "contract": "BBep20Delegator"
     },
     "vBAT": {
-      "name": "Venus BAT",
+      "name": "Bai BAT",
       "symbol": "vBAT",
       "decimals": 8,
       "address": "0x9E95c0b2412cE50C37a121622308e7a6177F819D",
       "initial_exchange_rate_mantissa": "200000000000000000000000000",
       "admin": "0x0a278Af3Cf0f5ba7a22133f0C165F6dE2DCdf689",
       "underlying": "0x443Fd8D5766169416aE42B8E050fE9422f628419",
-      "contract": "VBep20Immutable"
+      "contract": "BBep20Immutable"
     }
   },
   "InterestRateModel": {

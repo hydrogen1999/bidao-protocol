@@ -1090,7 +1090,7 @@
                     "type": "uint256"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 }
             ],
@@ -1159,7 +1159,7 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "isVToken",
+            "name": "isBToken",
             "outputs": [
                 {
                     "name": "",
@@ -1357,7 +1357,7 @@
                 },
                 {
                     "indexed": false,
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -2237,7 +2237,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -2268,7 +2268,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -2366,7 +2366,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -2393,11 +2393,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -2443,7 +2443,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -2491,7 +2491,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -2538,7 +2538,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -2589,11 +2589,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -2625,7 +2625,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -2652,11 +2652,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
@@ -2726,7 +2726,7 @@
                     "type": "address"
                 },
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 }
             ],
@@ -2761,7 +2761,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 }
             ],
@@ -2816,7 +2816,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -2848,7 +2848,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokens",
+                    "name": "bTokens",
                     "type": "address[]"
                 }
             ],
@@ -2868,11 +2868,11 @@
             "constant": true,
             "inputs": [
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -2900,11 +2900,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
@@ -2956,7 +2956,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -3023,7 +3023,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -3062,7 +3062,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -3090,7 +3090,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenAddress",
+                    "name": "bTokenAddress",
                     "type": "address"
                 }
             ],
@@ -3133,7 +3133,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 }
             ],
@@ -3146,7 +3146,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -3164,7 +3164,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -3200,7 +3200,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -3440,8 +3440,8 @@
             "constant": true,
             "inputs": [
                 {
-                    "internalType": "contract VToken",
-                    "name": "vToken",
+                    "internalType": "contract BToken",
+                    "name": "bToken",
                     "type": "address"
                 }
             ],
@@ -4649,7 +4649,7 @@
                     "type": "uint256"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 }
             ],
@@ -4718,7 +4718,7 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "isVToken",
+            "name": "isBToken",
             "outputs": [
                 {
                     "name": "",
@@ -4916,7 +4916,7 @@
                 },
                 {
                     "indexed": false,
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -5112,13 +5112,13 @@
             "signature": "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"
         }
     ],
-    "VenusLens": [
+    "BaiLens": [
         {
             "constant": false,
             "inputs": [
                 {
-                    "internalType": "contract VToken",
-                    "name": "vToken",
+                    "internalType": "contract BToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -5127,13 +5127,13 @@
                     "type": "address"
                 }
             ],
-            "name": "vTokenBalances",
+            "name": "bTokenBalances",
             "outputs": [
                 {
                     "components": [
                         {
                             "internalType": "address",
-                            "name": "vToken",
+                            "name": "bToken",
                             "type": "address"
                         },
                         {
@@ -5162,7 +5162,7 @@
                             "type": "uint256"
                         }
                     ],
-                    "internalType": "struct VenusLens.VTokenBalances",
+                    "internalType": "struct BaiLens.BTokenBalances",
                     "name": "",
                     "type": "tuple"
                 }
@@ -5176,8 +5176,8 @@
             "constant": false,
             "inputs": [
                 {
-                    "internalType": "contract VToken[]",
-                    "name": "vTokens",
+                    "internalType": "contract BToken[]",
+                    "name": "bTokens",
                     "type": "address[]"
                 },
                 {
@@ -5186,13 +5186,13 @@
                     "type": "address"
                 }
             ],
-            "name": "vTokenBalancesAll",
+            "name": "bTokenBalancesAll",
             "outputs": [
                 {
                     "components": [
                         {
                             "internalType": "address",
-                            "name": "vToken",
+                            "name": "bToken",
                             "type": "address"
                         },
                         {
@@ -5221,7 +5221,7 @@
                             "type": "uint256"
                         }
                     ],
-                    "internalType": "struct VenusLens.VTokenBalances[]",
+                    "internalType": "struct BaiLens.BTokenBalances[]",
                     "name": "",
                     "type": "tuple[]"
                 }
@@ -5235,18 +5235,18 @@
             "constant": false,
             "inputs": [
                 {
-                    "internalType": "contract VToken",
-                    "name": "vToken",
+                    "internalType": "contract BToken",
+                    "name": "bToken",
                     "type": "address"
                 }
             ],
-            "name": "vTokenMetadata",
+            "name": "bTokenMetadata",
             "outputs": [
                 {
                     "components": [
                         {
                             "internalType": "address",
-                            "name": "vToken",
+                            "name": "bToken",
                             "type": "address"
                         },
                         {
@@ -5306,7 +5306,7 @@
                         },
                         {
                             "internalType": "uint256",
-                            "name": "vTokenDecimals",
+                            "name": "bTokenDecimals",
                             "type": "uint256"
                         },
                         {
@@ -5315,7 +5315,7 @@
                             "type": "uint256"
                         }
                     ],
-                    "internalType": "struct VenusLens.VTokenMetadata",
+                    "internalType": "struct BaiLens.BTokenMetadata",
                     "name": "",
                     "type": "tuple"
                 }
@@ -5329,18 +5329,18 @@
             "constant": false,
             "inputs": [
                 {
-                    "internalType": "contract VToken[]",
-                    "name": "vTokens",
+                    "internalType": "contract BToken[]",
+                    "name": "bTokens",
                     "type": "address[]"
                 }
             ],
-            "name": "vTokenMetadataAll",
+            "name": "bTokenMetadataAll",
             "outputs": [
                 {
                     "components": [
                         {
                             "internalType": "address",
-                            "name": "vToken",
+                            "name": "bToken",
                             "type": "address"
                         },
                         {
@@ -5400,7 +5400,7 @@
                         },
                         {
                             "internalType": "uint256",
-                            "name": "vTokenDecimals",
+                            "name": "bTokenDecimals",
                             "type": "uint256"
                         },
                         {
@@ -5409,7 +5409,7 @@
                             "type": "uint256"
                         }
                     ],
-                    "internalType": "struct VenusLens.VTokenMetadata[]",
+                    "internalType": "struct BaiLens.BTokenMetadata[]",
                     "name": "",
                     "type": "tuple[]"
                 }
@@ -5423,18 +5423,18 @@
             "constant": false,
             "inputs": [
                 {
-                    "internalType": "contract VToken",
-                    "name": "vToken",
+                    "internalType": "contract BToken",
+                    "name": "bToken",
                     "type": "address"
                 }
             ],
-            "name": "vTokenUnderlyingPrice",
+            "name": "bTokenUnderlyingPrice",
             "outputs": [
                 {
                     "components": [
                         {
                             "internalType": "address",
-                            "name": "vToken",
+                            "name": "bToken",
                             "type": "address"
                         },
                         {
@@ -5443,7 +5443,7 @@
                             "type": "uint256"
                         }
                     ],
-                    "internalType": "struct VenusLens.VTokenUnderlyingPrice",
+                    "internalType": "struct BaiLens.BTokenUnderlyingPrice",
                     "name": "",
                     "type": "tuple"
                 }
@@ -5457,18 +5457,18 @@
             "constant": false,
             "inputs": [
                 {
-                    "internalType": "contract VToken[]",
-                    "name": "vTokens",
+                    "internalType": "contract BToken[]",
+                    "name": "bTokens",
                     "type": "address[]"
                 }
             ],
-            "name": "vTokenUnderlyingPriceAll",
+            "name": "bTokenUnderlyingPriceAll",
             "outputs": [
                 {
                     "components": [
                         {
                             "internalType": "address",
-                            "name": "vToken",
+                            "name": "bToken",
                             "type": "address"
                         },
                         {
@@ -5477,7 +5477,7 @@
                             "type": "uint256"
                         }
                     ],
-                    "internalType": "struct VenusLens.VTokenUnderlyingPrice[]",
+                    "internalType": "struct BaiLens.BTokenUnderlyingPrice[]",
                     "name": "",
                     "type": "tuple[]"
                 }
@@ -5506,7 +5506,7 @@
                 {
                     "components": [
                         {
-                            "internalType": "contract VToken[]",
+                            "internalType": "contract BToken[]",
                             "name": "markets",
                             "type": "address[]"
                         },
@@ -5521,7 +5521,7 @@
                             "type": "uint256"
                         }
                     ],
-                    "internalType": "struct VenusLens.AccountLimits",
+                    "internalType": "struct BaiLens.AccountLimits",
                     "name": "",
                     "type": "tuple"
                 }
@@ -5535,7 +5535,7 @@
             "constant": true,
             "inputs": [
                 {
-                    "internalType": "contract XVS",
+                    "internalType": "contract XBID",
                     "name": "xvs",
                     "type": "address"
                 },
@@ -5545,7 +5545,7 @@
                     "type": "address"
                 }
             ],
-            "name": "getXVSBalanceMetadata",
+            "name": "getXBIDBalanceMetadata",
             "outputs": [
                 {
                     "components": [
@@ -5565,7 +5565,7 @@
                             "type": "address"
                         }
                     ],
-                    "internalType": "struct VenusLens.XVSBalanceMetadata",
+                    "internalType": "struct BaiLens.XBIDBalanceMetadata",
                     "name": "",
                     "type": "tuple"
                 }
@@ -5579,7 +5579,7 @@
             "constant": true,
             "inputs": [
                 {
-                    "internalType": "contract XVS",
+                    "internalType": "contract XBID",
                     "name": "xvs",
                     "type": "address"
                 },
@@ -5594,7 +5594,7 @@
                     "type": "uint32[]"
                 }
             ],
-            "name": "getVenusVotes",
+            "name": "getBaiVotes",
             "outputs": [
                 {
                     "components": [
@@ -5609,7 +5609,7 @@
                             "type": "uint256"
                         }
                     ],
-                    "internalType": "struct VenusLens.VenusVotes[]",
+                    "internalType": "struct BaiLens.BaiVotes[]",
                     "name": "",
                     "type": "tuple[]"
                 }
@@ -5703,7 +5703,7 @@
                             "type": "bool"
                         }
                     ],
-                    "internalType": "struct VenusLens.GovProposal[]",
+                    "internalType": "struct BaiLens.GovProposal[]",
                     "name": "",
                     "type": "tuple[]"
                 }
@@ -5757,7 +5757,7 @@
                             "type": "uint96"
                         }
                     ],
-                    "internalType": "struct VenusLens.GovReceipt[]",
+                    "internalType": "struct BaiLens.GovReceipt[]",
                     "name": "",
                     "type": "tuple[]"
                 }
@@ -6107,7 +6107,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -6138,7 +6138,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -6236,7 +6236,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -6263,11 +6263,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -6313,7 +6313,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -6361,7 +6361,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -6408,7 +6408,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -6459,11 +6459,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -6495,7 +6495,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -6522,11 +6522,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
@@ -6596,7 +6596,7 @@
                     "type": "address"
                 },
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 }
             ],
@@ -6631,7 +6631,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 }
             ],
@@ -6686,7 +6686,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -6718,7 +6718,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokens",
+                    "name": "bTokens",
                     "type": "address[]"
                 }
             ],
@@ -6738,11 +6738,11 @@
             "constant": true,
             "inputs": [
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -6770,11 +6770,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
@@ -6826,7 +6826,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -6893,7 +6893,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -6932,7 +6932,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -6960,7 +6960,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenAddress",
+                    "name": "bTokenAddress",
                     "type": "address"
                 }
             ],
@@ -7003,7 +7003,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 }
             ],
@@ -7016,7 +7016,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -7034,7 +7034,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -7070,7 +7070,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -7964,7 +7964,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -7995,7 +7995,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -8093,7 +8093,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -8120,11 +8120,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -8170,7 +8170,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -8218,7 +8218,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -8265,7 +8265,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -8316,11 +8316,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -8352,7 +8352,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -8379,11 +8379,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
@@ -8453,7 +8453,7 @@
                     "type": "address"
                 },
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 }
             ],
@@ -8488,7 +8488,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 }
             ],
@@ -8543,7 +8543,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -8575,7 +8575,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokens",
+                    "name": "bTokens",
                     "type": "address[]"
                 }
             ],
@@ -8595,11 +8595,11 @@
             "constant": true,
             "inputs": [
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -8627,11 +8627,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
@@ -8683,7 +8683,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -8750,7 +8750,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -8789,7 +8789,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -8817,7 +8817,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenAddress",
+                    "name": "bTokenAddress",
                     "type": "address"
                 }
             ],
@@ -8860,7 +8860,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 }
             ],
@@ -8873,7 +8873,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -8891,7 +8891,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -8927,7 +8927,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -9041,7 +9041,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -9072,7 +9072,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -9170,7 +9170,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -9197,11 +9197,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -9247,7 +9247,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -9295,7 +9295,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -9342,7 +9342,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -9393,11 +9393,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -9429,7 +9429,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -9456,11 +9456,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
@@ -9530,7 +9530,7 @@
                     "type": "address"
                 },
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 }
             ],
@@ -9565,7 +9565,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 }
             ],
@@ -9620,7 +9620,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -9652,7 +9652,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokens",
+                    "name": "bTokens",
                     "type": "address[]"
                 }
             ],
@@ -9672,11 +9672,11 @@
             "constant": true,
             "inputs": [
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -9704,11 +9704,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
@@ -9760,7 +9760,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -9827,7 +9827,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -9866,7 +9866,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -9894,7 +9894,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenAddress",
+                    "name": "bTokenAddress",
                     "type": "address"
                 }
             ],
@@ -9937,7 +9937,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 }
             ],
@@ -9950,7 +9950,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -9968,7 +9968,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -10004,7 +10004,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -10133,7 +10133,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -10164,7 +10164,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -10266,7 +10266,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -10293,11 +10293,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -10343,7 +10343,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -10391,7 +10391,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -10458,7 +10458,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -10544,11 +10544,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -10580,7 +10580,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -10607,11 +10607,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
@@ -10716,7 +10716,7 @@
                     "type": "address"
                 },
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 }
             ],
@@ -10786,7 +10786,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 }
             ],
@@ -10856,7 +10856,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -10888,7 +10888,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokens",
+                    "name": "bTokens",
                     "type": "address[]"
                 }
             ],
@@ -10908,11 +10908,11 @@
             "constant": true,
             "inputs": [
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -10940,11 +10940,11 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
-                    "name": "vTokenBorrowed",
+                    "name": "bTokenBorrowed",
                     "type": "address"
                 },
                 {
@@ -10996,7 +10996,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -11063,7 +11063,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -11102,7 +11102,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -11130,7 +11130,7 @@
             "constant": false,
             "inputs": [
                 {
-                    "name": "vTokenAddress",
+                    "name": "bTokenAddress",
                     "type": "address"
                 }
             ],
@@ -11173,7 +11173,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 }
             ],
@@ -11186,7 +11186,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -11204,7 +11204,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -11240,7 +11240,7 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "name": "vToken",
+                    "name": "bToken",
                     "type": "address"
                 },
                 {
@@ -11571,7 +11571,7 @@
                 {
                     "indexed": false,
                     "internalType": "address",
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -12492,7 +12492,7 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "isVToken",
+            "name": "isBToken",
             "outputs": [
                 {
                     "internalType": "bool",
@@ -12519,8 +12519,8 @@
                     "type": "uint256"
                 },
                 {
-                    "internalType": "contract VTokenInterface",
-                    "name": "vTokenCollateral",
+                    "internalType": "contract BTokenInterface",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 }
             ],
@@ -13676,7 +13676,7 @@
                     "type": "uint256"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 }
             ],
@@ -13745,7 +13745,7 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "isVToken",
+            "name": "isBToken",
             "outputs": [
                 {
                     "name": "",
@@ -13943,7 +13943,7 @@
                 },
                 {
                     "indexed": false,
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -15043,7 +15043,7 @@
                     "type": "address"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 }
             ],
@@ -15346,7 +15346,7 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "isVToken",
+            "name": "isBToken",
             "outputs": [
                 {
                     "name": "",
@@ -15545,7 +15545,7 @@
                 },
                 {
                     "indexed": false,
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -15889,7 +15889,7 @@
                 {
                     "indexed": false,
                     "internalType": "address",
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -16828,7 +16828,7 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "isVToken",
+            "name": "isBToken",
             "outputs": [
                 {
                     "internalType": "bool",
@@ -16855,8 +16855,8 @@
                     "type": "uint256"
                 },
                 {
-                    "internalType": "contract VTokenInterface",
-                    "name": "vTokenCollateral",
+                    "internalType": "contract BTokenInterface",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 }
             ],
@@ -18661,7 +18661,7 @@
                     "type": "uint256"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 }
             ],
@@ -18730,7 +18730,7 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "isVToken",
+            "name": "isBToken",
             "outputs": [
                 {
                     "name": "",
@@ -18928,7 +18928,7 @@
                 },
                 {
                     "indexed": false,
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -20215,7 +20215,7 @@
                     "type": "uint256"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 }
             ],
@@ -20284,7 +20284,7 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "isVToken",
+            "name": "isBToken",
             "outputs": [
                 {
                     "name": "",
@@ -20482,7 +20482,7 @@
                 },
                 {
                     "indexed": false,
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {
@@ -21450,7 +21450,7 @@
                     "type": "uint256"
                 },
                 {
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 }
             ],
@@ -21519,7 +21519,7 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "isVToken",
+            "name": "isBToken",
             "outputs": [
                 {
                     "name": "",
@@ -21717,7 +21717,7 @@
                 },
                 {
                     "indexed": false,
-                    "name": "vTokenCollateral",
+                    "name": "bTokenCollateral",
                     "type": "address"
                 },
                 {

@@ -5,10 +5,10 @@ Macro SetupPriceOracleProxy
     Unitroller SetPendingImpl ScenComptroller
     ComptrollerImpl ScenComptroller Become
     NewBNBToken vBNB
-    NewVToken USDC vUSDC
-    NewVToken SAI vSAI
-    NewVToken DAI vDAI
-    NewVToken USDT vUSDT
+    NewBToken USDC vUSDC
+    NewBToken SAI vSAI
+    NewBToken DAI vDAI
+    NewBToken USDT vUSDT
     Comptroller SupportMarket vBNB
     Comptroller SupportMarket vUSDC
     Comptroller SupportMarket vSAI

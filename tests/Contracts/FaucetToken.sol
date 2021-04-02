@@ -3,8 +3,8 @@ pragma solidity ^0.5.16;
 import "./BEP20.sol";
 
 /**
- * @title The Venus Faucet Test Token
- * @author Venus
+ * @title The Bai Faucet Test Token
+ * @author Bai
  * @notice A simple test token that lets anyone get more of it.
  */
 contract FaucetToken is StandardToken {
@@ -20,8 +20,8 @@ contract FaucetToken is StandardToken {
 }
 
 /**
- * @title The Venus Faucet Test Token (non-standard)
- * @author Venus
+ * @title The Bai Faucet Test Token (non-standard)
+ * @author Bai
  * @notice A simple test token that lets anyone get more of it.
  */
 contract FaucetNonStandardToken is NonStandardToken {
@@ -37,8 +37,8 @@ contract FaucetNonStandardToken is NonStandardToken {
 }
 
 /**
- * @title The Venus Faucet Re-Entrant Test Token
- * @author Venus
+ * @title The Bai Faucet Re-Entrant Test Token
+ * @author Bai
  * @notice A test token that is malicious and tries to re-enter callers
  */
 contract FaucetTokenReEntrantHarness {

@@ -10,7 +10,7 @@ describe('GovernorAlpha#propose/5', () => {
 
   beforeAll(async () => {
     [root, acct, ...accounts] = accounts;
-    xvs = await deploy('XVS', [root]);
+    xvs = await deploy('XBID', [root]);
     gov = await deploy('GovernorAlpha', [address(0), xvs._address, address(0)]);
   });
 

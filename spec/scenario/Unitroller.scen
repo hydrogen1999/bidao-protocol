@@ -8,8 +8,8 @@ Test "Standard Upgrade"
     Comptroller SetPriceOracle (PriceOracle Address)
     Comptroller SetCloseFactor 0.2
     Comptroller SetMaxAssets 20
-    ListedVToken ZRX vZRX
-    ListedVToken DAI vDAI
+    ListedBToken ZRX vZRX
+    ListedBToken DAI vDAI
     Assert Equal (Comptroller Implementation) (Address ScenComptroller)
     Assert Equal (Comptroller CloseFactor) 0.2
     Assert Equal (Comptroller MaxAssets) 20
@@ -115,19 +115,19 @@ Macro CheckStorage
     -- AllMarkets; 17
     Assert Equal (StorageAt Comptroller 13 0 "number") 2
     -- TODO: StorageAtArray Comptroller 13?
-    -- VenusRate; 18
+    -- BaiRate; 18
     Assert Equal (StorageAt Comptroller 14 0 "number") 1e18
-    -- VenusSpeeds; 19
+    -- BaiSpeeds; 19
     Assert Equal (StorageAt Comptroller 15 0 "number") 0
-    -- VenusSupplyState; 20
+    -- BaiSupplyState; 20
     Assert Equal (StorageAt Comptroller 16 0 "number") 0
-    -- VenusBorrowState; 21
+    -- BaiBorrowState; 21
     Assert Equal (StorageAt Comptroller 17 0 "number") 0
-    -- VenusSupplierIndex; 22
+    -- BaiSupplierIndex; 22
     Assert Equal (StorageAt Comptroller 18 0 "number") 0
-    -- VenusBorrowerIndex; 23
+    -- BaiBorrowerIndex; 23
     Assert Equal (StorageAt Comptroller 19 0 "number") 0
-    -- VenusAccrued; 24
+    -- BaiAccrued; 24
     Assert Equal (StorageAt Comptroller 20 0 "number") 0
 
 -- Times out coverage, disable for now - ideally set flag to not run in coverage
@@ -142,8 +142,8 @@ Pending "Keeps all storage"
     Comptroller SetMaxAssets 20
     Comptroller SetPendingAdmin Coburn
     ---
-    NewVToken ZRX vZRX delegatorType:VBep20Delegator vTokenType:VBep20Delegate
-    NewVToken BAT vBAT delegatorType:VBep20Delegator vTokenType:VBep20Delegate
+    NewBToken ZRX vZRX delegatorType:BBep20Delegator bTokenType:BBep20Delegate
+    NewBToken BAT vBAT delegatorType:BBep20Delegator bTokenType:BBep20Delegate
     Give vBAT 10e18 BAT -- Faucet some bat to borrow
     Support vZRX collateralFactor:0.5
     Support vBAT collateralFactor:0.4

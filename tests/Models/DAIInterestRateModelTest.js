@@ -5,7 +5,7 @@ const {
   makeInterestRateModel,
   getBorrowRate,
   getSupplyRate
-} = require('../Utils/Venus');
+} = require('../Utils/Bai');
 
 const blocksPerYear = 2102400;
 const secondsPerYear = 60 * 60 * 24 * 365;

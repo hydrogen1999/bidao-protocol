@@ -1,9 +1,9 @@
 
 Macro GivenProposal
     Counter Deploy
-    XVS Deploy Bank
+    XBID Deploy Bank
     Timelock Deploy Jared 604800
-    Governor Deploy Alpha LegitGov (Address Timelock) (Address XVS) Guardian
+    Governor Deploy Alpha LegitGov (Address Timelock) (Address XBID) Guardian
     Timelock SetAdmin (Address LegitGov)
     Enfranchise Root 300001e18
     Enfranchise Geoff 100
@@ -11,8 +11,8 @@ Macro GivenProposal
     MineBlock
 
 Macro Enfranchise user amount
-    From Bank (XVS Transfer user amount)
-    From user (XVS Delegate user)
+    From Bank (XBID Transfer user amount)
+    From user (XBID Delegate user)
 
 Test "Successfully Cast For Vote"
     GivenProposal

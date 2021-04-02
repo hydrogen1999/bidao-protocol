@@ -6,7 +6,7 @@ interface ComptrollerMethods {
   getAccountLiquidity(string): Callable<{0: number, 1: number, 2: number}>
   getHypotheticalAccountLiquidity(account: string, asset: string, redeemTokens: encodedNumber, borrowAmount: encodedNumber): Callable<{0: number, 1: number, 2: number}>
   membershipLength(string): Callable<string>
-  checkMembership(user: string, vToken: string): Callable<string>
+  checkMembership(user: string, bToken: string): Callable<string>
   getAssetsIn(string): Callable<string[]>
   admin(): Callable<string>
   oracle(): Callable<string>
@@ -34,10 +34,10 @@ interface ComptrollerMethods {
   _acceptAdmin(): Sendable<number>
   _setProtocolPaused(bool): Sendable<number>
   protocolPaused(): Callable<boolean>
-  _addVenusMarkets(markets: string[]): Sendable<void>
-  _dropVenusMarket(market: string): Sendable<void>
-  getVenusMarkets(): Callable<string[]>
-  refreshVenusSpeeds(): Sendable<void>
+  _addBaiMarkets(markets: string[]): Sendable<void>
+  _dropBaiMarket(market: string): Sendable<void>
+  getBaiMarkets(): Callable<string[]>
+  refreshBaiSpeeds(): Sendable<void>
   venusRate(): Callable<number>
   venusSupplyState(string): Callable<string>
   venusBorrowState(string): Callable<string>
@@ -45,10 +45,10 @@ interface ComptrollerMethods {
   venusSupplierIndex(market: string, account: string): Callable<string>
   venusBorrowerIndex(market: string, account: string): Callable<string>
   venusSpeeds(string): Callable<string>
-  claimVenus(string): Sendable<void>
-  _setVenusRate(encodedNumber): Sendable<void>
-  _setVenusSpeed(vToken: string, encodedNumber): Sendable<void>
-  _setMarketBorrowCaps(vTokens:string[], borrowCaps:encodedNumber[]): Sendable<void>
+  claimBai(string): Sendable<void>
+  _setBaiRate(encodedNumber): Sendable<void>
+  _setBaiSpeed(bToken: string, encodedNumber): Sendable<void>
+  _setMarketBorrowCaps(bTokens:string[], borrowCaps:encodedNumber[]): Sendable<void>
   _setBorrowCapGuardian(string): Sendable<void>
   borrowCapGuardian(): Callable<string>
   borrowCaps(string): Callable<string>

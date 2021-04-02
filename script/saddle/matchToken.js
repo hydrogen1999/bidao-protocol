@@ -4,7 +4,7 @@ function printUsage() {
   console.log(`
 usage: npx saddle script token:match address {tokenConfig}
 
-This checks to see if the deployed byte-code matches this version of the Venus Protocol.
+This checks to see if the deployed byte-code matches this version of the Bai Protocol.
 
 example:
 
@@ -13,7 +13,7 @@ npx saddle -n rinkeby script token:match 0x19B674715cD20626415C738400FDd0d32D680
   "comptroller": "$Comptroller",
   "interestRateModel": "$Base200bps_Slope3000bps",
   "initialExchangeRateMantissa": "2.0e18",
-  "name": "Venus Kyber Network Crystal",
+  "name": "Bai Kyber Network Crystal",
   "symbol": "vKNC",
   "decimals": "8",
   "admin": "$Timelock"
@@ -32,11 +32,11 @@ npx saddle -n rinkeby script token:match 0x19B674715cD20626415C738400FDd0d32D680
     return printUsage();
   }
 
-  console.log(`Matching vToken at ${address} with ${JSON.stringify(conf)}`);
+  console.log(`Matching bToken at ${address} with ${JSON.stringify(conf)}`);
 
   let deployArgs = [conf.underlying, conf.comptroller, conf.interestRateModel, conf.initialExchangeRateMantissa.toString(), conf.name, conf.symbol, conf.decimals, conf.admin];
 
-  await saddle.match(address, 'VBep20Immutable', deployArgs);
+  await saddle.match(address, 'BBep20Immutable', deployArgs);
 
   return {
     ...conf,

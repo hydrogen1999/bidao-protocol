@@ -20,7 +20,7 @@ describe("governorAlpha#castVote/2", () => {
 
   beforeAll(async () => {
     [root, a1, ...accounts] = saddle.accounts;
-    xvs = await deploy('XVS', [root]);
+    xvs = await deploy('XBID', [root]);
     gov = await deploy('GovernorAlpha', [address(0), xvs._address, root]);
 
     targets = [a1];
@@ -93,7 +93,7 @@ describe("governorAlpha#castVote/2", () => {
 
     describe('castVoteBySig', () => {
       const Domain = (gov) => ({
-        name: 'Venus Governor Alpha',
+        name: 'Bai Governor Alpha',
         chainId: 1, // await web3.eth.net.getId(); See: https://github.com/trufflesuite/ganache-core/issues/515
         verifyingContract: gov._address
       });

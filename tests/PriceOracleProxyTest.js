@@ -6,9 +6,9 @@ const {
 } = require('./Utils/BSC');
 
 const {
-  makeVToken,
+  makeBToken,
   makePriceOracle,
-} = require('./Utils/Venus');
+} = require('./Utils/Bai');
 
 describe('PriceOracleProxy', () => {
   let root, accounts;
@@ -17,12 +17,12 @@ describe('PriceOracleProxy', () => {
 
   beforeEach(async () => {
     [root, ...accounts] = saddle.accounts;
-    vBnb = await makeVToken({kind: "vbnb", comptrollerOpts: {kind: "v1-no-proxy"}, supportMarket: true});
-    vUsdc = await makeVToken({comptroller: vBnb.comptroller, supportMarket: true});
-    vSai = await makeVToken({comptroller: vBnb.comptroller, supportMarket: true});
-    vDai = await makeVToken({comptroller: vBnb.comptroller, supportMarket: true});
-    vUsdt = await makeVToken({comptroller: vBnb.comptroller, supportMarket: true});
-    cOther = await makeVToken({comptroller: vBnb.comptroller, supportMarket: true});
+    vBnb = await makeBToken({kind: "vbnb", comptrollerOpts: {kind: "v1-no-proxy"}, supportMarket: true});
+    vUsdc = await makeBToken({comptroller: vBnb.comptroller, supportMarket: true});
+    vSai = await makeBToken({comptroller: vBnb.comptroller, supportMarket: true});
+    vDai = await makeBToken({comptroller: vBnb.comptroller, supportMarket: true});
+    vUsdt = await makeBToken({comptroller: vBnb.comptroller, supportMarket: true});
+    cOther = await makeBToken({comptroller: vBnb.comptroller, supportMarket: true});
 
     backingOracle = await makePriceOracle();
     oracle = await deploy('PriceOracleProxy',
@@ -50,8 +50,8 @@ describe('PriceOracleProxy', () => {
     });
 
     it("sets address of vBnb", async () => {
-      let configuredVBNB = await call(oracle, "vBnbAddress");
-      expect(configuredVBNB).toEqual(vBnb._address);
+      let configuredBBNB = await call(oracle, "vBnbAddress");
+      expect(configuredBBNB).toEqual(vBnb._address);
     });
 
     it("sets address of vUSDC", async () => {
@@ -76,16 +76,16 @@ describe('PriceOracleProxy', () => {
   });
 
   describe("getUnderlyingPrice", () => {
-    let setAndVerifyBackingPrice = async (vToken, price) => {
+    let setAndVerifyBackingPrice = async (bToken, price) => {
       await send(
         backingOracle,
         "setUnderlyingPrice",
-        [vToken._address, bnbMantissa(price)]);
+        [bToken._address, bnbMantissa(price)]);
 
       let backingOraclePrice = await call(
         backingOracle,
         "assetPrices",
-        [vToken.underlying._address]);
+        [bToken.underlying._address]);
 
       expect(Number(backingOraclePrice)).toEqual(price * 1e18);
     };
@@ -116,7 +116,7 @@ describe('PriceOracleProxy', () => {
     });
 
     it("returns 0 for token without a price", async () => {
-      let unlistedToken = await makeVToken({comptroller: vBnb.comptroller});
+      let unlistedToken = await makeBToken({comptroller: vBnb.comptroller});
 
       await readAndVerifyProxyPrice(unlistedToken, 0);
     });

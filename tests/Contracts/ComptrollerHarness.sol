@@ -4,13 +4,13 @@ import "../../contracts/Comptroller.sol";
 import "../../contracts/PriceOracle.sol";
 
 contract ComptrollerKovan is Comptroller {
-  function getXVSAddress() public view returns (address) {
+  function getXBIDAddress() public view returns (address) {
     return 0x61460874a7196d6a22D1eE4922473664b3E95270;
   }
 }
 
 contract ComptrollerRopsten is Comptroller {
-  function getXVSAddress() public view returns (address) {
+  function getXBIDAddress() public view returns (address) {
     return 0x1Fe16De955718CFAb7A44605458AB023838C2793;
   }
 }
@@ -21,122 +21,122 @@ contract ComptrollerHarness is Comptroller {
 
     constructor() Comptroller() public {}
 
-    function setVenusSupplyState(address vToken, uint224 index, uint32 blockNumber_) public {
-        venusSupplyState[vToken].index = index;
-        venusSupplyState[vToken].block = blockNumber_;
+    function setBaiSupplyState(address bToken, uint224 index, uint32 blockNumber_) public {
+        venusSupplyState[bToken].index = index;
+        venusSupplyState[bToken].block = blockNumber_;
     }
 
-    function setVenusBorrowState(address vToken, uint224 index, uint32 blockNumber_) public {
-        venusBorrowState[vToken].index = index;
-        venusBorrowState[vToken].block = blockNumber_;
+    function setBaiBorrowState(address bToken, uint224 index, uint32 blockNumber_) public {
+        venusBorrowState[bToken].index = index;
+        venusBorrowState[bToken].block = blockNumber_;
     }
 
-    function setVenusAccrued(address user, uint userAccrued) public {
+    function setBaiAccrued(address user, uint userAccrued) public {
         venusAccrued[user] = userAccrued;
     }
 
-    function setXVSAddress(address xvsAddress_) public {
+    function setXBIDAddress(address xvsAddress_) public {
         xvsAddress = xvsAddress_;
     }
 
-    function getXVSAddress() public view returns (address) {
+    function getXBIDAddress() public view returns (address) {
         return xvsAddress;
     }
 
     /**
-     * @notice Set the amount of XVS distributed per block
-     * @param venusRate_ The amount of XVS wei per block to distribute
+     * @notice Set the amount of XBID distributed per block
+     * @param venusRate_ The amount of XBID wei per block to distribute
      */
-    function harnessSetVenusRate(uint venusRate_) public {
+    function harnessSetBaiRate(uint venusRate_) public {
         venusRate = venusRate_;
     }
 
     /**
-     * @notice Recalculate and update XVS speeds for all XVS markets
+     * @notice Recalculate and update XBID speeds for all XBID markets
      */
-    function harnessRefreshVenusSpeeds() public {
-        VToken[] memory allMarkets_ = allMarkets;
+    function harnessRefreshBaiSpeeds() public {
+        BToken[] memory allMarkets_ = allMarkets;
 
         for (uint i = 0; i < allMarkets_.length; i++) {
-            VToken vToken = allMarkets_[i];
-            Exp memory borrowIndex = Exp({mantissa: vToken.borrowIndex()});
-            updateVenusSupplyIndex(address(vToken));
-            updateVenusBorrowIndex(address(vToken), borrowIndex);
+            BToken bToken = allMarkets_[i];
+            Exp memory borrowIndex = Exp({mantissa: bToken.borrowIndex()});
+            updateBaiSupplyIndex(address(bToken));
+            updateBaiBorrowIndex(address(bToken), borrowIndex);
         }
 
         Exp memory totalUtility = Exp({mantissa: 0});
         Exp[] memory utilities = new Exp[](allMarkets_.length);
         for (uint i = 0; i < allMarkets_.length; i++) {
-            VToken vToken = allMarkets_[i];
-            if (venusSpeeds[address(vToken)] > 0) {
-                Exp memory assetPrice = Exp({mantissa: oracle.getUnderlyingPrice(vToken)});
-                Exp memory utility = mul_(assetPrice, vToken.totalBorrows());
+            BToken bToken = allMarkets_[i];
+            if (venusSpeeds[address(bToken)] > 0) {
+                Exp memory assetPrice = Exp({mantissa: oracle.getUnderlyingPrice(bToken)});
+                Exp memory utility = mul_(assetPrice, bToken.totalBorrows());
                 utilities[i] = utility;
                 totalUtility = add_(totalUtility, utility);
             }
         }
 
         for (uint i = 0; i < allMarkets_.length; i++) {
-            VToken vToken = allMarkets[i];
+            BToken bToken = allMarkets[i];
             uint newSpeed = totalUtility.mantissa > 0 ? mul_(venusRate, div_(utilities[i], totalUtility)) : 0;
-            setVenusSpeedInternal(vToken, newSpeed);
+            setBaiSpeedInternal(bToken, newSpeed);
         }
     }
 
-    function setVenusBorrowerIndex(address vToken, address borrower, uint index) public {
-        venusBorrowerIndex[vToken][borrower] = index;
+    function setBaiBorrowerIndex(address bToken, address borrower, uint index) public {
+        venusBorrowerIndex[bToken][borrower] = index;
     }
 
-    function setVenusSupplierIndex(address vToken, address supplier, uint index) public {
-        venusSupplierIndex[vToken][supplier] = index;
+    function setBaiSupplierIndex(address bToken, address supplier, uint index) public {
+        venusSupplierIndex[bToken][supplier] = index;
     }
 
-    function harnessDistributeAllBorrowerVenus(address vToken, address borrower, uint marketBorrowIndexMantissa) public {
-        distributeBorrowerVenus(vToken, borrower, Exp({mantissa: marketBorrowIndexMantissa}));
-        venusAccrued[borrower] = grantXVSInternal(borrower, venusAccrued[borrower]);
+    function harnessDistributeAllBorrowerBai(address bToken, address borrower, uint marketBorrowIndexMantissa) public {
+        distributeBorrowerBai(bToken, borrower, Exp({mantissa: marketBorrowIndexMantissa}));
+        venusAccrued[borrower] = grantXBIDInternal(borrower, venusAccrued[borrower]);
     }
 
-    function harnessDistributeAllSupplierVenus(address vToken, address supplier) public {
-        distributeSupplierVenus(vToken, supplier);
-        venusAccrued[supplier] = grantXVSInternal(supplier, venusAccrued[supplier]);
+    function harnessDistributeAllSupplierBai(address bToken, address supplier) public {
+        distributeSupplierBai(bToken, supplier);
+        venusAccrued[supplier] = grantXBIDInternal(supplier, venusAccrued[supplier]);
     }
 
-    function harnessUpdateVenusBorrowIndex(address vToken, uint marketBorrowIndexMantissa) public {
-        updateVenusBorrowIndex(vToken, Exp({mantissa: marketBorrowIndexMantissa}));
+    function harnessUpdateBaiBorrowIndex(address bToken, uint marketBorrowIndexMantissa) public {
+        updateBaiBorrowIndex(bToken, Exp({mantissa: marketBorrowIndexMantissa}));
     }
 
-    function harnessUpdateVenusSupplyIndex(address vToken) public {
-        updateVenusSupplyIndex(vToken);
+    function harnessUpdateBaiSupplyIndex(address bToken) public {
+        updateBaiSupplyIndex(bToken);
     }
 
-    function harnessDistributeBorrowerVenus(address vToken, address borrower, uint marketBorrowIndexMantissa) public {
-        distributeBorrowerVenus(vToken, borrower, Exp({mantissa: marketBorrowIndexMantissa}));
+    function harnessDistributeBorrowerBai(address bToken, address borrower, uint marketBorrowIndexMantissa) public {
+        distributeBorrowerBai(bToken, borrower, Exp({mantissa: marketBorrowIndexMantissa}));
     }
 
-    function harnessDistributeSupplierVenus(address vToken, address supplier) public {
-        distributeSupplierVenus(vToken, supplier);
+    function harnessDistributeSupplierBai(address bToken, address supplier) public {
+        distributeSupplierBai(bToken, supplier);
     }
 
-    function harnessDistributeVAIMinterVenus(address vaiMinter) public {
-        distributeVAIMinterVenus(vaiMinter, false);
+    function harnessDistributeBAIMinterBai(address vaiMinter) public {
+        distributeBAIMinterBai(vaiMinter, false);
     }
 
-    function harnessTransferVenus(address user, uint userAccrued, uint threshold) public returns (uint) {
+    function harnessTransferBai(address user, uint userAccrued, uint threshold) public returns (uint) {
         if (userAccrued > 0 && userAccrued >= threshold) {
-            return grantXVSInternal(user, userAccrued);
+            return grantXBIDInternal(user, userAccrued);
         }
         return userAccrued;
     }
 
-    function harnessAddVenusMarkets(address[] memory vTokens) public {
-        for (uint i = 0; i < vTokens.length; i++) {
-            // temporarily set venusSpeed to 1 (will be fixed by `harnessRefreshVenusSpeeds`)
-            setVenusSpeedInternal(VToken(vTokens[i]), 1);
+    function harnessAddBaiMarkets(address[] memory bTokens) public {
+        for (uint i = 0; i < bTokens.length; i++) {
+            // temporarily set venusSpeed to 1 (will be fixed by `harnessRefreshBaiSpeeds`)
+            setBaiSpeedInternal(BToken(bTokens[i]), 1);
         }
     }
 
-    function harnessSetMintedVAIs(address user, uint amount) public {
-        mintedVAIs[user] = amount;
+    function harnessSetMintedBAIs(address user, uint amount) public {
+        mintedBAIs[user] = amount;
     }
 
     function harnessFastForward(uint blocks) public returns (uint) {
@@ -152,7 +152,7 @@ contract ComptrollerHarness is Comptroller {
         return blockNumber;
     }
 
-    function getVenusMarkets() public view returns (address[] memory) {
+    function getBaiMarkets() public view returns (address[] memory) {
         uint m = allMarkets.length;
         uint n = 0;
         for (uint i = 0; i < m; i++) {
@@ -204,69 +204,69 @@ contract BoolComptroller is ComptrollerInterface {
 
     /*** Assets You Are In ***/
 
-    function enterMarkets(address[] calldata _vTokens) external returns (uint[] memory) {
-        _vTokens;
+    function enterMarkets(address[] calldata _bTokens) external returns (uint[] memory) {
+        _bTokens;
         uint[] memory ret;
         return ret;
     }
 
-    function exitMarket(address _vToken) external returns (uint) {
-        _vToken;
+    function exitMarket(address _bToken) external returns (uint) {
+        _bToken;
         return noError;
     }
 
     /*** Policy Hooks ***/
 
-    function mintAllowed(address _vToken, address _minter, uint _mintAmount) external returns (uint) {
-        _vToken;
+    function mintAllowed(address _bToken, address _minter, uint _mintAmount) external returns (uint) {
+        _bToken;
         _minter;
         _mintAmount;
         return allowMint ? noError : opaqueError;
     }
 
-    function mintVerify(address _vToken, address _minter, uint _mintAmount, uint _mintTokens) external {
-        _vToken;
+    function mintVerify(address _bToken, address _minter, uint _mintAmount, uint _mintTokens) external {
+        _bToken;
         _minter;
         _mintAmount;
         _mintTokens;
         require(verifyMint, "mintVerify rejected mint");
     }
 
-    function redeemAllowed(address _vToken, address _redeemer, uint _redeemTokens) external returns (uint) {
-        _vToken;
+    function redeemAllowed(address _bToken, address _redeemer, uint _redeemTokens) external returns (uint) {
+        _bToken;
         _redeemer;
         _redeemTokens;
         return allowRedeem ? noError : opaqueError;
     }
 
-    function redeemVerify(address _vToken, address _redeemer, uint _redeemAmount, uint _redeemTokens) external {
-        _vToken;
+    function redeemVerify(address _bToken, address _redeemer, uint _redeemAmount, uint _redeemTokens) external {
+        _bToken;
         _redeemer;
         _redeemAmount;
         _redeemTokens;
         require(verifyRedeem, "redeemVerify rejected redeem");
     }
 
-    function borrowAllowed(address _vToken, address _borrower, uint _borrowAmount) external returns (uint) {
-        _vToken;
+    function borrowAllowed(address _bToken, address _borrower, uint _borrowAmount) external returns (uint) {
+        _bToken;
         _borrower;
         _borrowAmount;
         return allowBorrow ? noError : opaqueError;
     }
 
-    function borrowVerify(address _vToken, address _borrower, uint _borrowAmount) external {
-        _vToken;
+    function borrowVerify(address _bToken, address _borrower, uint _borrowAmount) external {
+        _bToken;
         _borrower;
         _borrowAmount;
         require(verifyBorrow, "borrowVerify rejected borrow");
     }
 
     function repayBorrowAllowed(
-        address _vToken,
+        address _bToken,
         address _payer,
         address _borrower,
         uint _repayAmount) external returns (uint) {
-        _vToken;
+        _bToken;
         _payer;
         _borrower;
         _repayAmount;
@@ -274,12 +274,12 @@ contract BoolComptroller is ComptrollerInterface {
     }
 
     function repayBorrowVerify(
-        address _vToken,
+        address _bToken,
         address _payer,
         address _borrower,
         uint _repayAmount,
         uint _borrowerIndex) external {
-        _vToken;
+        _bToken;
         _payer;
         _borrower;
         _repayAmount;
@@ -288,13 +288,13 @@ contract BoolComptroller is ComptrollerInterface {
     }
 
     function liquidateBorrowAllowed(
-        address _vTokenBorrowed,
-        address _vTokenCollateral,
+        address _bTokenBorrowed,
+        address _bTokenCollateral,
         address _liquidator,
         address _borrower,
         uint _repayAmount) external returns (uint) {
-        _vTokenBorrowed;
-        _vTokenCollateral;
+        _bTokenBorrowed;
+        _bTokenCollateral;
         _liquidator;
         _borrower;
         _repayAmount;
@@ -302,14 +302,14 @@ contract BoolComptroller is ComptrollerInterface {
     }
 
     function liquidateBorrowVerify(
-        address _vTokenBorrowed,
-        address _vTokenCollateral,
+        address _bTokenBorrowed,
+        address _bTokenCollateral,
         address _liquidator,
         address _borrower,
         uint _repayAmount,
         uint _seizeTokens) external {
-        _vTokenBorrowed;
-        _vTokenCollateral;
+        _bTokenBorrowed;
+        _bTokenCollateral;
         _liquidator;
         _borrower;
         _repayAmount;
@@ -318,13 +318,13 @@ contract BoolComptroller is ComptrollerInterface {
     }
 
     function seizeAllowed(
-        address _vTokenCollateral,
-        address _vTokenBorrowed,
+        address _bTokenCollateral,
+        address _bTokenBorrowed,
         address _borrower,
         address _liquidator,
         uint _seizeTokens) external returns (uint) {
-        _vTokenCollateral;
-        _vTokenBorrowed;
+        _bTokenCollateral;
+        _bTokenBorrowed;
         _liquidator;
         _borrower;
         _seizeTokens;
@@ -332,13 +332,13 @@ contract BoolComptroller is ComptrollerInterface {
     }
 
     function seizeVerify(
-        address _vTokenCollateral,
-        address _vTokenBorrowed,
+        address _bTokenCollateral,
+        address _bTokenBorrowed,
         address _liquidator,
         address _borrower,
         uint _seizeTokens) external {
-        _vTokenCollateral;
-        _vTokenBorrowed;
+        _bTokenCollateral;
+        _bTokenBorrowed;
         _liquidator;
         _borrower;
         _seizeTokens;
@@ -346,11 +346,11 @@ contract BoolComptroller is ComptrollerInterface {
     }
 
     function transferAllowed(
-        address _vToken,
+        address _bToken,
         address _src,
         address _dst,
         uint _transferTokens) external returns (uint) {
-        _vToken;
+        _bToken;
         _src;
         _dst;
         _transferTokens;
@@ -358,11 +358,11 @@ contract BoolComptroller is ComptrollerInterface {
     }
 
     function transferVerify(
-        address _vToken,
+        address _bToken,
         address _src,
         address _dst,
         uint _transferTokens) external {
-        _vToken;
+        _bToken;
         _src;
         _dst;
         _transferTokens;
@@ -372,11 +372,11 @@ contract BoolComptroller is ComptrollerInterface {
     /*** Special Liquidation Calculation ***/
 
     function liquidateCalculateSeizeTokens(
-        address _vTokenBorrowed,
-        address _vTokenCollateral,
+        address _bTokenBorrowed,
+        address _bTokenCollateral,
         uint _repayAmount) external view returns (uint, uint) {
-        _vTokenBorrowed;
-        _vTokenCollateral;
+        _bTokenBorrowed;
+        _bTokenCollateral;
         _repayAmount;
         return failCalculateSeizeTokens ? (opaqueError, 0) : (noError, calculatedSeizeTokens);
     }
@@ -451,12 +451,12 @@ contract BoolComptroller is ComptrollerInterface {
         failCalculateSeizeTokens = shouldFail;
     }
 
-    function mintedVAIs(address owner) external pure returns (uint) {
+    function mintedBAIs(address owner) external pure returns (uint) {
         owner;
         return 1e18;
     }
 
-    function setMintedVAIOf(address owner, uint amount) external returns (uint) {
+    function setMintedBAIOf(address owner, uint amount) external returns (uint) {
         owner;
         amount;
         return noError;

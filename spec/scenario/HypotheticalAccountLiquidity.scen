@@ -2,14 +2,14 @@
 Test "Calculates hypothetical account liquidity"
     -- Note, this comes a bit from `EnterExitMarkets` Scenario
     PricedComptroller
-    ListedVToken ZRX vZRX initialExchangeRate:1e9
+    ListedBToken ZRX vZRX initialExchangeRate:1e9
     SetPriceCF vZRX 0.002 0.4
     ListedBNBToken vBNB initialExchangeRate:1e9
     Comptroller SetCollateralFactor vBnb 0.8
-    ListedVToken BAT vBAT initialExchangeRate:1e9
+    ListedBToken BAT vBAT initialExchangeRate:1e9
     SetPriceCF vBAT 0.0015 0.3
-    ListedVToken OMG vOMG initialExchangeRate:1e9
-    NewVToken REP vREP
+    ListedBToken OMG vOMG initialExchangeRate:1e9
+    NewBToken REP vREP
     -- Mint some vZRX and vBNB
     Prep Geoff 1250e18 ZRX vZRX
     Mint Geoff 1250e18 vZRX -- Liquidity -> 0.4 * 0.002 * 1250e18 = 1.0e18

@@ -3,13 +3,13 @@ pragma experimental ABIEncoderV2;
 
 contract GovernorAlpha {
     /// @notice The name of this contract
-    string public constant name = "Venus Governor Alpha";
+    string public constant name = "Bai Governor Alpha";
 
     /// @notice The number of votes in support of a proposal required in order for a quorum to be reached and for a vote to succeed
-    function quorumVotes() public pure returns (uint) { return 600000e18; } // 600,000 = 2% of XVS
+    function quorumVotes() public pure returns (uint) { return 600000e18; } // 600,000 = 2% of XBID
 
     /// @notice The number of votes required in order for a voter to become a proposer
-    function proposalThreshold() public pure returns (uint) { return 300000e18; } // 300,000 = 1% of XVS
+    function proposalThreshold() public pure returns (uint) { return 300000e18; } // 300,000 = 1% of XBID
 
     /// @notice The maximum number of actions that can be included in a proposal
     function proposalMaxOperations() public pure returns (uint) { return 10; } // 10 actions
@@ -20,11 +20,11 @@ contract GovernorAlpha {
     /// @notice The duration of voting on a proposal, in blocks
     function votingPeriod() public pure returns (uint) { return 60 * 60 * 24 * 3 / 3; } // ~3 days in blocks (assuming 3s blocks)
 
-    /// @notice The address of the Venus Protocol Timelock
+    /// @notice The address of the Bai Protocol Timelock
     TimelockInterface public timelock;
 
-    /// @notice The address of the Venus governance token
-    XVSInterface public xvs;
+    /// @notice The address of the Bai governance token
+    XBIDInterface public xvs;
 
     /// @notice The address of the Governor Guardian
     address public guardian;
@@ -129,7 +129,7 @@ contract GovernorAlpha {
 
     constructor(address timelock_, address xvs_, address guardian_) public {
         timelock = TimelockInterface(timelock_);
-        xvs = XVSInterface(xvs_);
+        xvs = XBIDInterface(xvs_);
         guardian = guardian_;
     }
 
@@ -326,6 +326,6 @@ interface TimelockInterface {
     function executeTransaction(address target, uint value, string calldata signature, bytes calldata data, uint eta) external payable returns (bytes memory);
 }
 
-interface XVSInterface {
+interface XBIDInterface {
     function getPriorVotes(address account, uint blockNumber) external view returns (uint96);
 }

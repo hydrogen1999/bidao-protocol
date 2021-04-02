@@ -4,12 +4,12 @@ Test "Enter Markets Idempotent"
 	NewComptroller
 	Assert Equal (Comptroller MembershipLength Geoff) Zero
 	Assert Equal (Comptroller AssetsIn Geoff) []
-	ListedVToken ZRX vZRX
+	ListedBToken ZRX vZRX
 	EnterMarkets Geoff vZRX
-	Assert Log MarketEntered (vToken (Address vZRX)) (account (Address Geoff))
+	Assert Log MarketEntered (bToken (Address vZRX)) (account (Address Geoff))
 	Assert Equal (Comptroller MembershipLength Geoff) (Exactly 1)
 	Assert True (Comptroller CheckMembership Geoff vZRX)
-	ListedVToken OMG vOMG
+	ListedBToken OMG vOMG
 	EnterMarkets Geoff vZRX vOMG
 	Assert Equal (Comptroller MembershipLength Geoff) (Exactly 2)
 	Assert True (Comptroller CheckMembership Geoff vZRX)
@@ -19,10 +19,10 @@ Test "Enter Markets Idempotent"
 Test "Entered Market Must Be Supported"
 	NewComptroller
 	Assert Equal (Comptroller MembershipLength Geoff) Zero
-	ListedVToken ZRX vZRX
+	ListedBToken ZRX vZRX
 	EnterMarkets Geoff vZRX
 	Assert Equal (Comptroller MembershipLength Geoff) (Exactly 1)
-	NewVToken OMG vOMG
+	NewBToken OMG vOMG
 	EnterMarkets Geoff vZRX vOMG
 	Assert Equal (Comptroller MembershipLength Geoff) (Exactly 1)
 	Assert True (Comptroller CheckMembership Geoff vZRX)
@@ -37,8 +37,8 @@ Test "Cannot enter Markets beyond max assets"
 	NewComptroller
 	Comptroller SetMaxAssets 1
 	Assert Equal (Comptroller MembershipLength Geoff) Zero
-	ListedVToken ZRX vZRX
-	ListedVToken OMG vOMG
+	ListedBToken ZRX vZRX
+	ListedBToken OMG vOMG
 	EnterMarkets Geoff vZRX vOMG
 	Assert Equal (Comptroller MembershipLength Geoff) (Exactly 1)
 	Assert True (Comptroller CheckMembership Geoff vZRX)
@@ -46,7 +46,7 @@ Test "Cannot enter Markets beyond max assets"
 
 Test "Exit single market"
 	NewComptroller
-	ListedVToken ZRX vZRX
+	ListedBToken ZRX vZRX
 	EnterMarkets Geoff vZRX
 	Assert Equal (Comptroller AssetsIn Geoff) [(Address vZRX)]
 	ExitMarket Geoff vZRX
@@ -54,14 +54,14 @@ Test "Exit single market"
 
 Test "Exit non-entered market"
 	NewComptroller
-	ListedVToken ZRX vZRX
+	ListedBToken ZRX vZRX
 	ExitMarket Geoff vZRX
 	Assert Equal (Comptroller AssetsIn Geoff) []
 
 Test "Exit one of two market from the front"
 	NewComptroller
-	ListedVToken ZRX vZRX
-	ListedVToken OMG vOMG
+	ListedBToken ZRX vZRX
+	ListedBToken OMG vOMG
 	EnterMarkets Geoff vZRX vOMG
 	Assert Equal (Comptroller AssetsIn Geoff) [(Address vZRX) (Address vOMG)]
 	ExitMarket Geoff vZRX
@@ -69,8 +69,8 @@ Test "Exit one of two market from the front"
 
 Test "Exit one of two market from the back"
 	NewComptroller
-	ListedVToken ZRX vZRX
-	ListedVToken OMG vOMG
+	ListedBToken ZRX vZRX
+	ListedBToken OMG vOMG
 	EnterMarkets Geoff vZRX vOMG
 	Assert Equal (Comptroller AssetsIn Geoff) [(Address vZRX) (Address vOMG)]
 	ExitMarket Geoff vOMG
@@ -78,11 +78,11 @@ Test "Exit one of two market from the back"
 
 Test "Exit multiple markets"
 	NewComptroller
-	ListedVToken ZRX vZRX
-	ListedVToken OMG vOMG
-	ListedVToken BAT vBAT
-	ListedVToken REP vREP
-	ListedVToken DAI vDAI
+	ListedBToken ZRX vZRX
+	ListedBToken OMG vOMG
+	ListedBToken BAT vBAT
+	ListedBToken REP vREP
+	ListedBToken DAI vDAI
 	EnterMarkets Geoff vZRX vOMG vBAT vREP vDAI
 	Assert Equal (Comptroller AssetsIn Geoff) [(Address vZRX) (Address vOMG) (Address vBAT) (Address vREP) (Address vDAI)]
 	ExitMarket Geoff vZRX
@@ -98,11 +98,11 @@ Test "Exit multiple markets"
 
 Test "Realistic Market Scenario"
 	PricedComptroller
-	ListedVToken ZRX vZRX
+	ListedBToken ZRX vZRX
 	SetPriceCF vZRX 0.002 0.4
 	ListedBNBToken vBNB
 	Comptroller SetCollateralFactor vBnb 0.8
-	ListedVToken BAT vBAT
+	ListedBToken BAT vBAT
 	SetPriceCF vBAT 0.0015 0.3
 	-- Mint some vZRX and vBNB
 	Prep Geoff 1250e18 ZRX vZRX

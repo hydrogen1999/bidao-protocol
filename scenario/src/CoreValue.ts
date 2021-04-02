@@ -21,8 +21,8 @@ import { getUserValue, userFetchers } from './Value/UserValue';
 import { comptrollerFetchers, getComptrollerValue } from './Value/ComptrollerValue';
 import { comptrollerImplFetchers, getComptrollerImplValue } from './Value/ComptrollerImplValue';
 import { getUnitrollerValue, unitrollerFetchers } from './Value/UnitrollerValue';
-import { vTokenFetchers, getVTokenValue } from './Value/VTokenValue';
-import { vTokenDelegateFetchers, getVTokenDelegateValue } from './Value/VTokenDelegateValue';
+import { bTokenFetchers, getBTokenValue } from './Value/BTokenValue';
+import { bTokenDelegateFetchers, getBTokenDelegateValue } from './Value/BTokenDelegateValue';
 import { bep20Fetchers, getBep20Value } from './Value/Bep20Value';
 import { mcdFetchers, getMCDValue } from './Value/MCDValue';
 import { getInterestRateModelValue, interestRateModelFetchers } from './Value/InterestRateModelValue';
@@ -30,9 +30,9 @@ import { getPriceOracleValue, priceOracleFetchers } from './Value/PriceOracleVal
 import { getPriceOracleProxyValue, priceOracleProxyFetchers } from './Value/PriceOracleProxyValue';
 import { getTimelockValue, timelockFetchers, getTimelockAddress } from './Value/TimelockValue';
 import { getMaximillionValue, maximillionFetchers } from './Value/MaximillionValue';
-import { getXVSValue, xvsFetchers } from './Value/XVSValue';
-import { getSXPValue, sxpFetchers } from './Value/SXPValue';
-import { getVAIValue, vaiFetchers } from './Value/VAIValue';
+import { getXBIDValue, xvsFetchers } from './Value/XBIDValue';
+import { getXDAOValue, sxpFetchers } from './Value/XDAOValue';
+import { getBAIValue, vaiFetchers } from './Value/BAIValue';
 import { getGovernorValue, governorFetchers } from './Value/GovernorValue';
 import { getAddress } from './ContractLookup';
 import { getCurrentBlockNumber, getCurrentTimestamp, mustArray, sendRPC } from './Utils';
@@ -474,13 +474,13 @@ const fetchers = [
           let userInMarket = await world.web3.eth.getStorageAt(addr.val, newKeyTwo);
 
           let isCompKey = '0x' + toBN(newKey).add(toBN(3)).toString(16);
-          let isVenusStr = await world.web3.eth.getStorageAt(addr.val, isCompKey);
+          let isBaiStr = await world.web3.eth.getStorageAt(addr.val, isCompKey);
 
           return new ListV([
             new BoolV(isListed),
             new ExpNumberV(collateralFactor.toString(), 1e18),
             new BoolV(areEqual(userInMarket, 1)),
-            new BoolV(areEqual(isVenusStr, 1))
+            new BoolV(areEqual(isBaiStr, 1))
           ]);
         default:
           return new NothingV();
@@ -779,8 +779,8 @@ const fetchers = [
 
       * "Equal given:<Value> expected:<Value>" - Returns true if given values are equal
         * E.g. "Equal (Exactly 0) Zero"
-        * E.g. "Equal (VToken vZRX TotalSupply) (Exactly 55)"
-        * E.g. "Equal (VToken vZRX Comptroller) (Comptroller Address)"
+        * E.g. "Equal (BToken vZRX TotalSupply) (Exactly 55)"
+        * E.g. "Equal (BToken vZRX Comptroller) (Comptroller Address)"
     `,
     'Equal',
     [new Arg('given', getCoreValue), new Arg('expected', getCoreValue)],
@@ -848,25 +848,25 @@ const fetchers = [
   ),
   new Fetcher<{ res: Value }, Value>(
     `
-      #### VToken
+      #### BToken
 
-      * "VToken ...vTokenArgs" - Returns vToken value
+      * "BToken ...bTokenArgs" - Returns bToken value
     `,
-    'VToken',
-    [new Arg('res', getVTokenValue, { variadic: true })],
+    'BToken',
+    [new Arg('res', getBTokenValue, { variadic: true })],
     async (world, { res }) => res,
-    { subExpressions: vTokenFetchers() }
+    { subExpressions: bTokenFetchers() }
   ),
   new Fetcher<{ res: Value }, Value>(
     `
-      #### VTokenDelegate
+      #### BTokenDelegate
 
-      * "VTokenDelegate ...vTokenDelegateArgs" - Returns vToken delegate value
+      * "BTokenDelegate ...bTokenDelegateArgs" - Returns bToken delegate value
     `,
-    'VTokenDelegate',
-    [new Arg('res', getVTokenDelegateValue, { variadic: true })],
+    'BTokenDelegate',
+    [new Arg('res', getBTokenDelegateValue, { variadic: true })],
     async (world, { res }) => res,
-    { subExpressions: vTokenDelegateFetchers() }
+    { subExpressions: bTokenDelegateFetchers() }
   ),
   new Fetcher<{ res: Value }, Value>(
     `
@@ -947,34 +947,34 @@ const fetchers = [
   ),
   new Fetcher<{ res: Value }, Value>(
     `
-      #### XVS
+      #### XBID
 
-      * "XVS ...venusArgs" - Returns XVS value
+      * "XBID ...venusArgs" - Returns XBID value
     `,
-    'XVS',
-    [new Arg('res', getXVSValue, { variadic: true })],
+    'XBID',
+    [new Arg('res', getXBIDValue, { variadic: true })],
     async (world, { res }) => res,
     { subExpressions: xvsFetchers() }
   ),
   new Fetcher<{ res: Value }, Value>(
     `
-      #### SXP
+      #### XDAO
 
-      * "SXP ...venusArgs" - Returns SXP value
+      * "XDAO ...venusArgs" - Returns XDAO value
     `,
-    'SXP',
-    [new Arg('res', getSXPValue, { variadic: true })],
+    'XDAO',
+    [new Arg('res', getXDAOValue, { variadic: true })],
     async (world, { res }) => res,
     { subExpressions: sxpFetchers() }
   ),
   new Fetcher<{ res: Value }, Value>(
     `
-      #### VAI
+      #### BAI
 
-      * "VAI ...venusArgs" - Returns VAI value
+      * "BAI ...venusArgs" - Returns BAI value
     `,
-    'VAI',
-    [new Arg('res', getVAIValue, { variadic: true })],
+    'BAI',
+    [new Arg('res', getBAIValue, { variadic: true })],
     async (world, { res }) => res,
     { subExpressions: vaiFetchers() }
   ),
@@ -993,7 +993,7 @@ const fetchers = [
 
 let contractFetchers = [
   { contract: "Counter", implicit: false },
-  { contract: "VenusLens", implicit: false },
+  { contract: "BaiLens", implicit: false },
   { contract: "Reservoir", implicit: true }
 ];
 

@@ -1,11 +1,11 @@
 pragma solidity ^0.5.16;
 
-import "../../contracts/VAI/VAI.sol";
+import "../../contracts/BAI/BAI.sol";
 
-contract VAIHarness is VAI {
+contract BAIHarness is BAI {
     uint blockNumber = 100000;
 
-    constructor(uint chainId) VAI(chainId) public {}
+    constructor(uint chainId) BAI(chainId) public {}
 
     function harnessFastForward(uint blocks) public {
         blockNumber += blocks;
